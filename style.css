@@ -1,0 +1,103 @@
+div.projects {
+    color: #312D2C;
+    background-image: url("images/wrinkled-paper.jpg");
+    margin: 20px 200px 20px 200px;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: initial;
+    -webkit-box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
+    -moz-box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
+    box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
+}
+.projects img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+}
+a:link {
+    color: #312D2C; 
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+  color: #312D2C;
+  background-color: transparent;
+  
+}
+a:hover {
+  color: #237988;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:active {
+  color: #237988;
+  background-color: transparent;
+  text-decoration: none;
+}
+h1{
+    font-family: Verdana, "Geneva", sans-serif; 
+    text-decoration-color: #312D2C;
+}
+h2{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; 
+    text-decoration-color: #312D2C;
+}
+h3{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-decoration-color: #312D2C; 
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.topnav {
+    background-color: #312D2C;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 98%;
+    border-radius: 24px 24px 24px 24px;
+    -moz-border-radius: 24px 24px 24px 24px;
+    -webkit-border-radius: 24px 24px 24px 24px;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #EEE2C0;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    color: #ECC760;;
+    background-color: #312D2C;
+}
+body {
+    align-items: center;
+    text-align: center;
+    background-image: url("images/w.jpg");
+   
+}
+.main {    
+    margin-top: 70px;
+}
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-decoration-color: #312D2C; 
+    width:100%;
+    margin-top: 20px;
+}
+
+td, th {
+    border: none;
+    text-align: left;
+    padding: 10px;
+}
