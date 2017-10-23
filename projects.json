@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "name": "Red Right Hand",
+        "description": "The Arduino robotic arm and the glove with flex sensors",
+        "status": "Finished",
+        "team": "Saskke",
+        "man_hour": "500",
+        "rating": "4.7",
+        "start_date": "2017-02-12",
+        "finish_date": "2017-05-12",
+        "image": "./images/red-right-hand.png"
+    },
+    {
+        "id": 2,
+        "name": "Apella",
+        "description": "This is Apella chat. A simple and usefull app for communication.",
+        "status": "Finished",
+        "team": "Team A",
+        "man_hour": "300",
+        "rating": "4.0",
+        "start_date": "2016-01-04",
+        "finish_date": "2016-06-24",
+        "image": "./images/apella.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Moonlight",
+        "description": "The moon is a natural satellite of the Earth, which influences on human beings, animals, plants, tides..., and with this lunar calendar can know their status.",
+        "status": "Unfinished",
+        "team": "Marcians",
+        "man_hour": "200",
+        "rating": "3.9",
+        "start_date": "2017-07-21",
+        "finish_date": "2018-02-24",
+        "image": "./images/moon.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Storm",
+        "description": "Storm project description",
+        "status": "Finished",
+        "team": "Team A",
+        "man_hour": "100",
+        "rating": "3.0",
+        "start_date": "2014-05-22",
+        "finish_date": "2015-01-04",
+        "image": "./images/storm.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Quadrocopter",
+        "description": "Here is a quadcopter drone which is a very popular design for ground, air and water unmanned aerial vehicles as well as motor control applications. It consists of a flight controller and four electronic speed controllers, one for each motor. The flight controller is equipped with a radio to receive flight commands provided by the pilot and the inertial measurement unit.",
+        "status": "Finished",
+        "team": "Teamquadro",
+        "man_hour": "400",
+        "rating": "4.5",
+        "start_date": "2017-02-14",
+        "finish_date": "2017-06-24",
+        "image": "./images/quadrocopter.png"
+    }
+]

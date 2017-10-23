@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Projects</title>
+  <meta name="description" content="User`s boardlist">
+  <meta name="author" content="Ahafonova Sofiia">
+  <link type="text/css" href="stylesheets/style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="topnav" id="myTopnav">
+      <a href="/">Home</a>
+      <a href="">Projects</a>
+  </div>
+  <div class="main">  
+     <h1>Personal projects</h1>
+    <% for (let s of proj_arr) { %>
+      <div class="projects">
+        <img src="<%= s.image %>">
+        <h2><a href = "projects/<%=s.id%>"><%=s.name%></a></h2>
+      </div>
+    <% } %>  
+  </div>
+</body>
+</html>
