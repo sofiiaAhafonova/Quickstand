@@ -11,6 +11,7 @@ div.projects {
     -moz-box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
     box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
 }
+
 .projects img {
     display: block;
     max-width: 100%;
@@ -54,13 +55,23 @@ ul {
     margin: 0;
     padding: 0;
 }
-
+button {
+    display: block;
+    color: #ECC760;;
+    background-color: rgb(66, 61, 60);
+    text-align: center;
+    padding: 7px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    margin-top:6px;
+}
 .topnav {
     background-color: #312D2C;
     overflow: hidden;
     position: fixed;
     top: 0;
     width: 98%;
+    height: 50px;
     border-radius: 24px 24px 24px 24px;
     -moz-border-radius: 24px 24px 24px 24px;
     -webkit-border-radius: 24px 24px 24px 24px;
@@ -74,6 +85,20 @@ ul {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+}
+.topnav second{
+    float: right;
+}
+
+
+.topnav input {
+    float: left;
+    margin-top:6px;
+    display: block;
+    background-color: rgb(247, 241, 224);
+    padding: 7px 16px;
+    text-decoration: none;
+    font-size: 15px;
 }
 
 .topnav a:hover {
@@ -100,4 +125,48 @@ td, th {
     border: none;
     text-align: left;
     padding: 10px;
+}
+#searchbox
+{
+   /* width: 500px;*/
+    height: 35px;
+    padding: 2px;
+    float: left;
+     /*overflow: hidden; Clear floats */
+}
+#field {
+    overflow: hidden;
+}
+#search {
+    width: 300px; 
+    border-radius: 4px;
+    font-size: 17
+    px;
+    padding: 12px 20px 12px 40px;
+     text-decoration-color: #312D2C; 
+}
+#search_button {
+    width: 100px;
+    height: 45px;
+    background-color: rgb(247, 241, 224);
+    text-decoration-color: #312D2C; 
+    font-size: 17px;
+}
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+.pagination a.active {
+    background-color: rgb(56, 53, 52);
+    color: rgb(247, 241, 224);
+}
+
+.pagination a:hover:not(.active) {background-color: rgb(29, 27, 27);
+    color:  rgb(247, 241, 224);
 }
