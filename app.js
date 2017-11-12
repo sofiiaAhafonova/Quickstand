@@ -19,16 +19,18 @@ app.use(expressValidator());
 
 
 //database
-let mongoose = require('mongoose')
-mongoose.connect(process.env.MONGODB_URI, {
+//Import the mongoose module
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+//Set up default mongoose connection
+var mongoDB = 'mongodb://127.0.0.1/quickstand';
+mongoose.connect(mongoDB, {
   useMongoClient: true
 });
-mongoose.Promise = global.Promise;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log('Connected to mongodb successfully.');
-})
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.get("/", (req, res) => {
     try {

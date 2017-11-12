@@ -4,10 +4,10 @@ var projectSchema = new mongoose.Schema({
     properties: {
         name: {
             type:String, 
-            required:[true,"nameRequired"],
+            required:[true,"name Required"],
             maxlength:[32,"tooLong"],
             minlength:[3,"tooShort"],
-            match:[/^[a-z0-9]+$/,"nameIncorrect"],
+            match:[/^[a-zA-Z\s]*$/,"nameIncorrect"],
             unique:true
         },
         description: {
@@ -21,39 +21,37 @@ var projectSchema = new mongoose.Schema({
 		},
 		team: {
             type:String, 
-            required:[true,"nameRequired"],
+            required:[true,"team Required"],
             maxlength:[32,"tooLong"],
             minlength:[3,"tooShort"],
-            match:[/^[a-z0-9]+$/,"teamIncorrect"],
-            unique:true
+            match:[/^[a-z0-9]+$/,"teamIncorrect"]
 		},
 		man_hour: {
             min: 1,
             default: 1,
             type:Number, 
-            required: true
+            required: false
 		},	
         rating: {
             type:String, 
             min: "1.0",
             default: "1.0",
             match:[ /^[1-5][.][0-9]$/,"ratingIncorrect"],
-            required: true
+            required: false
         },
         start_date:{ 
             type : Date, 
             default: Date.now ,
-            required: true
+            required:[true,"startDateRequired"]
 		},
 		finish_date: {
             type : Date, 
             default: Date.now ,
-            required: true
+            required: false
         },
         image: {
             type: Buffer,
-            get: binary => Buffer.from(binary).toString('base64'),
-            required: false
+            required:[true,"image Required"]
           }
 		
 		
