@@ -17,6 +17,19 @@ app.use(busboyBodyParser({ limit: '5mb' }));
 var expressValidator = require('express-validator');
 app.use(expressValidator());
 
+
+//database
+let mongoose = require('mongoose')
+mongoose.connect(process.env.MONGODB_URI, {
+  useMongoClient: true
+});
+mongoose.Promise = global.Promise;
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('Connected to mongodb successfully.');
+})
+
 app.get("/", (req, res) => {
     try {
           res.render("index",{});

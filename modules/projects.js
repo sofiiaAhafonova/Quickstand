@@ -72,69 +72,11 @@ function remove(proj_id) {
     JSON.stringify(arr, null, 4)));
 }
 
-let project = {
-    properties: {
-        name: {
-            description: "Enter a project name",
-			type: "string",
-            pattern: /\w+/g,
-            message: "Name must be only letters",
-            required: true
-        },
-        description: {
-            description: "Enter your project description",
-            type: "string",
-            required: true
-        },
-        status: {
-            description: "Enter your project status",
-            type: "string",
-            required: true
-		},
-		team: {
-			description: "Enter your team name",
-			type: "string",
-            pattern: /\w+/g,
-            required: true
-		},
-		man_hour: {
-			description: "Enter man-hour value",
-			pattern: /^[0-9]+$/,
-            type: "string",
-            required: true
-		},	
-        rating: {
-            description: "Enter project rating",
-            pattern: /^[1-5][.][0-9]$/,
-            message: "Rating must be from 1.0 to 5.0",
-            required: true
-        },
-        start_date: {
-            description: "Enter your project start date",
-            pattern: /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
-            message: "Date must be only YYYY-MM-DD",
-            required: true
-		},
-		finish_date: {
-            description: "Enter your project finish date",
-            pattern: /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
-            message: "Date must be only YYYY-MM-DD",
-            required: true
-        },
-        image: {
-            description: "image",
-            required: false
-        }
-		
-		
-    }
-};
 module.exports = {
     create,
     getAll,
     getById,
     update,
     remove,
-    project,
-    makeId
+    getByName
 }
