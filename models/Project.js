@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 // Создаем новую схему!
 var projectSchema = new mongoose.Schema({
-    properties: {
         name: {
             type:String, 
             required:[true,"name Required"],
@@ -56,7 +55,7 @@ var projectSchema = new mongoose.Schema({
 		
 		
     }
-});
+);
 
 
 module.exports = mongoose.model('Project',projectSchema);
