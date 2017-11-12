@@ -3,7 +3,19 @@ var express = require('express')
 
 app.set("view engine", "ejs");
 const projects = require("./routes/projects");
-app.use(express.static("public"));
+const project_form = require("./routes/project_form");
+const search = require("./routes/search");
+var bodyParser = require('body-parser')
+const busboyBodyParser = require('busboy-body-parser');
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+//for images
+app.use(busboyBodyParser({ limit: '5mb' }));
+//validator
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 
 app.get("/", (req, res) => {
     try {
@@ -15,7 +27,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/projects", projects);
+app.use("/project_form", project_form);
+app.use("/search", search);
 
-let storage = require("./projects");
 app.listen(8080, () => console.log("UP!"));
 
