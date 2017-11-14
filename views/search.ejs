@@ -15,12 +15,11 @@
      <form id="search_page">
         <input id="search" type="text" name = "searchedName" placeholder="Type here">
         <input id="search_button" type="submit" value="Search">
-        <% if(proj_arr.length === 0){ %>  
+        <% if(!proj_arr){ %>  
              <h2>There are no projects with this name</h2>
-          <% }
+          <% } else
             for (let s of proj_arr) { %>
           <div class="projects">
-          <a href = "projects/<%=s.id%>"><img src="<%= s.image %>"></a>
           <h2><a href = "projects/<%=s.id%>"><%=s.name%></a></h2>
         </div>
     <% } %>  

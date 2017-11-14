@@ -1,7 +1,7 @@
 let express = require("express");
 let router = express.Router();
 const Project = require('../models/Project')
-let storage = require("./../modules/projects");
+
 const onOnePage = 3;
 function chunk(a){
     var arrays = [];
