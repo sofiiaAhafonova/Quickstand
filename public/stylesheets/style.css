@@ -1,6 +1,6 @@
 div.projects {
     color: #312D2C;
-    background-image: url("../images/wrinkled-paper.jpg");
+    background-image: url("../images/background/wrinkled-paper.jpg");
     margin: 20px 200px 20px 200px;
     padding: 20px;
     text-align: center;
@@ -108,7 +108,7 @@ button {
 body {
     align-items: center;
     text-align: center;
-    background-image: url("../images/w.jpg");
+    background-image: url("../images/background/w.jpg");
    
 }
 .main {    
