@@ -11,20 +11,23 @@
   <% include menu_bar.ejs%>
   <div class="main">  
      <h1>Personal projects</h1>
-    <% for (let s of proj_arr) { %>
+     
+
       <div class="projects">
-        <a href = "projects/<%=s.id%>"><img src="<%= s.image %>"></a>
-        <h2><a href = "projects/<%=s.id%>"><%=s.name%></a></h2>
-      </div>
-    <% } %>  
-      <div class="projects">
-        <div class="pagination">
+       <%if(!proj_arr) {%>
+          <h2>Ooops! There are no projects</h2>
+       <% } else
+         for (let s of proj_arr) { %>
+              <h2><a href = "projects/<%=s.id%>"><%=s.name%></a></h2>
+          <% } %>
+   
+    <div class="pagination">
           <% var i = 1;
           while (i <= pageNumber){%>
             <a href="?page=<%= i%>"><%= i%></a>
           <% i++;}%>
-        </div>
-      </div>
+    </div>
   </div>
+</div>
 </body>
 </html>

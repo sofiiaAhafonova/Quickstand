@@ -39,13 +39,11 @@ var projectSchema = new mongoose.Schema({
             required: false
         },
         start_date:{ 
-            type : Date, 
-            default: Date.now ,
+            type : String, 
             required:[true,"startDateRequired"]
 		},
 		finish_date: {
-            type : Date, 
-            default: Date.now ,
+            type : String, 
             required: false
         },
         image: {

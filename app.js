@@ -23,7 +23,7 @@ app.use(expressValidator());
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/quickstand';
+var mongoDB = 'mongodb://Amita:qwerty@ds261755.mlab.com:61755/quickstand';
 mongoose.connect(mongoDB, {
   useMongoClient: true
 });

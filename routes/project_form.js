@@ -25,12 +25,13 @@ router.post('/post_enctype.asp', function(req, res){
         start_date :  req.body.startDate,
         finish_date :  req.body.finishDate,
         image : base64String},
-        function(err, docs){
-            if(err) return res.render("project_form", {errors:err, flag: true});
-            console.log(docs);
+        function(err){
+           if(err) 
+           return console.log(err.errors['name']);
+           console.log("added");
         }
     );
-
     res.redirect( "/projects");
+
  });
 module.exports = router;
