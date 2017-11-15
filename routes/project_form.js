@@ -21,17 +21,21 @@ router.post("/", function (req, res) {
                 name: req.body.projName,
                 description: req.body.projDescription,
                 status: req.body.projStatus,
+                access: req.body.projAccess,
                 team: req.body.teamName,
                 man_hour: req.body.manhour,
                 rating: req.body.projRating,
                 start_date: req.body.startDate,
                 finish_date: req.body.finishDate,
-                image: req.files.logo.data
+                image: req.files.logo.data,
+                user:req.user._id
             },
-            function (err) {
+            function (err, doc) {
                 if (err)
                     return res.sendStatus(404)
                 console.log("added");
+                req.user.projects.push(doc._id);
+                req.user.save();
             }
         )
         .then(() => res.redirect("/projects"))

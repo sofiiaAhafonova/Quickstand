@@ -11,7 +11,7 @@ function chunk(a) {
     return arrays;
 }
 router.get("/", (req, res, next) => {
-    Project.find({})
+    Project.find({"access":"Public"})
         .then(data => {
             let cur = req.query.page;
             let pages = chunk(data);
@@ -22,9 +22,31 @@ router.get("/", (req, res, next) => {
                 return
             }
             res.render("projects", {
+                title:"Public Projects",
                 proj_arr: pages[cur - 1],
                 pageNumber,
-                user: req.user
+                user: req.user,
+                ref: "/projects/"
+            })
+        }) //.catch(err => res.sendStatus(500));
+});
+router.get("/personal", (req, res, next) => {
+    Project.find({"_id":{ $in: req.user.projects }})
+        .then(data => {
+            let cur = req.query.page;
+            let pages = chunk(data);
+            let pageNumber = pages.length;
+            if (!cur) cur = 1;
+            if (cur > pageNumber && pageNumber) {
+                res.sendStatus(404)
+                return
+            }
+            res.render("projects", {
+                title:"Personal Projects",
+                proj_arr: pages[cur - 1],
+                pageNumber,
+                user: req.user,
+                ref: "/projects/"
             })
         }) //.catch(err => res.sendStatus(500));
 });

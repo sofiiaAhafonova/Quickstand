@@ -11,11 +11,11 @@ router.post('/signup', async (req, res) => {
         userRole = 'admin';
     } else userRole = 'user';
     if(req.body.password === req.body.verify) {
-      await (new User({
+      User.create({
         name: req.body.name.trim(),
         password: req.body.password.trim(),
         role: userRole
-      })).save();
+      });
       res.redirect('/register/login');
     }
     else {

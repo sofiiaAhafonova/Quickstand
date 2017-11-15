@@ -16,7 +16,14 @@ var projectSchema = new mongoose.Schema({
     status: {
         default: "Finished",
         type: String,
+        enum: ['Finished', 'Unfinished'],
         required: [true, "statusRequired"]
+    },
+    access: {
+        default: "Public",
+        type: String,
+        required: [true, "accessRequired"],
+        enum: ['Public', 'Private']
     },
     team: {
         type: String,
@@ -49,9 +56,11 @@ var projectSchema = new mongoose.Schema({
     image: {
         type: Buffer,
         required: [true, "image Required"]
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
-
-
 });
 
 

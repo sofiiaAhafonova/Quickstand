@@ -93,6 +93,15 @@ button {
     text-decoration: none;
     font-size: 17px;
 }
+.topnav label {
+    float: left;
+    display: block;
+    color: rgb(211, 213, 217);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
 .topnav second{
     float: right;
 }
