@@ -12,7 +12,7 @@ let userSch = new Schema({
     password: {
         type: String,
         minlength: 6,
-        maxlength: 20,
+        maxlength: 100,
         set: password => bcrypt.hashSync(password, bcrypt.genSaltSync(10))
     },
     role: {
