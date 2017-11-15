@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-// Создаем новую схему!
+
 var projectSchema = new mongoose.Schema({
     name: {
         type: String,

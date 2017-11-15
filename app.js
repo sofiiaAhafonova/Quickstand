@@ -1,41 +1,55 @@
 var express = require('express'),
     app = module.exports = express();
 
-app.set("view engine", "ejs");
 const projects = require("./routes/projects");
 const project_form = require("./routes/project_form");
 const search = require("./routes/search");
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const busboyBodyParser = require('busboy-body-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const expressValidator = require('express-validator');
+
+app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
 app.use(express.static('public'));
 //for images
 app.use(busboyBodyParser({
     limit: '5mb'
 }));
-//validator
-var expressValidator = require('express-validator');
+
+//auth
+app.use(cookieParser());
+app.use(session({
+	secret: "Some_secret^string",
+	resave: false,
+	saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(expressValidator());
 
 
 //database
 //Import the mongoose module
 var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-//Set up default mongoose connection
-var mongoDB = 'mongodb://Amita:qwerty@ds261755.mlab.com:61755/quickstand';
-mongoose.connect(mongoDB, {
-    useMongoClient: true
-});
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+// database
+mongoose.connect("mongodb://Tester:test@ds261755.mlab.com:61755/quickstand", {
+    useMongoClient: true
+  })
+  mongoose.Promise = global.Promise
+  let db = mongoose.connection
+  db.on('error', console.error.bind(console, 'connection error:'))
+  db.once('open', function () {
+    console.log('Connected to mongodb successfully.')
+  })
 app.get("/", (req, res) => {
     try {
         res.render("index", {});

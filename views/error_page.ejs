@@ -8,7 +8,9 @@
   <% include partials/menu_bar.ejs%>
   <div class="main">
     <div class="projects">
-      <h1><%error%></h1>
+    <%for (error in errors) {%>
+      <h1><%=error%></h1>
+    <%}%>
     </div>
   </div>
 </body>

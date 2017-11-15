@@ -13,7 +13,8 @@ router.get("/", (req, res) => {
             }
         })
         .then(data => res.render("search", {
-            proj_arr: data
+            proj_arr: data,
+            searchedText:req.body.searchedName
         }))
         .catch(err => res.sendStatus(500));
 });
