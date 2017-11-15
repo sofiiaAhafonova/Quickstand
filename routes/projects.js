@@ -3,6 +3,7 @@ let router = express.Router();
 const Project = require('../models/Project')
 
 const onOnePage = 3;
+
 function chunk(a) {
     var arrays = [];
     while (a.length > 0)
@@ -20,8 +21,11 @@ router.get("/", (req, res, next) => {
                 res.sendStatus(404)
                 return
             }
-            res.render("projects", { proj_arr: pages[cur - 1], pageNumber })
-        })//.catch(err => res.sendStatus(500));
+            res.render("projects", {
+                proj_arr: pages[cur - 1],
+                pageNumber
+            })
+        }) //.catch(err => res.sendStatus(500));
 });
 
 router.get("/:project_id",
@@ -32,8 +36,10 @@ router.get("/:project_id",
                 res.sendStatus(404);
                 return;
             }
-            res.render("project", { project })
-        })//.catch(err => res.sendStatus(500));
+            res.render("project", {
+                project
+            })
+        }) //.catch(err => res.sendStatus(500));
     });
 router.post("/:project_id/remove",
     (req, res) => {
@@ -45,6 +51,6 @@ router.post("/:project_id/remove",
                     return;
                 }
                 res.redirect("/projects");
-            })//.catch(err => res.sendStatus(500));
+            }) //.catch(err => res.sendStatus(500));
     });
 module.exports = router;

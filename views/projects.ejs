@@ -1,24 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+ <% include partials/head.ejs%>
   <title>Projects</title>
-  <meta name="description" content="User`s boardlist">
-  <meta name="author" content="Ahafonova Sofiia">
-  <link type="text/css" href="stylesheets/style.css" rel="stylesheet" />
 </head>
 <body>
-  <% include menu_bar.ejs%>
+  <% include partials/menu_bar.ejs%>
   <div class="main">  
      <h1>Personal projects</h1>
-     
-
       <div class="projects">
        <%if(!proj_arr) {%>
           <h2>Ooops! There are no projects</h2>
        <% } else
          for (let s of proj_arr) { %>
-             <a href = "projects/<%=s.id%>"><img src="<%= s.image %>"></a>
+             <a href = "projects/<%=s.id%>"> <img src="data:image/jpg;base64,<%= new Buffer(image).toString('base64') %>"></a>
               <h2><a href = "projects/<%=s.id%>"><%=s.name%></a></h2>
           <% } %>
    

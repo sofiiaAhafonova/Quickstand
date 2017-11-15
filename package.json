@@ -1,9 +1,12 @@
 {
-  "name": "lab3",
+  "name": "webprogbase2",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
+  },
+  "engines": {
+    "node" : ">=8.6.0"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
