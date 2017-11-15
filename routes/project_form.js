@@ -1,13 +1,14 @@
 let express = require("express");
 let router = express.Router();
-
+const User = require('../models/User');
 const fs = require("fs-promise");
 var Project = require('../models/Project');
 router.get("/", (req, res, next) => {
     try {
         res.render("project_form", {
             errors: "",
-            flag: false
+            flag: false,
+            user: req.user
         })
     } catch (err) {
         res.sendStatus(500);

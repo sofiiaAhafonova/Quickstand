@@ -18,6 +18,13 @@ div.projects {
     max-height: 100%;
     margin: 0 auto;
 }
+.projects table {
+    margin-left: 80px
+    
+}
+.projects table button {
+    align-self: center
+}
 a:link {
     color: #312D2C; 
     background-color: transparent;

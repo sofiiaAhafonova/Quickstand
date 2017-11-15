@@ -9,7 +9,7 @@
   <div class="main">  
   <div class="projects">
       <h1 id="C0"><%=  project.name %></h1>
-     
+      <img src="data:image/jpg;base64,<%= new Buffer(project.image).toString('base64') %>">
       <table>
             <tr>
                 <th>Description</th>
@@ -41,7 +41,8 @@
             </tr>
           </table>
           <form action="<%=project.id%>/remove" method="post">
-              <input type = "submit" value = "Remove" >
+            
+              <center>	<button  type="submit" >Remove</button></center>
           </form>
   </div>
   </div>

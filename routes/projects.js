@@ -1,7 +1,7 @@
 let express = require("express");
 let router = express.Router();
 const Project = require('../models/Project')
-
+const User = require('../models/User');
 const onOnePage = 3;
 
 function chunk(a) {
@@ -23,7 +23,8 @@ router.get("/", (req, res, next) => {
             }
             res.render("projects", {
                 proj_arr: pages[cur - 1],
-                pageNumber
+                pageNumber,
+                user: req.user
             })
         }) //.catch(err => res.sendStatus(500));
 });
@@ -37,7 +38,8 @@ router.get("/:project_id",
                 return;
             }
             res.render("project", {
-                project
+                project,
+                user: req.user
             })
         }) //.catch(err => res.sendStatus(500));
     });
