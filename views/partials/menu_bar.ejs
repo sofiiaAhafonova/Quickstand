@@ -1,7 +1,8 @@
 <div class="topnav" id="myTopnav">
     <a href="/">Home</a>
-    <a href="/projects">Projects</a>
+  
      <% if (user) {%>
+        <a href="/projects">Projects</a>
         <a href="/projects/personal">Personal Projects</a>
         <a href="/project_form">Create Project</a>
           <% if (user.role == "admin") {%>
@@ -16,7 +17,7 @@
             <input id="submit" type="submit" value="Search">    
         </form>
           <% if (user) { %>
-            <a href="#">Profile</a> 
+            <a href="#"><%=user.name%></a> 
             <a href="/register/logout">Log Out</a>
          <% } else { %>
             <a href="/register/login">Log In</a>
