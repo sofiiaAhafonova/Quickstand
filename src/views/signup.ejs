@@ -13,22 +13,24 @@
  		<table>
 		 <tr>
 		   <th>  Name </th>
-    	<td>	<input type="text" class="form-control" id="inputName" name="name" placeholder="Enter your user name"></td>
+    	<td>	<input type="text" class="form-control" id="inputName" name="name" placeholder="Enter your user name" required="required"></td>
 				</tr>
 				  <tr>
 					<th>Password </th>
-      <td>  <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="Create your password" title="At least 6 characters with letters and numbers" required=""></td>
+      <td>  <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="Create your password" title="At least 6 characters with letters and numbers" required="required"></td>
     
 		 </tr>
 		 <tr>
 		 		  <th>Verify </th>
-        <td> <input type="password" class="form-control" id="inputVerify3" name="verify" placeholder="Repeat your password" required=""></td>
+        <td> <input type="password" class="form-control" id="inputVerify3" name="verify" placeholder="Repeat your password" required="required"></td>
+			
+			 </tr>
+		 		  <th>Email </th>
+        <td> <input type="email" class="form-control" name="email" placeholder="Enter email" required="required"></td>
 			
 			 </tr>
 			  <tr>
-				  <th>
-
-				<button type="submit" >Register</button></th>
+				 <th><button type="submit" >Register</button></th>
          <td><label><%=error%></label></td>
        
         </tr>

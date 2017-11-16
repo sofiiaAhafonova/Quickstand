@@ -3,30 +3,57 @@ const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User');
 
+// router.post('/signup', async(req, res) => {
+//   try {
+//     let userRole;
+//     if (req.user) {
+//       if (req.user.role === 'admin')
+//         userRole = 'admin';
+//     } else userRole = 'user';
+//     if (req.body.password === req.body.verify) {
+//       User.create({
+//         name: req.body.name.trim(),
+//         password: req.body.password.trim(),
+//         role: userRole,
+//         email: req.body.email.trim()
+//       });
+//       res.redirect('/register/login');
+//     } else {
+//       req.flash('error', 'Passwords not matched');
+//       res.redirect('/register/signup');
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     if (error.code === 11000) { // unique key used
+//       req.flash('error', 'Username is not available')
+//     } else req.flash('error', error.message)
+//     res.redirect('/register/login');
+//   }
+// });
+
+
 router.post('/signup', async(req, res) => {
   try {
-    let userRole;
-    if (req.user) {
-      if (req.user.role === 'admin')
-        userRole = 'admin';
-    } else userRole = 'user';
-    if (req.body.password === req.body.verify) {
-      User.create({
-        name: req.body.name.trim(),
-        password: req.body.password.trim(),
-        role: userRole
-      });
-      res.redirect('/register/login');
-    } else {
-      req.flash('error', 'Passwords not matched');
-      res.redirect('/register/signup');
-    }
+      if (req.body.password === req.body.verify) {
+          User.create({
+              name: req.body.name.trim(),
+              password: req.body.password.trim(),
+              email: req.body.email.trim()
+          }, (err, doc) => {
+              if (err) {
+                  if (err.code === 11000) { // unique key used
+                      req.flash('error', 'Username is not available')
+                  } else req.flash('error', err.message);
+                  return res.redirect('/register/signup');
+              }
+              res.redirect('/register/login');
+          });
+      } else {
+          req.flash('error', 'Passwords not matched');
+          res.redirect('/register/signup');
+      }
   } catch (error) {
-    console.log(error);
-    if (error.code === 11000) { // unique key used
-      req.flash('error', 'Username is not available')
-    } else req.flash('error', error.message)
-    res.redirect('/register/login');
+      res.redirect('/error_page', err.message);
   }
 });
 

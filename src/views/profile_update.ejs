@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <% include partials/head.ejs%>
+  <title>Update profile</title>
+</head>
+<body>
+ <% include partials/menu_bar.ejs%>
+  <div class="main">  
+  <div class="projects">
+    <h1 id="C0">Update profile</h1>
+    <form action='/profile/update' method='POST'>
+ 	  <table>
+			 </tr>
+		 		  <th>Email </th>
+          <td> <input type="email" class="form-control" name="email" placeholder="Enter email" required="required" value = <%=user.email%>></td>
+			 </tr>
+			<tr>
+				<th><button type="submit" >Update</button></th>
+      </tr>
+		</table>
+  </form>
+  </div>
+</div>
+</body>
+</html>

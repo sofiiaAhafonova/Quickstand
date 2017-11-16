@@ -10,9 +10,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const register = require('./routes/register')
+
+const register = require('./routes/register');
+const profile = require('./routes/profile');
 const admin = require('./routes/admin');
-const User = require('./models/User')
+const User = require('./models/User');
 const flash = require('connect-flash');
 
 app.set("view engine", "ejs");
@@ -118,5 +120,6 @@ app.use("/project_form", project_form);
 app.use("/search", search);
 app.use('/admin', checkAuth, checkAdmin, admin);
 app.use('/register', register);
+app.use('/profile', profile);
 
 app.listen(8080, () => console.log("UP!"));

@@ -7,9 +7,9 @@ div.projects {
     align-items: center;
     overflow: hidden;
     text-overflow: initial;
-    -webkit-box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
-    -moz-box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
-    box-shadow: 1px 0px 32px 19px rgba(56,36,21,0.71);
+    -webkit-box-shadow: 1px 0px 32px 19px rgba(56, 36, 21, 0.71);
+    -moz-box-shadow: 1px 0px 32px 19px rgba(56, 36, 21, 0.71);
+    box-shadow: 1px 0px 32px 19px rgba(56, 36, 21, 0.71);
 }
 
 .projects img {
@@ -18,60 +18,71 @@ div.projects {
     max-height: 100%;
     margin: 0 auto;
 }
+
 .projects table {
     margin-left: 80px
-    
 }
+
 .projects table button {
     align-self: center
 }
+
 a:link {
-    color: #312D2C; 
+    color: #312D2C;
     background-color: transparent;
     text-decoration: none;
 }
+
 a:visited {
-  color: #312D2C;
-  background-color: transparent;
-  
+    color: #312D2C;
+    background-color: transparent;
 }
+
 a:hover {
-  color: #237988;
-  background-color: transparent;
-  text-decoration: none;
+    color: #237988;
+    background-color: transparent;
+    text-decoration: none;
 }
+
 a:active {
-  color: #237988;
-  background-color: transparent;
-  text-decoration: none;
+    color: #237988;
+    background-color: transparent;
+    text-decoration: none;
 }
-h1{
-    font-family: Verdana, "Geneva", sans-serif; 
+
+h1 {
+    font-family: Verdana, "Geneva", sans-serif;
     text-decoration-color: #312D2C;
 }
-h2{
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; 
-    text-decoration-color: #312D2C;
-}
-h3{
+
+h2 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    text-decoration-color: #312D2C; 
+    text-decoration-color: #312D2C;
 }
+
+h3 {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-decoration-color: #312D2C;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
+
 button {
     display: block;
-    color: #ECC760;;
+    color: #ECC760;
+    ;
     background-color: rgb(66, 61, 60);
     text-align: center;
     padding: 7px 16px;
     text-decoration: none;
     font-size: 15px;
-    margin-top:6px;
+    margin-top: 6px;
 }
+
 .topnav {
     background-color: #312D2C;
     overflow: hidden;
@@ -93,6 +104,7 @@ button {
     text-decoration: none;
     font-size: 17px;
 }
+
 .topnav label {
     float: left;
     display: block;
@@ -102,14 +114,14 @@ button {
     text-decoration: none;
     font-size: 17px;
 }
-.topnav second{
+
+.topnav second {
     float: right;
 }
 
-
 .topnav input {
     float: left;
-    margin-top:6px;
+    margin-top: 6px;
     display: block;
     background-color: rgb(247, 241, 224);
     padding: 7px 16px;
@@ -118,56 +130,63 @@ button {
 }
 
 .topnav a:hover {
-    color: #ECC760;;
+    color: #ECC760;
+    ;
     background-color: #312D2C;
 }
+
 body {
     align-items: center;
     text-align: center;
     background-image: url("../images/background/w.jpg");
-   
 }
-.main {    
+
+.main {
     margin-top: 70px;
 }
+
 table {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    text-decoration-color: #312D2C; 
-    width:100%;
+    text-decoration-color: #312D2C;
+    width: 100%;
     margin-top: 20px;
 }
 
-td, th {
+td,
+th {
     border: none;
     text-align: left;
     padding: 10px;
 }
-#searchbox
-{
-   /* width: 500px;*/
+
+#searchbox {
+    /* width: 500px;*/
     height: 35px;
     padding: 2px;
     float: left;
-     /*overflow: hidden; Clear floats */
+    /*overflow: hidden; Clear floats */
 }
+
 #field {
     overflow: hidden;
 }
+
 #search {
-    width: 300px; 
+    width: 300px;
     border-radius: 4px;
-    font-size: 17
-    px;
+    font-size: 17 px;
     padding: 12px 20px 12px 40px;
-     text-decoration-color: #312D2C; 
+    text-decoration-color: #312D2C;
 }
+
 #search_button {
     width: 100px;
     height: 45px;
     background-color: rgb(247, 241, 224);
-    text-decoration-color: #312D2C; 
+    text-decoration-color: #312D2C;
     font-size: 17px;
 }
+
 .pagination {
     display: inline-block;
 }
@@ -178,11 +197,18 @@ td, th {
     padding: 8px 16px;
     text-decoration: none;
 }
+
 .pagination a.active {
     background-color: rgb(56, 53, 52);
     color: rgb(247, 241, 224);
 }
 
-.pagination a:hover:not(.active) {background-color: rgb(29, 27, 27);
-    color:  rgb(247, 241, 224);
+.pagination a:hover:not(.active) {
+    background-color: rgb(29, 27, 27);
+    color: rgb(247, 241, 224);
+}
+
+.users {
+    text-align: center;
+    font-size: 24px;
 }
