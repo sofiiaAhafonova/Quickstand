@@ -4,6 +4,9 @@
      <% if (user) {%>
         <a href="/projects/personal">Personal Projects</a>
         <a href="/project_form">Create Project</a>
+          <% if (user.role == "admin") {%>
+           <a href="/admin/allusers">All users</a>
+            <% } %>  
     <%} else { %>
            <label>Guest session</label>
     <% } %>   

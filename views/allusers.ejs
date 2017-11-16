@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <% include partials/head.ejs%>
+  <title>All users</title>
+</head>
+<body>
+  <% include partials/menu_bar.ejs%>
+  <div class="main">  
+      <div class="projects">
+       <%if(empty) {%>
+          <h2>Ooops! There are no users</h2>
+       <% } else {
+             if(users){ %>
+             <h1>Users</h1>
+            <% for (let s of users) { %>
+              <h3><a href = "#"><%=s.name%></a></h3>
+            <% } 
+             }if(admins){ %>
+              <h1>Admins</h1>
+           <%  for (let s of admins) { %>
+              <h3><a href = "#"><%=s.name%></a></h3>
+            <% } 
+          }
+       }%>
+  </div>
+</div>
+</body>
+</html>
