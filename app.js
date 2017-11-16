@@ -26,6 +26,7 @@ app.use(busboyBodyParser({
     limit: '5mb'
 }));
 
+
 //auth
 app.use(cookieParser());
 app.use(session({
@@ -76,6 +77,11 @@ passport.use(new LocalStrategy({
             if (!user) {
                 return done(null, false, {
                     message: 'Incorrect username.'
+                });
+            }
+            if (!user.comparePassword(password)) {
+                return done(null, false, {
+                    message: 'Incorrect password.'
                 });
             }
             return done(null, user);
