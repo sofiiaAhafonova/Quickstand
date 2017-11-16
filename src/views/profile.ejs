@@ -16,9 +16,11 @@
         <td><%=user.email%></td>
       </tr>
       <%if(profileOwnerName == user.name){%>
+        <form   action="profile/update">
         <tr>
-          <td> <button  onclick="profile/update">Update</button> </td>
+          <td> <button type="submit">Update</button> </td>
         </tr>
+        <form>
       <%}%>
     </table>
   </div>
