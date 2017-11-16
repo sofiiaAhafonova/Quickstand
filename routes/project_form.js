@@ -28,7 +28,7 @@ router.post("/", function (req, res) {
                 start_date: req.body.startDate,
                 finish_date: req.body.finishDate,
                 image: req.files.logo.data,
-                user:req.user._id
+                user: req.user._id
             },
             function (err, doc) {
                 if (err)

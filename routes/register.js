@@ -3,22 +3,21 @@ const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User');
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async(req, res) => {
   try {
     let userRole;
-    if (req.user){
-      if(req.user.role === 'admin')
+    if (req.user) {
+      if (req.user.role === 'admin')
         userRole = 'admin';
     } else userRole = 'user';
-    if(req.body.password === req.body.verify) {
+    if (req.body.password === req.body.verify) {
       User.create({
         name: req.body.name.trim(),
         password: req.body.password.trim(),
         role: userRole
       });
       res.redirect('/register/login');
-    }
-    else {
+    } else {
       req.flash('error', 'Passwords not matched');
       res.redirect('/register/signup');
     }
@@ -32,9 +31,11 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
+  passport.authenticate('local', {
+    successRedirect: '/',
     failureRedirect: '/register/login',
-    failureFlash: true })
+    failureFlash: true
+  })
 );
 
 router.get('/login', (req, res) => {

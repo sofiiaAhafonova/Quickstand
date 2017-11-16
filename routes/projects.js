@@ -11,7 +11,9 @@ function chunk(a) {
     return arrays;
 }
 router.get("/", (req, res, next) => {
-    Project.find({"access":"Public"})
+    Project.find({
+            "access": "Public"
+        })
         .then(data => {
             let cur = req.query.page;
             let pages = chunk(data);
@@ -22,7 +24,7 @@ router.get("/", (req, res, next) => {
                 return
             }
             res.render("projects", {
-                title:"Public Projects",
+                title: "Public Projects",
                 proj_arr: pages[cur - 1],
                 pageNumber,
                 user: req.user,
@@ -31,7 +33,11 @@ router.get("/", (req, res, next) => {
         }) //.catch(err => res.sendStatus(500));
 });
 router.get("/personal", (req, res, next) => {
-    Project.find({"_id":{ $in: req.user.projects }})
+    Project.find({
+            "_id": {
+                $in: req.user.projects
+            }
+        })
         .then(data => {
             let cur = req.query.page;
             let pages = chunk(data);
@@ -42,7 +48,7 @@ router.get("/personal", (req, res, next) => {
                 return
             }
             res.render("projects", {
-                title:"Personal Projects",
+                title: "Personal Projects",
                 proj_arr: pages[cur - 1],
                 pageNumber,
                 user: req.user,
