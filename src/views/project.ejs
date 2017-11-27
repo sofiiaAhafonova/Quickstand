@@ -44,7 +44,7 @@
               <td><time><%= project.finish_date %></time></td>
             </tr>
           </table>
-          <%if(project.user == user.id){%>
+          <%if(user && project.user == user.id){%>
             <form action="<%=project.id%>/remove" method="post">
                 <center>	<button  type="submit" >Remove</button></center>
             </form>

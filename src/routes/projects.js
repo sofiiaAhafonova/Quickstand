@@ -74,18 +74,20 @@ router.get("/:project_id",
 router.post("/:project_id/remove",
     (req, res) => {
         let id = req.params.project_id;
-        if (id == req.user.id) {
+      
+        if (req.user.projects.find(el => el ==id)) {
             Project.findByIdAndRemove(id,
                 function (err, project) {
                     if (err) {
-                        //  res.sendStatus(404);
-                        res.render("error_page", {
-                            error: res.statusMessage
-                        });
+                             res.sendStatus(404);
+                        // res.render("error_page", {
+                        //     error: res.statusMessage
+                        // });
                         return;
                     }
                     res.redirect("/projects");
                 })
+          
         }
         //.catch(err => res.sendStatus(500));
     });
