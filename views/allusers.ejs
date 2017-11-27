@@ -14,12 +14,12 @@
              if(users){ %>
              <h1>Users</h1>
             <% for (let s of users) { %>
-              <h3><a href = "#"><%=s.name%></a></h3>
+              <h3><a href = "/profile/<%=s.name%>"><%=s.name%></a></h3>
             <% } 
              }if(admins){ %>
               <h1>Admins</h1>
            <%  for (let s of admins) { %>
-              <h3><a href = "#"><%=s.name%></a></h3>
+              <h3><a href =  "/profile/<%=s.name%>"><%=s.name%></a></h3>
             <% } 
           }
        }%>

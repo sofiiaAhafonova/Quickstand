@@ -9,13 +9,13 @@
   <div class="main">  
   <div class="projects">
   <div class="users">
-    <h2><%=user.name%></h2>
+    <h2><%=profileOwner.name%></h2>
     <table>
       <tr>
         <th>Email</th>
-        <td><%=user.email%></td>
+        <td><%=profileOwner.email%></td>
       </tr>
-      <%if(profileOwnerName == user.name){%>
+      <%if(profileOwner.name == user.name){%>
         <form   action="profile/update">
         <tr>
           <td> <button type="submit">Update</button> </td>

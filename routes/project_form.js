@@ -32,7 +32,7 @@ router.post("/", function (req, res) {
             },
             function (err, doc) {
                 if (err)
-                    return res.sendStatus(404)
+                    return res.sendStatus(403)
                 console.log("added");
                 req.user.projects.push(doc._id);
                 req.user.save();
