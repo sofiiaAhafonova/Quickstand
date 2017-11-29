@@ -5,7 +5,7 @@ const Project = require('../models/Project')
 
 
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
     let search_name = req.query.searchedName.toLowerCase();
     Project.find({
             name: {
@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
             searchedText: search_name,
             user: req.user
         }))
-        .catch(err => res.sendStatus(500));
+        .catch(err => next(err));
 });
 
 

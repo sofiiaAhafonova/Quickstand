@@ -20,7 +20,6 @@ router.get('/:user_name', (req, res) => {
             "name": user_name
         }, (err, profileOwner) => {
             if (err) return res.redirect("/");
-            console.log(profileOwner);
             res.render('profile', {
                 profileOwner,
                 user: req.user

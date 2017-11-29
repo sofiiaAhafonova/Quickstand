@@ -14,6 +14,7 @@ const session = require('express-session');
 const register = require('./routes/register');
 const profile = require('./routes/profile');
 const admin = require('./routes/admin');
+//const error_page = req
 const User = require('./models/User');
 const flash = require('connect-flash');
 
@@ -58,12 +59,13 @@ db.once('open', function () {
 })
 app.get("/", (req, res) => {
     try {
-        res.render("index", { user: req.user});
+        res.render("index", {
+            user: req.user
+        });
     } catch (error) {
         res.send(error.message);
     }
 });
-
 
 passport.use(new LocalStrategy({
         usernameField: 'name',
@@ -121,5 +123,22 @@ app.use("/search", search);
 app.use('/admin', checkAuth, checkAdmin, admin);
 app.use('/register', register);
 app.use('/profile', profile);
+
+app.use(function (req, res) {
+    res.status(400);
+    res.render('error_page', { 
+        user: req.user,
+        message: '404:  Not Found'
+    });
+});
+
+app.use(function (error, req, res, next) {
+    res.status(500);
+    res.render('error_page', {
+        user: req.user,
+        message: '500: Internal Server Error',
+
+    });
+});
 
 app.listen(8080, () => console.log("UP!"));

@@ -30,7 +30,7 @@ router.get("/", (req, res, next) => {
                 user: req.user,
                 ref: "/projects/"
             })
-        }) //.catch(err => res.sendStatus(500));
+        });
 });
 router.get("/personal", (req, res, next) => {
     Project.find({
@@ -54,41 +54,35 @@ router.get("/personal", (req, res, next) => {
                 user: req.user,
                 ref: "/projects/"
             })
-        }) //.catch(err => res.sendStatus(500));
+        });
 });
 
 router.get("/:project_id",
-    (req, res) => {
+    (req, res, next) => {
         let id = req.params.project_id;
-        Project.findById(id, function (err, project) {
-            if (err) {
-                res.sendStatus(404);
-                return;
-            }
+        Project.findById(id, function (error, project) {
+            if (error)
+                console.log(error.message);
+            if (!project)
+                return next();
             res.render("project", {
                 project,
                 user: req.user
             })
-        }) //.catch(err => res.sendStatus(500));
+        })
     });
 router.post("/:project_id/remove",
-    (req, res) => {
+    (req, res, next) => {
         let id = req.params.project_id;
-      
-        if (req.user.projects.find(el => el ==id)) {
+        if (req.user.projects.find(el => el == id)) {
             Project.findByIdAndRemove(id,
                 function (err, project) {
-                    if (err) {
-                             res.sendStatus(404);
-                        // res.render("error_page", {
-                        //     error: res.statusMessage
-                        // });
-                        return;
-                    }
+                    if (error)
+                        console.log(error.message);
+                    if (!project)
+                        return next();
                     res.redirect("/projects");
                 })
-          
-        }
-        //.catch(err => res.sendStatus(500));
+        };
     });
 module.exports = router;
