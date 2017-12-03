@@ -1,10 +1,12 @@
 let express = require("express");
 let router = express.Router();
-const Project = require('../models/Project')
-const User = require('../models/User');
-var auth = require("../../app");
+const Project = require('../../models/Project')
+const User = require('../../models/User');
+var auth = require("./auth");
+const projects = require('./projects')
+const users = require('./users')
 
-router.use('/projects', auth.checkAuth, projects);
-router.use('/users',auth.checkAuth, auth.checkAdmin, users)
+router.use('/projects', auth.authCheck, projects);
+router.use('/users',auth.authCheck, auth.adminCheck, users)
 
 module.exports = router;
