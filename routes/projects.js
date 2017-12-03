@@ -77,8 +77,8 @@ router.post("/:project_id/remove",
         if (req.user.projects.find(el => el == id)) {
             Project.findByIdAndRemove(id,
                 function (err, project) {
-                    if (error)
-                        console.log(error.message);
+                    if (err)
+                        console.log(err.message);
                     if (!project)
                         return next();
                     res.redirect("/projects");

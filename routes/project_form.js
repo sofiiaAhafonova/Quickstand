@@ -15,7 +15,7 @@ router.get("/", (req, res, next) => {
     }
 });
 
-router.post("/", function (req, res) {
+router.post("/", function (req, res, next) {
     if (!req.body) return res.sendStatus(400);
     Project.create({
                 name: req.body.projName,
@@ -32,7 +32,7 @@ router.post("/", function (req, res) {
             },
             function (err, doc) {
                 if (err)
-                    return res.sendStatus(403)
+                    return next();
                 console.log("added");
                 req.user.projects.push(doc._id);
                 req.user.save();

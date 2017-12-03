@@ -16,8 +16,8 @@ router.get("/", (req, res, next) => {
             proj_arr: data,
             searchedText: search_name,
             user: req.user
-        }))
-        .catch(err => next(err));
+        }), err => next())
+        .catch(() => res.sendStatus(500));
 });
 
 
