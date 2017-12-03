@@ -4,42 +4,34 @@ const router = express.Router();
 const User = require('../models/User');
 
 
-router.get('/', (req, res) => {
+router.get('/', async(req, res) => {
     res.render('profile', {
         profileOwner: req.user,
         user: req.user
     })
 });
 
-router.get('/:user_name', (req, res) => {
-    let user_name = req.params.user_name;
-    if (!req.user)
-        res.redirect("/register/login");
-    else {
-        User.findOne({
-            "name": user_name
-        }, (err, profileOwner) => {
-            if (err) return res.redirect("/");
-            res.render('profile', {
-                profileOwner,
-                user: req.user
-            })
-        });
-    }
-
+router.get('/own/update', async(req, res) => {
+    res.render('profile_update', {
+        user: req.user
+    })
 });
 
-router.get('/update', async(req, res) => {
-    try {
-        res.render('profile_update', {
+router.get('/:user_name',async (req, res, next) => {
+    let user_name = req.params.user_name;
+    User.findOne({
+        "name": user_name
+    }, (err, profileOwner) => {
+        if (err || !profileOwner) return next();
+        return res.render('profile', {
+            profileOwner,
             user: req.user
         })
-    } catch (err) {
-        res.redirect("/error_page", {
-            error: "Not Found"
-        });
-    }
+    });
 });
+
+
+
 router.post('/update', async(req, res) => {
     User.findByIdAndUpdate(req.user.id, {
         $set: {

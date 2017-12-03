@@ -14,6 +14,7 @@ const session = require('express-session');
 const register = require('./routes/register');
 const profile = require('./routes/profile');
 const admin = require('./routes/admin');
+const api = require('./routes/api');
 //const error_page = req
 const User = require('./models/User');
 const flash = require('connect-flash');
@@ -97,33 +98,33 @@ passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 
+
 passport.deserializeUser(function (id, done) {
     User.findById(id, function (err, user) {
         done(err, user);
     });
 });
 
+
 function checkAuth(req, res, next) {
-    if (req.isAuthenticated()) return next()
-    req.flash('error', 'Log in to see this page.');
-    res.redirect('/register/login');
-    next();
+    if (req.isAuthenticated()) return next();
+    return  res.redirect('/register/login');
 }
 
 function checkAdmin(req, res, next) {
-    if (req.user.role === 'admin') next();
-    else
-        res.redirect('/');
-}
+    if (req.user.role === 'admin') return next();
 
+    return res.redirect('/');
+
+}
 
 app.use("/projects", projects);
 app.use("/project_form", project_form);
 app.use("/search", search);
 app.use('/admin', checkAuth, checkAdmin, admin);
 app.use('/register', register);
-app.use('/profile', profile);
-
+app.use('/profile', checkAuth, profile);
+app.use('/api', api);
 app.use(function (req, res) {
     res.status(400);
     res.render('error_page', { 
@@ -132,7 +133,7 @@ app.use(function (req, res) {
     });
 });
 
-app.use(function (error, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(500);
     res.render('error_page', {
         user: req.user,
@@ -140,5 +141,6 @@ app.use(function (error, req, res, next) {
 
     });
 });
+
 
 app.listen(8080, () => console.log("UP!"));
