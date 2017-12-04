@@ -38,6 +38,7 @@ router.post("/", function (req, res, next) {
                 {
                     console.log(err)
                     res.redirect('/project_form');
+                 
                     return;
                 }
                    

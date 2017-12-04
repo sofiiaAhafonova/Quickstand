@@ -136,6 +136,7 @@ app.use(function (req, res) {
 
 app.use(function (err, req, res, next) {
     res.status(500);
+    console.log(err);
     res.render('error_page', {
         user: req.user,
         message: '500: Internal Server Error',

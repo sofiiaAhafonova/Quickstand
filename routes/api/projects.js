@@ -5,6 +5,8 @@ const User = require('../../models/User');
 var auth = require("./auth");
 let _ = require("underscore");
 
+var fs = require('fs');
+
 const validFieldsForUpdate = ['name', 'description', 'image', 'rating', "team",
     "start_date", "finish_date", "man_hour", "access", "status"
 ]
@@ -20,14 +22,24 @@ router.route("/")
         });
     })
     .post((req, res) => {
+
         let fields = _.pick(req.body, validFieldsForUpdate);
         fields.user = res.locals.user._id
-        console.log(fields);
+        fields.image = req.files.image.data;
+
+        // if(!req.files.image){
+        //     fs.readFile('./public/images/background/default-placeholder-project.png', function (err, data) {
+        //         if (err) throw err;
+
+        //         fields.image = data;  
+        //         console.log(  fields);
+        //       });
+        // }
         Project.create(
             fields
         ).then((project) => {
-            console.log(project)
             res.locals.user.projects.push(project._id);
+            res.locals.user.save().then().catch(err => console.log(err));
             return res.json({
                 message: 'Project created!',
                 success: true
@@ -109,7 +121,11 @@ router.route("/:project_id")
                             message: 'Not found',
                             success: false
                         });
-                    res.locals.user.projects = _.without(res.locals.user.projects, id);
+                    res.locals.user.projects = res.locals.user.projects.filter(el => {
+                        if (!el.equals(project._id)) 
+                            return el;
+                    })
+                    res.locals.user.save();
                     return res.status(200).json({
                         message: 'Project removed!',
                         success: true
