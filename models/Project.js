@@ -54,8 +54,7 @@ var projectSchema = new mongoose.Schema({
         required: false
     },
     image: {
-        type: Buffer,
-        required: [true, "image Required"]
+        type: Buffer
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
