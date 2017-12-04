@@ -6,7 +6,7 @@ var Project = require('../models/Project');
 router.get("/", (req, res, next) => {
     try {
         res.render("project_form", {
-            errors: "",
+            error: "",
             flag: false,
             user: req.user
         })
@@ -37,7 +37,8 @@ router.post("/", function (req, res, next) {
                 if (err)
                 {
                     console.log(err)
-                     return next();
+                    res.redirect('/project_form');
+                    return;
                 }
                    
                 console.log("added");
