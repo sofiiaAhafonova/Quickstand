@@ -3,10 +3,10 @@ var mongoose = require('mongoose');
 var projectSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "name Required"],
+        required: [true, "name required"],
         maxlength: [32, "tooLong"],
         minlength: [3, "tooShort"],
-        match: [/^[a-zA-Z\s]*$/, "nameIncorrect"],
+        match: [/^[a-zA-Z\s]*$/, "name incorrect"],
         unique: true
     },
     description: {
@@ -17,20 +17,20 @@ var projectSchema = new mongoose.Schema({
         default: "Finished",
         type: String,
         enum: ['Finished', 'Unfinished'],
-        required: [true, "statusRequired"]
+        required: [true, "status required"]
     },
     access: {
         default: "Public",
         type: String,
-        required: [true, "accessRequired"],
+        required: [true, "access required"],
         enum: ['Public', 'Private']
     },
     team: {
         type: String,
-        required: [true, "team Required"],
+        required: [true, "team required"],
         maxlength: [32, "tooLong"],
         minlength: [3, "tooShort"],
-        match: [/^[a-z0-9]+$/, "teamIncorrect"]
+        match: [/^[a-z0-9]+$/, "team incorrect"]
     },
     man_hour: {
         min: 1,
@@ -42,19 +42,20 @@ var projectSchema = new mongoose.Schema({
         type: String,
         min: "1.0",
         default: "1.0",
-        match: [/^[1-5][.][0-9]$/, "ratingIncorrect"],
+        match: [/^[1-5][.][0-9]$/, "Rating incorrect"],
         required: false
     },
     start_date: {
         type: String,
-        required: [true, "startDateRequired"]
+        required: [true, "Start date required"]
     },
     finish_date: {
         type: String,
         required: false
     },
     image: {
-        type: Buffer
+        type: Buffer,
+        required: [true, "Image required"]
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

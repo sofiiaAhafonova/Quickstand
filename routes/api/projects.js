@@ -5,8 +5,6 @@ const User = require('../../models/User');
 var auth = require("./auth");
 let _ = require("underscore");
 
-var fs = require('fs');
-
 const validFieldsForUpdate = ['name', 'description', 'image', 'rating', "team",
     "start_date", "finish_date", "man_hour", "access", "status"
 ]
@@ -24,21 +22,14 @@ router.route("/")
     .post((req, res) => {
 
         let fields = _.pick(req.body, validFieldsForUpdate);
-        fields.user = res.locals.user._id
-        fields.image = req.files.image.data;
-
-        // if(!req.files.image){
-        //     fs.readFile('./public/images/background/default-placeholder-project.png', function (err, data) {
-        //         if (err) throw err;
-
-        //         fields.image = data;  
-        //         console.log(  fields);
-        //       });
-        // }
+        fields.user = res.locals.user._id;
+        if (req.files.image)
+            fields.image = req.files.image.data;
         Project.create(
             fields
         ).then((project) => {
             res.locals.user.projects.push(project._id);
+            console.log(project.image);
             res.locals.user.save().then().catch(err => console.log(err));
             return res.json({
                 message: 'Project created!',
@@ -94,7 +85,10 @@ router.route("/:project_id")
                     message: 'Access denied',
                     success: false
                 });
-            project.set(_.pick(req.body, validFieldsForUpdate));
+            let fields = _.pick(req.body, validFieldsForUpdate);
+            if (req.files.image)
+                fields.image = req.files.image.data;
+            project.set(fields);
             project.save(function (err) {
                 if (err)
                     return res.json({
@@ -122,7 +116,7 @@ router.route("/:project_id")
                             success: false
                         });
                     res.locals.user.projects = res.locals.user.projects.filter(el => {
-                        if (!el.equals(project._id)) 
+                        if (!el.equals(project._id))
                             return el;
                     })
                     res.locals.user.save();
