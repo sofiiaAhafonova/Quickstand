@@ -10,6 +10,6 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 router.use('/projects', auth.authCheck, projects);
-router.use('/users',auth.authCheck, auth.adminCheck, users)
+router.use('/users',auth.authCheck, users)
 
 module.exports = router;

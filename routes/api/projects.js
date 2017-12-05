@@ -4,7 +4,18 @@ const Project = require('../../models/Project')
 const User = require('../../models/User');
 var auth = require("./auth");
 let _ = require("underscore");
+const onOnePage = 3;
 
+function chunk(a) {
+    var arrays = [];
+    let buf = [];
+    a.forEach(element => {
+        buf.push(_.pick(element, ['_id', 'name']));
+    });
+    while (buf.length > 0)
+        arrays.push(buf.splice(0, onOnePage));
+    return arrays;
+}
 const validFieldsForUpdate = ['name', 'description', 'image', 'rating', "team",
     "start_date", "finish_date", "man_hour", "access", "status"
 ]
@@ -14,9 +25,34 @@ router.route("/")
         Project.find({
             "access": "Public"
         }, function (err, projects) {
+            let cur = req.query.page;
+            let pages = chunk(projects);
+            let pageNumber = pages.length;
+            if (!cur) cur = 1;
+            if ((cur > pageNumber || cur < 1) && pageNumber) {
+                return res.send(400).json({
+                    message: "Wrong page number",
+                    success: false
+                });
+            }
             if (err)
-                return res.send(err);
-            res.json(projects);
+                return res.send(404).json({
+                    message: err.message,
+                    success: false
+                });
+            let ref = "/api/v1/projects?page="
+            let val = cur;
+            let next = cur != pageNumber ? (ref + ++val) : "none";
+            val = cur;
+            let prev = cur != 1 ? (ref + --val) : "none";
+            res.json({
+                success: true,
+                projects: pages[cur - 1],
+                "current page": cur,
+                "next page": next,
+                "prev page": prev
+            });
+
         });
     })
     .post((req, res) => {
@@ -29,7 +65,6 @@ router.route("/")
             fields
         ).then((project) => {
             res.locals.user.projects.push(project._id);
-            console.log(project.image);
             res.locals.user.save().then().catch(err => console.log(err));
             return res.json({
                 message: 'Project created!',
