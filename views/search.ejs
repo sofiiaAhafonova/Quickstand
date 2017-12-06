@@ -17,7 +17,7 @@
           <% } else
             for (let s of proj_arr) { %>
           <div class="projects">
-           <a href = "projects/<%=s.id%>"> <img src="data:image/jpg;base64,<%= new Buffer(s.image).toString('base64') %>"></a>
+           <a href = "projects/<%=s.id%>"> <img src="<%=s.image%>"></a>
           <h2><a href = "projects/<%=s.id%>"><%=s.name%></a></h2>
         </div>
     <% } %>  

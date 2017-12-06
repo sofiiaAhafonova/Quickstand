@@ -9,7 +9,7 @@
   <div class="main">  
   <div class="projects">
       <h1 id="C0"><%=  project.name %></h1>
-      <img src="data:image/jpg;base64,<%= new Buffer(project.image).toString('base64') %>">
+      <img src="<%= project.image%>">
       <table>
             <tr>
                 <th>Description</th>
