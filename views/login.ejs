@@ -1,33 +1,41 @@
 <!doctype html>
 <html lang="en">
-<head>
-   <% include partials/head.ejs%>
-  <title>Log in</title>
-</head>
-<body>
- <% include partials/menu_bar.ejs%>
-  <div class="main">  
-  <div class="projects">
-      <h1 id="C0">Log in</h1>
-     			<form action='/register/login' method='POST'>
- 		<table>
-		 <tr>
-		   <th>  Name </th>
-    	<td>	<input type="text" class="form-control"  name="name" placeholder="Enter your user name"></td>
-				</tr>
-				  <tr>
-					<th>Password </th>
-      <td>  <input type="password" class="form-control"  name="password" placeholder="Enter your password" title="At least 6 characters with letters and numbers" required="required"></td>
-    
-		 </tr>
-		 	  <tr>
-				 <th><button type="submit" >Log in</button></th>
-         <td><label><%=error%></label></td>
-        </tr>
 
-			</table>
-      </form>
-  </div>
-  </div>
+<head>
+	<% include partials/head.ejs%>
+		<title>Log in</title>
+</head>
+
+<body>
+	<% include partials/menu_bar.ejs%>
+		<div class="main">
+			<div class="projects">
+				<h2 id="C0">Log in</h2>
+				<form class="form-horizontal" action='/register/login' method='POST'>
+
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="name">Name:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" pattern="^[a-zA-Z\s]*$" maxlength="30" minlength="3" name="name" placeholder="Enter your user name"
+							    required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="pwd">Password:</label>
+						<div class="col-sm-6">
+							<input type="password" class=" form-control" name="password" minlength="4" placeholder="Enter your password" title="At least 4 characters with letters and numbers"
+							    required>
+						</div>
+					</div>
+
+					<button type="submit">Submit</button>
+					<label>
+						<%=error%>
+					</label>
+
+				</form>
+			</div>
+		</div>
 </body>
+
 </html>

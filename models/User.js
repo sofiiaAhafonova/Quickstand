@@ -7,9 +7,10 @@ let userSch = new Schema({
     name: {
         type: String,
         minlength: 3,
-        maxlength: 60,
+        maxlength: 30,
         unique: true,
-        required: true
+        required: true,
+        pattern : "^[a-zA-Z\s]*$"
     },
     password: {
         type: String,

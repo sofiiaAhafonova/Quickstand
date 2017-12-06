@@ -3,6 +3,8 @@ let router = express.Router();
 const User = require('../models/User');
 const fs = require("fs-promise");
 var Project = require('../models/Project');
+var cloudinary = require('cloudinary');
+
 router.get("/", (req, res, next) => {
     try {
         res.render("project_form", {
@@ -20,18 +22,11 @@ router.post("/", function (req, res, next) {
         console.log(req.body)
         return res.sendStatus(400);
     }
+    let proj = req.body;
+    proj.user =  req.user._id;
+    proj.image = req.files.logo.data
     Project.create({
-                name: req.body.projName,
-                description: req.body.projDescription,
-                status: req.body.projStatus,
-                access: req.body.projAccess,
-                team: req.body.teamName,
-                man_hour: req.body.manhour,
-                rating: req.body.projRating,
-                start_date: req.body.startDate,
-                finish_date: req.body.finishDate,
-                image: req.files.logo.data,
-                user: req.user._id
+               proj
             },
             function (err, doc) {
                 if (err)

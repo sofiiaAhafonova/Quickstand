@@ -1,7 +1,7 @@
 div.projects {
     color: #312D2C;
     background-image: url("../images/background/wrinkled-paper.jpg");
-    margin: 20px 200px 20px 200px;
+    margin: 20px 220px 20px 220px;
     padding: 20px;
     text-align: center;
     align-items: center;
@@ -23,10 +23,10 @@ div.projects {
     margin-left: 80px
 }
 
-.projects table button {
-    align-self: center
+.projects button {
+    margin-left: 260px;
+    color: rgb(247, 241, 224);
 }
-
 a:link {
     color: #312D2C;
     background-color: transparent;
@@ -53,11 +53,13 @@ a:active {
 h1 {
     font-family: Verdana, "Geneva", sans-serif;
     text-decoration-color: #312D2C;
+   
 }
 
 h2 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     text-decoration-color: #312D2C;
+    
 }
 
 h3 {
@@ -74,7 +76,6 @@ ul {
 button {
     display: block;
     color: #ECC760;
-    ;
     background-color: rgb(66, 61, 60);
     text-align: center;
     padding: 7px 16px;
@@ -211,4 +212,8 @@ th {
 .users {
     text-align: center;
     font-size: 24px;
+}
+
+textarea {
+    resize: none;
 }
