@@ -5,13 +5,18 @@ const User = require('../../models/User');
 var auth = require("./auth");
 let _ = require("underscore");
 const onOnePage = 3;
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+    cloud_name: 'de46jchnd',
+    api_key: '365483611972472',
+    api_secret: 'WDcwHCjlZvJWHdDaFr9fjRRNv-k'
+
+});
 
 function chunk(a) {
     var arrays = [];
     let buf = [];
-    a.forEach(element => {
-        buf.push(_.pick(element, ['_id', 'name']));
-    });
     while (buf.length > 0)
         arrays.push(buf.splice(0, onOnePage));
     return arrays;
@@ -68,12 +73,17 @@ router.route("/")
         let fields = _.pick(req.body, validFieldsForUpdate);
         fields.user = res.locals.user._id;
         if (req.files.image)
-            fields.image = req.files.image.data;
+            fields.image = "http://res.cloudinary.com/de46jchnd/image/upload/v1512598615/" + fields.name + ".jpg";
         Project.create(
             fields
         ).then((project) => {
             res.locals.user.projects.push(project._id);
             res.locals.user.save().then().catch(err => console.log(err));
+            cloudinary.uploader.upload_stream(function (result) {
+                console.log(result);
+            }, {
+                public_id:project.name
+            }).end((req.files.image.data));
             return res.json({
                 message: 'Project created!',
                 success: true
