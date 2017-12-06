@@ -22,29 +22,37 @@ const validFieldsForUpdate = ['name', 'description', 'image', 'rating', "team",
 
 router.route("/")
     .get(function (req, res) {
+        let search_name = req.query.name;
         Project.find({
+            name: {
+                $regex: new RegExp(search_name, "i")
+            },
             "access": "Public"
         }, function (err, projects) {
+            if (search_name)
+                search_name = "name="+search_name + "&";
+            else
+                search_name = "";
             let cur = req.query.page;
             let pages = chunk(projects);
             let pageNumber = pages.length;
             if (!cur) cur = 1;
-            if ((cur > pageNumber || cur < 1) && pageNumber) {
-                return res.send(400).json({
+            if ((!Number.isInteger(cur) || cur > pageNumber || cur < 1) && pageNumber) {
+                return res.status(400).json({
                     message: "Wrong page number",
                     success: false
                 });
             }
-            if (err)
-                return res.send(404).json({
-                    message: err.message,
-                    success: false
+            if (err || projects.length == 0)
+                return res.status(404).json({
+                    message: "Nothing was found",
+                    success: true
                 });
-            let ref = "/api/v1/projects?page="
+            let ref = "/api/v1/projects?"
             let val = cur;
-            let next = cur != pageNumber ? (ref + ++val) : "none";
+            let next = cur != pageNumber ? (ref + search_name + "page="+ ++val) : "none";
             val = cur;
-            let prev = cur != 1 ? (ref + --val) : "none";
+            let prev = cur != 1 ? (ref + search_name + "page=" + --val) : "none";
             res.json({
                 success: true,
                 projects: pages[cur - 1],
