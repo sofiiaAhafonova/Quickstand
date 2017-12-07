@@ -23,27 +23,29 @@ cloudinary.config({
 
 });
 router.post("/", function (req, res, next) {
-    if (!req.body || !req.user || !req.files.logo) {
+    if (!req.body || !req.user) {
         console.log(req.body)
         return res.sendStatus(400);
     }
+    let logo = req.body.name;
     let proj = req.body;
     proj.user = req.user._id;
-    proj.image = "http://res.cloudinary.com/de46jchnd/image/upload/v1512598615/" + proj.name + ".jpg";
+    if (req.files.logo)
+        proj.image = "http://res.cloudinary.com/de46jchnd/image/upload/v1512598615/" + logo + ".jpg";
     Project.create(
             proj,
             function (err, doc) {
                 if (err) {
                     console.log(err)
                     res.redirect('/project_form');
-
                     return;
                 }
-                cloudinary.uploader.upload_stream(function (result) {
-                    console.log(result);
-                }, {
-                    public_id:doc.name
-                }).end((req.files.logo.data));
+                if (req.files.logo)
+                    cloudinary.uploader.upload_stream(function (result) {
+                        console.log(result);
+                    }, {
+                        public_id: logo
+                    }).end((req.files.logo.data));
                 console.log("added");
                 req.user.projects.push(doc._id);
                 req.user.save();

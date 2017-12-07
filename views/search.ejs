@@ -1,29 +1,36 @@
 <!doctype html>
 <html lang="en">
+
 <head>
- <% include partials/head.ejs%>
-  <title>Projects</title>
+  <% include partials/head.ejs%>
+    <title>Projects</title>
 </head>
+
 <body>
   <% include partials/menu_bar.ejs%>
-  <div class="main">
- <div class="projects">
-     <h1>Searched projects</h1>
-     <form id="search_page">
-        <input id="search" type="text" name = "searchedName" placeholder="Type here" value="<%=searchedText%>">
-        <input id="search_button" type="submit" value="Search">
-        <% if(!proj_arr[0]){ %>  
-             <h2>There are no projects with this name</h2>
-          <% } else
+    <div class="main">
+      <div class="projects">
+        <h1>Searched projects</h1>
+        <form id="search_page">
+          <input id="search" type="text" name="searchedName" placeholder="Type here" value="<%=searchedText%>">
+          <input id="search_button" type="submit" value="Search">
+          <% if(!proj_arr[0]){ %>
+            <h2>There are no projects with this name</h2>
+            <% } else
             for (let s of proj_arr) { %>
-          <div class="projects">
-           <a href = "projects/<%=s.id%>"> <img src="<%=s.image%>"></a>
-          <h2><a href = "projects/<%=s.id%>"><%=s.name%></a></h2>
-        </div>
-    <% } %>  
-</ul>
-      </form>
-  </div>
-  </div>
+              <a href="projects/<%=s.id%>">
+                <img src="<%=s.image%>">
+              </a>
+              <h2>
+                <a href="projects/<%=s.id%>">
+                  <%=s.name%>
+                </a>
+              </h2>
+              <% } %>
+                </ul>
+        </form>
+      </div>
+    </div>
 </body>
+
 </html>

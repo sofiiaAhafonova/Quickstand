@@ -55,12 +55,11 @@ var projectSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: [true, "Image required"]
+        default:  "http://res.cloudinary.com/de46jchnd/image/upload/v1512629286/default-placeholder-project_x3gi0l.png"
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+        ref: 'User',    }
 });
 
 
