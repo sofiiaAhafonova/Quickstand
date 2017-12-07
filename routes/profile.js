@@ -11,23 +11,24 @@ router.get('/', async(req, res) => {
     })
 });
 
-router.get('/own/update', async(req, res) => {
-    res.render('profile_update', {
-        user: req.user
-    })
-});
-
-router.get('/:user_name',async (req, res, next) => {
+router.get('/:user_name', async(req, res, next) => {
     let user_name = req.params.user_name;
-    User.findOne({
-        "name": user_name
-    }, (err, profileOwner) => {
-        if (err || !profileOwner) return next();
-        return res.render('profile', {
-            profileOwner,
+    if (user_name.trim() == "update")
+        res.render('profile_update', {
             user: req.user
         })
-    });
+    else {
+        User.findOne({
+            "name": user_name
+        }, (err, profileOwner) => {
+            if (err || !profileOwner) return next();
+            return res.render('profile', {
+                profileOwner,
+                user: req.user
+            })
+        });
+    }
+
 });
 
 
