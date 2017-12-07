@@ -46,7 +46,7 @@
           </table>
           <%if(user && project.user == user.id){%>
             <form id="formfield" action="<%=project.id%>/remove" method="post">
-                <input class ="btn" type="button" name="btn" value="Remove" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" />
+                <input class ="mybtn" type="button" name="btn" value="Remove" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" />
             </form>
           <%}%>
   </div>

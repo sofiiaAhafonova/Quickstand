@@ -73,7 +73,7 @@ ul {
     margin: 0;
     padding: 0;
 }
-.btn
+.mybtn
 {
     display: block;
     color: #ECC760;
@@ -128,25 +128,7 @@ button {
     font-size: 17px;
 }
 
-.topnav second {
-    float: right;
-}
 
-.topnav input {
-    float: left;
-    margin-top: 6px;
-    display: block;
-    background-color: rgb(247, 241, 224);
-    padding: 7px 16px;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-.topnav a:hover {
-    color: #ECC760;
-    ;
-    background-color: #312D2C;
-}
 
 body {
     align-items: center;
