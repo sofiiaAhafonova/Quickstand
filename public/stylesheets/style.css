@@ -73,6 +73,17 @@ ul {
     margin: 0;
     padding: 0;
 }
+.btn
+{
+    display: block;
+    color: #ECC760;
+    background-color: rgb(66, 61, 60);
+    text-align: center;
+    padding: 7px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    margin-top: 6px;
+}
 
 button {
     display: block;

@@ -45,11 +45,34 @@
             </tr>
           </table>
           <%if(user && project.user == user.id){%>
-            <form action="<%=project.id%>/remove" method="post">
-                <center>	<button  type="submit" >Remove</button></center>
+            <form id="formfield" action="<%=project.id%>/remove" method="post">
+                <input class ="btn" type="button" name="btn" value="Remove" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" />
             </form>
           <%}%>
   </div>
   </div>
 </body>
+
+
+<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+               Alert
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove this project?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button href="/projects/personal" id="submit" class="btn btn-success success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$('#submit').click(function(){
+    $('#formfield').submit();
+});
+</script>
 </html>
