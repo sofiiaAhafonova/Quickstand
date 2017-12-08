@@ -4,9 +4,8 @@ const Project = require('../../models/Project')
 const User = require('../../models/User');
 var auth = require("./auth");
 let _ = require("underscore");
-const onOnePage = 3;
 var cloudinary = require('cloudinary');
-
+var auth = require("./auth");
 cloudinary.config({
     cloud_name: 'de46jchnd',
     api_key: '365483611972472',
@@ -14,59 +13,53 @@ cloudinary.config({
 
 });
 
-function chunk(a) {
-    var arrays = [];
-    while (a.length > 0)
-        arrays.push(a.splice(0, onOnePage));
-    return arrays;
-}
 const validFieldsForUpdate = ['name', 'description', 'image', 'rating', "team",
     "start_date", "finish_date", "man_hour", "access", "status"
 ]
 
 router.route("/")
     .get(function (req, res) {
+        var docsPerPage = 3;
+        var pageNumber = 1;
+        if (!req.query.page)
+            pageNumber = 1;
+        else
+            pageNumber = req.query.page;
+        if (!Number.isInteger(Number.parseInt(pageNumber)) || pageNumber < 1) {
+            return res.status(400).json({
+                message: "Wrong page number",
+                success: false
+            });
+        }
         let search_name = req.query.name;
-        Project.find({
+        Project.findPaginated({
             name: {
                 $regex: new RegExp(search_name, "i")
             },
             "access": "Public"
         }, function (err, projects) {
-            if (err || projects.length == 0)
-            return res.status(404).json({
-                message: "Nothing was found",
-                success: true
-            });
-            if (search_name)
-                search_name = "name="+search_name + "&";
-            else
-                search_name = "";
-            let cur = req.query.page;
-            let pages = chunk(projects);
-            let pageNumber = pages.length;
-            if (!cur) cur = 1;
-            if ((!Number.isInteger(cur) || cur > pageNumber || cur < 1) && pageNumber) {
+            if (!projects)
+                return res.status(200).json({
+                    message: "Nothing was found",
+                    success: true
+                });
+            if (pageNumber > projects.totalPages) {
                 return res.status(400).json({
                     message: "Wrong page number",
                     success: false
                 });
             }
-            let ref = "/api/v1/projects?" + search_name + "page="
-            let val = cur;
-            let next = cur != pageNumber ? (ref + ++val) : "none";
-            val = cur;
-            let prev = cur != 1 ? (ref + --val) : "none";
+            let nextPage = (projects.nextPage > 0) ? projects.nextPage : "none";
+            let prevPage = (projects.prevPage > 0) ? projects.prevPage : "none";
             res.json({
                 success: true,
-                projects: pages[cur - 1],
-                "current page": cur,
-                "next page": next,
-                "prev page": prev,
-                "pages": pageNumber
+                projects: projects.documents,
+                totalPages: projects.totalPages,
+                nextPage,
+                prevPage
             });
 
-        });
+        }, docsPerPage, pageNumber);
     })
     .post((req, res) => {
 
@@ -82,7 +75,7 @@ router.route("/")
             cloudinary.uploader.upload_stream(function (result) {
                 console.log(result);
             }, {
-                public_id:project.name
+                public_id: project.name
             }).end((req.files.image.data));
             return res.json({
                 message: 'Project created!',
@@ -158,7 +151,7 @@ router.route("/:project_id")
     })
     .delete((req, res, next) => {
         let id = req.params.project_id;
-        if (res.locals.user.projects.find(el => el == id)) {
+        if (res.locals.user.projects.find(el => el == id) || (res.locals.user.role =="admin") ){
             Project.findByIdAndRemove(id,
                 function (err, project) {
                     if (err)
