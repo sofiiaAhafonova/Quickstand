@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var mongoosePages = require('mongoose-pages');
 var projectSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -61,6 +61,6 @@ var projectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',    }
 });
-
+mongoosePages.skip(projectSchema);
 
 module.exports = mongoose.model('Project', projectSchema);

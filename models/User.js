@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+var mongoosePages = require('mongoose-pages');
 const Schema = mongoose.Schema;
 require('mongoose-type-email');
 var Project = require('./Project');
@@ -40,7 +41,7 @@ let userSch = new Schema({
 userSch.methods.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 };
-
+mongoosePages.skip(userSch);
 const User = mongoose.model('User', userSch);
 
 module.exports = User;

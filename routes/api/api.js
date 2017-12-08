@@ -12,4 +12,18 @@ router.get('/', function(req, res) {
 router.use('/projects', auth.authCheck, projects);
 router.use('/users',auth.authCheck, users)
 
+router.use(function (req, res) {
+    return res.status(400).json({
+        message: "404: Not found",
+        success: false
+    });
+});
+
+router.use(function (err, req, res, next) {
+    console.log(err);
+    return res.status(500).json({
+        message:  '500: Internal Server Error',
+        success: false
+    });
+});
 module.exports = router;

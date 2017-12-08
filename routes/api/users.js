@@ -5,23 +5,48 @@ const User = require('../../models/User');
 var auth = require("./auth");
 
 router.route("/")
-    .get( auth.adminCheck, async(req, res, next) => {
-        User.find({}, function (err, users) {
+    .get(auth.adminCheck, async(req, res, next) => {
+        var docsPerPage = 3;
+        var pageNumber = 1;
+        if (!req.query.page)
+            pageNumber = 1;
+        else
+            pageNumber = req.query.page;
+        if (!Number.isInteger(Number.parseInt(pageNumber)) || pageNumber < 1) {
+            return res.status(400).json({
+                message: "Wrong page number",
+                success: false
+            });
+        }
+        User.findPaginated({}, function (err, users) {
             if (err)
-                return res.json({
-                    message: 'Internal error',
+                return res.status(400).json({
+                    message: 'Bad request error',
                     success: false
                 });
-            res.status(200).json({
-                users,
-                success: true
+            if (!users)
+                return res.status(400).json({
+                    message: 'Opps! There are no users in DB',
+                    success: true
             });
-        })
+            let nextPage = (users.nextPage > 0) ? users.nextPage : "none";
+            let prevPage = (users.prevPage > 0) ? users.prevPage : "none";
+            res.status(200).json({
+                success: true,
+                users: users.documents,
+                totalPages: users.totalPages,
+                nextPage,
+                prevPage
+            });
+        }, docsPerPage, pageNumber)
     });
+
 router.route('/:user_name')
-    .get( async(req, res, next) => {
+    .get(async(req, res, next) => {
         let user = req.params.user_name;
-        User.findOne({"name": user}, function (err, user) {
+        User.findOne({
+            "name": user
+        }, function (err, user) {
             if (err || !user)
                 return res.json({
                     message: 'Not found',
@@ -34,7 +59,6 @@ router.route('/:user_name')
                     "email": user.email,
                     "projects": user.projects
                 },
-             //   user,
                 success: true
             });
         })
