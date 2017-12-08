@@ -1,11 +1,11 @@
 div.projects {
     color: #312D2C;
     background-image: url("../images/background/wrinkled-paper.jpg");
-    margin: 20px 220px 20px 220px;
+    margin: 20px 20%;
     padding: 20px;
     text-align: center;
     align-items: center;
-    overflow: hidden;
+    overflow: initial;
     text-overflow: initial;
     -webkit-box-shadow: 1px 0px 32px 19px rgba(56, 36, 21, 0.71);
     -moz-box-shadow: 1px 0px 32px 19px rgba(56, 36, 21, 0.71);
@@ -14,14 +14,20 @@ div.projects {
 
 .projects img {
     display: block;
+    margin: auto;
+    max-width: 70%;
     max-height: 200px;
-    margin: 0 auto;
-    margin-top: 30px;
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
 .projects table {
-    margin-left: 120px
-   
+    margin: auto;
+    max-width: 95%;
+    margin-left: 15%;
+}
+.projects th, td{
+    width: 50%;
 }
 
 .projects button {
@@ -70,11 +76,10 @@ h3 {
 
 ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
 }
 .mybtn
 {
+    align-self: center;
     display: block;
     color: #ECC760;
     background-color: rgb(66, 61, 60);
@@ -83,6 +88,7 @@ ul {
     text-decoration: none;
     font-size: 15px;
     margin-top: 6px;
+    margin-left: 35%;
 }
 
 button {
