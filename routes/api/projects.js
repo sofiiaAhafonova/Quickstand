@@ -1,11 +1,11 @@
 let express = require("express");
 let router = express.Router();
-const Project = require('../../models/Project')
+const Project = require('../../models/Project');
 const User = require('../../models/User');
 var auth = require("./auth");
 let _ = require("underscore");
 var cloudinary = require('cloudinary');
-var auth = require("./auth");
+
 cloudinary.config({
     cloud_name: 'de46jchnd',
     api_key: '365483611972472',
@@ -113,7 +113,7 @@ router.route("/:project_id")
                         .json({
                             message: "You couldn't view this project",
                             success: false
-                        })
+                        });
             })
         })
     .put((req, res) => {
@@ -151,7 +151,8 @@ router.route("/:project_id")
     })
     .delete((req, res, next) => {
         let id = req.params.project_id;
-        if (res.locals.user.projects.find(el => el == id) || (res.locals.user.role =="admin") ){
+        if (res.locals.user.projects.find(el => el == id) || res.locals.user.role == "admin" )
+        {
             Project.findByIdAndRemove(id,
                 function (err, project) {
                     if (err)

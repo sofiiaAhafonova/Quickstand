@@ -1,6 +1,6 @@
 var express = require('express'),
     app = module.exports = express();
-
+var path = require('path');
 const projects = require("./routes/projects");
 const project_form = require("./routes/project_form");
 const search = require("./routes/search");
@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static('public'));
+app.set('views', path.join(__dirname, 'views'));
 //for images
 app.use(busboyBodyParser({
     limit: '5mb'

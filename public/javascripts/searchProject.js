@@ -1,3 +1,4 @@
+
 function updateResults(page, value) {
 	var str = '';
 	if (value && page)
@@ -12,8 +13,8 @@ function updateResults(page, value) {
 		var src = '';
 		for (var i = 1; i <= number; i++) {
 			src += '<li class="page-item">' +
-				' <button class="page-link"  onclick="updateResults(' + i + ',' + value + ')" >' + i + '</button></li>';
-
+                ' <button class="page-link"  onclick="updateResults(' + i + ',' + value + ')" >'
+                 + i + '</button></li>';
 		}
 		return src;
 	});
@@ -23,7 +24,7 @@ function updateResults(page, value) {
 			Authorization: "Basic " + Cookie('basic')
 		}
 	}).then((res) => res.json()).then(res => {
-		const source = document.getElementById("projects-template").innerHTML;
+        const source = document.getElementById("projects-template").innerHTML;
 		const template = Handlebars.compile(source);
 		document.getElementById("projects-list").innerHTML = template({
 			projects: res["projects"],
