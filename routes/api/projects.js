@@ -16,9 +16,8 @@ cloudinary.config({
 
 function chunk(a) {
     var arrays = [];
-    let buf = [];
-    while (buf.length > 0)
-        arrays.push(buf.splice(0, onOnePage));
+    while (a.length > 0)
+        arrays.push(a.splice(0, onOnePage));
     return arrays;
 }
 const validFieldsForUpdate = ['name', 'description', 'image', 'rating', "team",
@@ -34,6 +33,11 @@ router.route("/")
             },
             "access": "Public"
         }, function (err, projects) {
+            if (err || projects.length == 0)
+            return res.status(404).json({
+                message: "Nothing was found",
+                success: true
+            });
             if (search_name)
                 search_name = "name="+search_name + "&";
             else
@@ -48,22 +52,18 @@ router.route("/")
                     success: false
                 });
             }
-            if (err || projects.length == 0)
-                return res.status(404).json({
-                    message: "Nothing was found",
-                    success: true
-                });
-            let ref = "/api/v1/projects?"
+            let ref = "/api/v1/projects?" + search_name + "page="
             let val = cur;
-            let next = cur != pageNumber ? (ref + search_name + "page="+ ++val) : "none";
+            let next = cur != pageNumber ? (ref + ++val) : "none";
             val = cur;
-            let prev = cur != 1 ? (ref + search_name + "page=" + --val) : "none";
+            let prev = cur != 1 ? (ref + --val) : "none";
             res.json({
                 success: true,
                 projects: pages[cur - 1],
                 "current page": cur,
                 "next page": next,
-                "prev page": prev
+                "prev page": prev,
+                "pages": pageNumber
             });
 
         });
