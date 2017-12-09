@@ -39,25 +39,14 @@ router.post('/login',  async (req, res, next) => {
       if (err) res.sendStatus(401)
       const convert = req.body.name + ":" + req.body.password;
       res.cookie('isAdmin', req.user.role === 'admin');
+      res.cookie('name', req.user.name);
       res.cookie('basic', new Buffer(convert).toString('base64'));
       res.redirect('/')
     })
   })(req, res, next)
 });
 
-// router.post('/login', async(req, res) => {
-//     passport.authenticate('local', {
-//       successRedirect: '/',
-//       failureRedirect: '/register/login',
-//       failureFlash: true
-//     }, (req, res) => {
-//       const convert = req.body.name + ":" + req.body.password;
-//       res.cookie('isAdmin', req.user.role === 'admin');
-//       res.cookie('basic', new Buffer(convert).toString('base64'));
-//     })
-//   }
 
-//);
 
 router.get('/login', (req, res) => {
   res.render('login', {

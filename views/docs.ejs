@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Api Docs</title>
+</head>
+
+<body>
+    <% include partials/menu_bar.ejs%>
+
+
+        <div class="container">
+            <h2>Wellcome to Quickstand Api!</h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>URL</th>
+                        <th>Parameters</th>
+                        <th>Response</th>
+                        <th>Auth</th>
+                        <th>Errors</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GET</td>
+                        <td>/api/v1/</td>
+                        <td>none</td>
+                        <td>Status 200 -  api opened</td>
+                        <td>none</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error </td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td>/api/v1/projects</td>
+                        <td>page - Number of page in array <br> name - Name or part of name of project</td>
+                        <td>Status 200 - Returns paginated array of all projects </td>
+                        <td>Public</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
+                        <br> Status 400 -Wrong page number</td>
+                    </tr>
+                    <tr>
+                        <td>POST</td>
+                        <td>/api/v1/projects</td>
+                        <td>none</td>
+                        <td>Status 200 - Creates project </td>
+                        <td>Public</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
+                        <br> Status 400 - Errors in validation</td>
+                    </tr>
+                     <tr>
+                        <td>GET</td>
+                        <td>/api/v1/projects/:project_id</td>
+                        <td>project_id</td>
+                        <td>Status 200 - Returns project with same id </td>
+                        <td>Public</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
+                        <br>Status 401 - Access to project denied</td>
+                    </tr>
+                     <tr>
+                        <td>PUT</td>
+                        <td>/api/v1/projects/:project_id</td>
+                        <td>project_id</td>
+                        <td>Status 200 - Updetes project with same id </td>
+                        <td>Public</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
+                        <br>Status 401 - Access to project denied</td>
+                    </tr>
+                     <tr>
+                        <td>DELETE</td>
+                        <td>/api/v1/projects/:project_id</td>
+                        <td>project_id</td>
+                        <td>Status 200 - Removes project with same id </td>
+                        <td>Public</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
+                        <br>Status 401 - Access to project denied</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td>/api/v1/users</td>
+                        <td>page</td>
+                        <td>Status 200 - Returns paginated array of users </td>
+                        <td>Admin</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
+                        <br>Status 401 - Access to project denied<br>Status 400 - Wrong page number</td>
+                    </tr>
+                     <tr>
+                        <td>GET</td>
+                        <td>/api/v1/users/:user_name</td>
+                        <td>user_name</td>
+                        <td>Status 200 - Returns user with requested name</td>
+                        <td>Public</td>
+                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
+                        <br>Status 400 - Validation Error</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+</body>
+
+</html>

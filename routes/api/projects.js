@@ -82,7 +82,7 @@ router.route("/")
                 success: true
             });
         }).catch(err => {
-            return res.json({
+            return res.status(400).json({
                 message: err.message,
                 success: false
             });

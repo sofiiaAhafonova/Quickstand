@@ -47,8 +47,13 @@ router.route('/:user_name')
         User.findOne({
             "name": user
         }, function (err, user) {
-            if (err || !user)
-                return res.json({
+            if (err)
+            return res.status(400).json({
+                message: err.message,
+                success: false
+            });
+            if (!user)
+                return res.status(200).json({
                     message: 'Not found',
                     success: false
                 });

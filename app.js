@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static('public'));
+app.set('public', path.join(__dirname, 'public'));
 app.set('views', path.join(__dirname, 'views'));
 //for images
 app.use(busboyBodyParser({
@@ -37,7 +38,7 @@ app.use(cookieParser());
 app.use(session({
     secret: "where is my mind",
     resave: false,
-    saveUninitialized: false 
+    saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -67,6 +68,11 @@ app.get("/", (req, res) => {
     } catch (error) {
         res.send(error.message);
     }
+});
+app.get("/docs/api/v1", (req, res) => {
+    res.render("docs", {
+        user: req.user
+    });
 });
 
 passport.use(new LocalStrategy({
@@ -109,7 +115,7 @@ passport.deserializeUser(function (id, done) {
 
 function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
-    return  res.redirect('/register/login');
+    return res.redirect('/register/login');
 }
 
 function checkAdmin(req, res, next) {
@@ -129,7 +135,7 @@ app.use('/api/v1', api);
 
 app.use(function (req, res) {
     res.status(400);
-    res.render('error_page', { 
+    res.render('error_page', {
         user: req.user,
         message: '404:  Not Found'
     });
@@ -147,4 +153,3 @@ app.use(function (err, req, res, next) {
 
 
 app.listen(8080, () => console.log("UP!"));
-
