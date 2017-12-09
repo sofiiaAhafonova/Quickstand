@@ -37,7 +37,7 @@ app.use(cookieParser());
 app.use(session({
     secret: "where is my mind",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false 
 }));
 app.use(passport.initialize());
 app.use(passport.session());

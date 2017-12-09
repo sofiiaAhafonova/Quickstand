@@ -17,19 +17,13 @@ function updateResults(page, value) {
                  + i + '</button></li>';
 		}
 		return src;
-	});
-	const res = fetch(url, {
-		method: 'get',
+    });
+	 fetch(url, {
+        method: 'get',
+        credentials: 'include',
 		headers: {
 			Authorization: "Basic " + Cookie('basic')
 		}
-	}).then((res) => res.json()).then(res => {
-        const source = document.getElementById("projects-template").innerHTML;
-		const template = Handlebars.compile(source);
-		document.getElementById("projects-list").innerHTML = template({
-			projects: res["projects"],
-			pages: res["totalPages"]
-		});
+     }).then(data => data.json()).then(res=> console.log(res) )
 
-	});
 }

@@ -5,36 +5,59 @@ const User = require('../models/User');
 
 router.post('/signup', async(req, res) => {
   try {
-      if (req.body.password === req.body.verify) {
-          User.create({
-              name: req.body.name.trim(),
-              password: req.body.password.trim(),
-              email: req.body.email.trim()
-          }, (err, doc) => {
-              if (err) {
-                  if (err.code === 11000) { // unique key used
-                      req.flash('error', 'Username is not available')
-                  } else req.flash('error', err.message);
-                  return res.redirect('/register/signup');
-              }
-              res.redirect('/register/login');
-          });
-      } else {
-          req.flash('error', "Passwords don't match");
-          res.redirect('/register/signup');
-      }
+    if (req.body.password === req.body.verify) {
+      User.create({
+        name: req.body.name.trim(),
+        password: req.body.password.trim(),
+        email: req.body.email.trim()
+      }, (err, doc) => {
+        if (err) {
+          if (err.code === 11000) { // unique key used
+            req.flash('error', 'Username is not available')
+          } else req.flash('error', err.message);
+          return res.redirect('/register/signup');
+        }
+        res.redirect('/register/login');
+      });
+    } else {
+      req.flash('error', "Passwords don't match");
+      res.redirect('/register/signup');
+    }
   } catch (error) {
-      res.redirect('/error_page', {error});
+    res.redirect('/error_page', {
+      error
+    });
   }
 });
+router.post('/login',  async (req, res, next) => {
+  return passport.authenticate('local', (err, user) => {
+    if (err) {
+      req.flash('error', err)
+      return res.redirect('/register/login')
+    }
+    req.logIn(user, function (err) {
+      if (err) res.sendStatus(401)
+      const convert = req.body.name + ":" + req.body.password;
+      res.cookie('isAdmin', req.user.role === 'admin');
+      res.cookie('basic', new Buffer(convert).toString('base64'));
+      res.redirect('/')
+    })
+  })(req, res, next)
+});
 
-router.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/register/login',
-    failureFlash: true
-  })
-);
+// router.post('/login', async(req, res) => {
+//     passport.authenticate('local', {
+//       successRedirect: '/',
+//       failureRedirect: '/register/login',
+//       failureFlash: true
+//     }, (req, res) => {
+//       const convert = req.body.name + ":" + req.body.password;
+//       res.cookie('isAdmin', req.user.role === 'admin');
+//       res.cookie('basic', new Buffer(convert).toString('base64'));
+//     })
+//   }
+
+//);
 
 router.get('/login', (req, res) => {
   res.render('login', {

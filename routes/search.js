@@ -7,7 +7,7 @@ var path = require('path');
 
 router.get("/", (req, res, next) => {
 
-  res.sendFile(path.join(__dirname + '/../views/search.html'));
+  res.sendFile(path.join(__dirname + '/../public/search.html'));
    
 });
 
