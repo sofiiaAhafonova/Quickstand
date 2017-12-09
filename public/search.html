@@ -1,146 +1,140 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="description" content="MY FIRST SITE DESCRIPTION">
     <meta name="author" content="Ahafonova Sofiia">
-    <link type="text/css" href="../stylesheets/style.css" rel="stylesheet"/>
+    <link type="text/css" href="../stylesheets/style.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
-<script id="header-template" type="text/x-handlebars-template">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Quickstand</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/projects">Projects</a>
-                    </li>
-                    {{#user}}
-                    <li>
-                        <a href="/projects/personal">Personal Projects</a>
-                    </li>
-                    <li>
-                        <a href="/project_form">Create Project</a>
-                    </li>
-                    {{#admin}}
-                    <li>
-                        <a href="/admin/allusers">All users</a>
-                    </li>
-                    {{/admin}}
-                    {{/user}}
-                    {{^user}}
-                    <li class="navbar-text"> Guest session</li>
-                    {{/user}}
-                </ul>
+    <script id="header-template" type="text/x-handlebars-template">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Quickstand</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/projects">Projects</a>
+                        </li>
+                        {{#user}}
+                        <li>
+                            <a href="/projects/personal">Personal Projects</a>
+                        </li>
+                        <li>
+                            <a href="/project_form">Create Project</a>
+                        </li>
+                        {{#admin}}
+                        <li>
+                            <a href="/admin/allusers">All users</a>
+                        </li>
+                        {{/admin}} {{/user}} {{^user}}
+                        <li class="navbar-text"> Guest session</li>
+                        {{/user}}
+                    </ul>
 
-                <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right">
 
-                    <li>
-                        <form class="navbar-form navbar-right" action="/projects">
-                            <div class="input-group">
-                                <input type="text" name="name" class="form-control" placeholder="Search">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
+                        <li>
+                            <form class="navbar-form navbar-right" action="/projects">
+                                <div class="input-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </li>
-                    {{#user}}
-                    <li>
-                        <a href="/profile">
+                            </form>
+                        </li>
+                        {{#user}}
+                        <li>
+                            <a href="/profile">
                                 <span class="  glyphicon glyphicon-user">
                                     {{user.name}}
                                 </span>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/register/logout">
+                                <span class="glyphicon glyphicon-log-out"></span> Log out
+                            </a>
+                        </li>
+                        {{/user}} {{^user}}
+                        <li>
+                            <a href="/register/signup">
+                                <span class="glyphicon glyphicon-user"></span> Sign Up
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/register/login">
+                                <span class="glyphicon glyphicon-log-in"></span> Log in
+                            </a>
+                        </li>
+                        {{/user}}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </script>
+    <div class="main">
+        <div class="projects">
+            <script id="srch-startups-template" type="text/x-handlebars-template">
+                <div id="search_block" class="panel-body">
+                    <form action="/projects" method="get" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input class="form-control" id="search-input" type="text" name="search-input" placeholder="Type here">
+                            <button id="search_button" name="btnsearch" type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </script>
+            <div id="search"></div>
+            <script type="text/x-handlebars-template" id="projects-template">
+                <ul>
+                    {{#each projects}}
                     <li>
-                        <a href="/register/logout">
-                            <span class="glyphicon glyphicon-log-out"></span> Log out
-                        </a>
-                    </li>
-                    {{/user}}
+                        <a href="projects/{{_id}}">
+                            <img src="{{image}}">
 
-                    {{^user}}
-                    <li>
-                        <a href="/register/signup">
-                            <span class="glyphicon glyphicon-user"></span> Sign Up
                         </a>
+                        <h2>
+                            <a href="projects/{{_id}}">
+                                {{name}}
+                            </a>
+                        </h2>
                     </li>
-                    <li>
-                        <a href="/register/login">
-                            <span class="glyphicon glyphicon-log-in"></span> Log in
-                        </a>
-                    </li>
-                    {{/user}}
+                    {{/each}}
                 </ul>
-            </div>
+            </script>
+            <div id="projects-list"></div>
         </div>
-    </nav>
-</script>
-<script id="srch-startups-template" type="text/x-handlebars-template">
-    <div id="search_block" class="panel-body">
-        <form action="/projects" method="get" enctype="multipart/form-data">
-            <div class="form-group">
-                <input class="form-control" id="search-input" type="text" name="search-input" placeholder="Type here">
-                <button id="search_button" name="btnsearch" type="submit">Search</button>
-            </div>
-        </form>
     </div>
-</script>
-<div id="search"></div>
-<script type="text/x-handlebars-template" id="projects-template">
-    <ul>
-        {{#projects}}
-        <li>
-            <a href="projects/{{_id}}">
-                <img src="{{image}}">
-
-            </a>
-            <h2>
-                <a href="projects/{{_id}}">
-                    {{name}}
-                </a>
-            </h2>
-        </li>
-        {{/projects}}
-    </ul>
-</script>
-<script type="template" id="simple">
-    <h1>Array Values</h1>
-    <ul>
-        {{#items}}
-        <li>{{.}}</li>
-        {{/items}}
-    </ul>
-</script>
-<div id="output"></div>
-<script>
-    window.addEventListener("load", function (el) {
-        //search();
-        //  header();
-        //  searchForm();
-        updateResults();
-    });
-</script>
-<script src="../javascripts/cookie.js"></script>
-<script src="../javascripts/searchProject.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+    <script>
+        window.addEventListener("load", function (el) {
+            //search();
+            //  header();
+            //  searchForm();
+            updateResults();
+        });
+    </script>
+    <script src="../javascripts/cookie.js"></script>
+    <script src="../javascripts/searchProject.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
 </body>
 
 </html>
