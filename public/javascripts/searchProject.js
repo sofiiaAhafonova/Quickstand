@@ -1,6 +1,6 @@
 
 function updateResults(page, value) {
-    var url = 'http://localhost:8080/api/v1/projects/';
+    var url = 'http://localhost:8080/api/v1/projects';
     
 	// Handlebars.registerHelper("for", function (number) {
 	// 	var src = '';

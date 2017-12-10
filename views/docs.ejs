@@ -24,7 +24,8 @@
                         <th>Parameters</th>
                         <th>Response</th>
                         <th>Auth</th>
-                        <th>Errors</th>
+                        <th>Errors <br>
+                        Status 404 - Not found<br>Status 500 - Internal Server Error</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,7 +35,7 @@
                         <td>none</td>
                         <td>Status 200 -  api opened</td>
                         <td>none</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error </td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>GET</td>
@@ -42,8 +43,7 @@
                         <td>page - Number of page in array <br> name - Name or part of name of project</td>
                         <td>Status 200 - Returns paginated array of all projects </td>
                         <td>Public</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
-                        <br> Status 400 -Wrong page number</td>
+                        <td>Status 400 -Wrong page number</td>
                     </tr>
                     <tr>
                         <td>POST</td>
@@ -51,8 +51,7 @@
                         <td>none</td>
                         <td>Status 200 - Creates project </td>
                         <td>Public</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
-                        <br> Status 400 - Errors in validation</td>
+                        <td> Status 400 - Errors in validation</td>
                     </tr>
                      <tr>
                         <td>GET</td>
@@ -60,8 +59,7 @@
                         <td>project_id</td>
                         <td>Status 200 - Returns project with same id </td>
                         <td>Public</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
-                        <br>Status 401 - Access to project denied</td>
+                        <td>Status 401 - Access to project denied</td>
                     </tr>
                      <tr>
                         <td>PUT</td>
@@ -69,8 +67,7 @@
                         <td>project_id</td>
                         <td>Status 200 - Updetes project with same id </td>
                         <td>Public</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
-                        <br>Status 401 - Access to project denied</td>
+                        <td>Status 401 - Access to project denied</td>
                     </tr>
                      <tr>
                         <td>DELETE</td>
@@ -78,8 +75,7 @@
                         <td>project_id</td>
                         <td>Status 200 - Removes project with same id </td>
                         <td>Public</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
-                        <br>Status 401 - Access to project denied</td>
+                        <td>Status 401 - Access to project denied</td>
                     </tr>
                     <tr>
                         <td>GET</td>
@@ -87,8 +83,7 @@
                         <td>page</td>
                         <td>Status 200 - Returns paginated array of users </td>
                         <td>Admin</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
-                        <br>Status 401 - Access to project denied<br>Status 400 - Wrong page number</td>
+                        <td>Status 401 - Access to project denied<br>Status 400 - Wrong page number</td>
                     </tr>
                      <tr>
                         <td>GET</td>
@@ -96,8 +91,7 @@
                         <td>user_name</td>
                         <td>Status 200 - Returns user with requested name</td>
                         <td>Public</td>
-                        <td>Status 404 - Not found<br>Status 500 - Internal Server Error
-                        <br>Status 400 - Validation Error</td>
+                        <td>Status 400 - Validation Error</td>
                     </tr>
                 </tbody>
             </table>

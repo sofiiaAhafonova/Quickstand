@@ -76,60 +76,24 @@ ul {
 }
 .mybtn
 {
-    align-self: center;
-    display: block;
     color: #ECC760;
     background-color: rgb(66, 61, 60);
     text-align: center;
     padding: 7px 16px;
     text-decoration: none;
     font-size: 15px;
-    margin-top: 6px;
-    margin-left: 35%;
 }
 
 button {
-    display: block;
-    color: #ECC760;
-    background-color: rgb(66, 61, 60);
+
     text-align: center;
     padding: 7px 16px;
     text-decoration: none;
-    font-size: 15px;
-    margin-top: 6px;
+    padding: 7px 16px;
+    font-size: 15px;  
 }
 
-.topnav {
-    background-color: #312D2C;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    width: 98%;
-    height: 50px;
-    border-radius: 24px 24px 24px 24px;
-    -moz-border-radius: 24px 24px 24px 24px;
-    -webkit-border-radius: 24px 24px 24px 24px;
-}
 
-.topnav a {
-    float: left;
-    display: block;
-    color: #EEE2C0;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-.topnav label {
-    float: left;
-    display: block;
-    color: rgb(211, 213, 217);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
 
 
 
@@ -214,5 +178,26 @@ th {
 textarea {
     resize: none;
 }
-
-
+.footer {
+    background-color: rgb(56, 53, 52);
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    margin: 20px 0 0;
+    color: rgb(247, 241, 224);
+    line-height: 24px;
+ }
+ .index {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+ }
+ .footer a {
+    color: rgb(247, 241, 224);
+}
+ .footer a:hover:not(.active) {
+    color: rgb(247, 241, 224);
+}

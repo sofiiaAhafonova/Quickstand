@@ -26,10 +26,13 @@
         <h1></h1>
          <%if(profileOwner.name == user.name){%>
                 <form action="profile/update">
-                  <button type="submit">Update</button>
+                  <button class="mybtn" type="submit">Update</button>
                   <form>
                     <%}%>
       </div>
     </div>
 </body>
+<div class="index">
+	<% include partials/footer.ejs%>
+</div>
 </html>

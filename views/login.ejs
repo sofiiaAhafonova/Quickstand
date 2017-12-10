@@ -12,7 +12,6 @@
 			<div class="projects">
 				<h2 id="C0">Log in</h2>
 				<form class="form-horizontal" action='/register/login' method='POST'>
-
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="name">Name:</label>
 						<div class="col-sm-6">
@@ -27,8 +26,8 @@
 							    required>
 						</div>
 					</div>
-
-					<button type="submit">Submit</button>
+					<br>
+					<button class="mybtn" type="submit">Submit</button>
 					<label>
 						<%=error%>
 					</label>
@@ -37,5 +36,8 @@
 			</div>
 		</div>
 </body>
+<div class="index">
+	<% include partials/footer.ejs%>
+</div>
 
 </html>

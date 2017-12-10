@@ -78,7 +78,7 @@ router.route("/")
                 public_id: project.name
             }).end((req.files.image.data));
             return res.json({
-                message: 'Project created!',
+                message: 'Project created! Id:' +  project._id,
                 success: true
             });
         }).catch(err => {
