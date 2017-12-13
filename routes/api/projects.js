@@ -25,7 +25,7 @@ router.route("/")
             pageNumber = 1;
         else
             pageNumber = req.query.page;
-        if (!Number.isInteger(Number.parseInt(pageNumber)) || pageNumber < 1) {
+        if ( pageNumber < 1) {
             return res.status(400).json({
                 message: "Wrong page number",
                 success: false
@@ -38,7 +38,7 @@ router.route("/")
             },
             "access": "Public"
         }, function (err, projects) {
-            if (!projects)
+            if (projects.documents.length == 0)
                 return res.status(200).json({
                     message: "Nothing was found",
                     success: true

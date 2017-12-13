@@ -17,8 +17,8 @@ div.projects {
     margin: auto;
     max-width: 70%;
     max-height: 200px;
-    margin-top:20px;
-    margin-bottom:20px;
+    padding-top:30px;
+  
 }
 
 .projects table {
@@ -134,20 +134,13 @@ th {
 }
 
 #search {
-    width: 300px;
+    width: 100%;
     border-radius: 4px;
-    font-size: 17 px;
-    padding: 12px 20px 12px 40px;
+    font-size: 17px;
+    padding: 30px 70px 30px 70px;
     text-decoration-color: #312D2C;
 }
 
-#search_button {
-    width: 100px;
-    height: 45px;
-    background-color: rgb(247, 241, 224);
-    text-decoration-color: #312D2C;
-    font-size: 17px;
-}
 
 .pagination {
     display: inline-block;
