@@ -1,0 +1,4 @@
+{
+    "dbUri":"mongodb://Tester:test@ds261755.mlab.com:61755/quickstand",
+    "jwtSecret": "a secret phrase!!"
+  }

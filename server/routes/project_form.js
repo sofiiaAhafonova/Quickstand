@@ -41,9 +41,13 @@ router.post("/", function (req, res, next) {
                     return;
                 }
                 if (req.files.logo)
-                    cloudinary.uploader.upload_stream({
+                {
+                    console.log(logo)
+                    cloudinary.uploader.upload_stream({},{
                         public_id: logo
                     }).end((req.files.logo.data));
+                }
+
                 console.log("added");
                 req.user.projects.push(doc._id);
                 req.user.save();

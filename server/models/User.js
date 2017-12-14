@@ -38,9 +38,10 @@ let userSch = new Schema({
     }
 });
 
-userSch.methods.comparePassword = function (password) {
-    return bcrypt.compareSync(password, this.password)
+userSch.methods.comparePassword = function (password, callback) {
+    return  bcrypt.compare(password, this.password, callback);
 };
+
 mongoosePages.skip(userSch);
 const User = mongoose.model('User', userSch);
 

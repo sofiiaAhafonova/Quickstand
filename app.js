@@ -1,9 +1,9 @@
 var express = require('express'),
     app = module.exports = express();
 var path = require('path');
-const projects = require("./routes/projects");
-const project_form = require("./routes/project_form");
-const search = require("./routes/search");
+const projects = require("./server/routes/projects");
+const project_form = require("./server/routes/project_form");
+const search = require("./server/routes/search");
 const bodyParser = require('body-parser')
 const busboyBodyParser = require('busboy-body-parser');
 const passport = require('passport');
@@ -11,12 +11,12 @@ const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-const register = require('./routes/register');
-const profile = require('./routes/profile');
-const admin = require('./routes/admin');
-const api = require('./routes/api/api');
+const register = require('./server/routes/register');
+const profile = require('./server/routes/profile');
+const admin = require('./server/routes/admin');
+const api = require('./server/routes/api/api');
 //const error_page = req
-const User = require('./models/User');
+const User = require('./server/models/User');
 const flash = require('connect-flash');
 
 app.set("view engine", "ejs");
@@ -24,9 +24,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(express.static('public'));
-app.set('public', path.join(__dirname, 'public'));
-app.set('views', path.join(__dirname, 'views'));
+app.use(express.static( path.join(__dirname, 'server', 'public')));
+app.use(express.static(path.join(__dirname, '../dist')));
+app.set('public', path.join(__dirname, 'server', 'public'));
+app.set('views', path.join(__dirname, 'server', 'views'));
 //for images
 app.use(busboyBodyParser({
     limit: '5mb'
@@ -75,31 +76,11 @@ app.get("/docs/api/v1", (req, res) => {
     });
 });
 
-passport.use(new LocalStrategy({
-        usernameField: 'name',
-        passwordField: 'password'
-    },
-    function (username, password, done) {
-        User.findOne({
-            name: username
-        }, function (err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (!user) {
-                return done(null, false, {
-                    message: 'Incorrect username.'
-                });
-            }
-            if (!user.comparePassword(password)) {
-                return done(null, false, {
-                    message: 'Incorrect password.'
-                });
-            }
-            return done(null, user);
-        });
-    }
-));
+// load passport strategies
+const localSignupStrategy = require('./server/passport/local-signup');
+const localLoginStrategy = require('./server/passport/local-login');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -112,7 +93,7 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-
+let authCheck = require('./server/middleware/auth-check')
 function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
     return res.redirect('/register/login');

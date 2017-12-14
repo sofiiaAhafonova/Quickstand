@@ -14,8 +14,7 @@ function updateResults(page, value) {
             for (let i = 1; i <= number; i++) {
                 src +=
                     ' <button class="page-link"  onclick="updateResults(' + i + ',\'' + value + '\')" >' +
-                    i +
-                    '</button>';
+                    i + '</button>';
             }
             return src;
         });
@@ -31,19 +30,8 @@ function updateResults(page, value) {
                 error: res["message"]
             });
     })
-
 }
 
-function header() {
-    let user = (Cookie('name') != null) ? Cookie('name') : false;
-    console.log(user)
-    const source = document.getElementById("header-template").innerHTML;
-    const template = Handlebars.compile(source);
-    document.getElementById("my-navbar").innerHTML = template({
-        user: user,
-        admin: Cookie('isAdmin')
-    });
-}
 
 function searchInput() {
     const source = document.getElementById("srch-projects-template").innerHTML;
