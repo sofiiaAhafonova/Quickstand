@@ -2,18 +2,19 @@ export const getProjects = async(page, value) => {
     if (!page || page < 1)
         page = 1;
     let name = !value ? '': '&name=' + value;
-    var url = 'http://localhost:8080/api/v1/projects?page=' + page + 
-    fetch(url, {
+    var url = 'http://localhost:8080/api/v1/projects?page=' + page + name
+    var res =  fetch(url, {
         method: 'get',
         credentials: 'include',
         headers: {
             Authorization: "Basic " + getCookie('basic')
         }
-    }).then(data => data.json()).then(projects => {
-        console.log( projects["projects"])
-        console.log( projects["totalPages"])
-        return projects;
     })
+    .then(data => data.json())
+    .then(projects => {
+        return projects;
+    });
+    return res;
 };
 
 export const deleteProject = async (id) => {
@@ -27,7 +28,7 @@ export const deleteProject = async (id) => {
     });
     if(response.status === 200) {
         console.log("success");
-        window.location.replace('/projects');
+       /// window.location.replace('/projects');
     } else {
         window.location.replace('/errors/500');
         console.log("status: " + response.status);

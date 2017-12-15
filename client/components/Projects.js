@@ -25,9 +25,7 @@ export default class Projects extends React.Component {
 
     componentDidMount(){
         getProjects().then(projects => {
-            console.log('projects '+ projects["projects"])
-            console.log('totalPages '+projects["totalPages"])
-         //  this.setState({pages: projects["totalPages"], projects:projects["projects"]});
+            this.setState({pages: projects["totalPages"], projects:projects["projects"]});
            
         });
 
@@ -73,11 +71,11 @@ export default class Projects extends React.Component {
                     </div>
                     </div>
                        {projects ? projects.map(project => (
-                               <div className="projects">
+                               <div >
                                    <img src= {project.image}
                                         alt = "project"/>
-                                   <a href= {"projects/" + project.id} > {project.name}</a> <br/>
-                                   <button onClick={() => this.onClickDeleteProject(project.id)}>Remove</button>
+                                   <a href= {"/projects/" + project._id} > {project.name}</a> <br/>
+                                   <button onClick={() => this.onClickDeleteProject( project._id)}>Remove</button>
                                </div>
                        )) : <h1>No found!</h1> }
 

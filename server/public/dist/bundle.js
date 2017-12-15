@@ -18441,7 +18441,6 @@ class Header extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_search__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_search___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_search__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__client_APIWrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__);
 
 
 
@@ -18462,21 +18461,19 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
     onClickDeleteProject(id) {
         const { searchValue } = this.state;
-        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["deleteProject"])(id);
+        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["a" /* deleteProject */])(id);
         console.log("deleting project by id: ", id);
         this.updateProject(undefined, searchValue);
     }
 
     componentDidMount() {
-        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["getProjects"])().then(projects => {
-            console.log('projects ' + projects["projects"]);
-            console.log('totalPages ' + projects["totalPages"]);
-            //  this.setState({pages: projects["totalPages"], projects:projects["projects"]});
+        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["b" /* getProjects */])().then(projects => {
+            this.setState({ pages: projects["totalPages"], projects: projects["projects"] });
         });
     }
 
     updateProject(page, search) {
-        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["getProjects"])(page, search).then(projects => {
+        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["b" /* getProjects */])(page, search).then(projects => {
             this.setState({ pages: projects["totalPages"], projects: projects["projects"] });
         });
     }
@@ -18532,12 +18529,12 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     ),
                     projects ? projects.map(project => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'projects' },
+                        null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: project.image,
                             alt: 'project' }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
-                            { href: "projects/" + project.id },
+                            { href: "/projects/" + project._id },
                             ' ',
                             project.name
                         ),
@@ -18545,7 +18542,7 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'button',
-                            { onClick: () => this.onClickDeleteProject(project.id) },
+                            { onClick: () => this.onClickDeleteProject(project._id) },
                             'Remove'
                         )
                     )) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -19046,9 +19043,68 @@ exports.default = Search;
 
 /***/ }),
 /* 31 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: C:/Users/Amita/Documents/KPI/2nd course/webprogbase2/client/APIWrapper.js: Unexpected token (17:0)\n\n\u001b[0m \u001b[90m 15 | \u001b[39m        \u001b[36mreturn\u001b[39m projects\u001b[33m;\u001b[39m\n \u001b[90m 16 | \u001b[39m    }\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 17 | \u001b[39m}\u001b[33m;\u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 18 | \u001b[39m\n \u001b[90m 19 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m deleteProject \u001b[33m=\u001b[39m async (id) \u001b[33m=>\u001b[39m {\n \u001b[90m 20 | \u001b[39m    \u001b[36mconst\u001b[39m url \u001b[33m=\u001b[39m \u001b[32m`http://localhost:8080/api/v1/projects/${id}`\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n");
+"use strict";
+const getProjects = async (page, value) => {
+    if (!page || page < 1) page = 1;
+    let name = !value ? '' : '&name=' + value;
+    var url = 'http://localhost:8080/api/v1/projects?page=' + page + name;
+    var res = fetch(url, {
+        method: 'get',
+        credentials: 'include',
+        headers: {
+            Authorization: "Basic " + getCookie('basic')
+        }
+    }).then(data => data.json()).then(projects => {
+        return projects;
+    });
+    return res;
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = getProjects;
+
+
+const deleteProject = async id => {
+    const url = `http://localhost:8080/api/v1/projects/${id}`;
+    console.log("deleting url: ", url);
+    const response = await fetch(url, {
+        method: 'delete',
+        headers: {
+            Authorization: "Basic " + getCookie('basic')
+        }
+    });
+    if (response.status === 200) {
+        console.log("success");
+        /// window.location.replace('/projects');
+    } else {
+        window.location.replace('/errors/500');
+        console.log("status: " + response.status);
+    }
+    return response.json;
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = deleteProject;
+
+
+const createProject = async data => {
+    let formData = new FormData();
+    for (let field in data) formData.append(field, data[field]);
+    console.log("form data in client wrapper api: ", formData);
+    const response = await fetch(`http://localhost:8080/api/v1/projects`, {
+        method: 'post',
+        body: formData,
+        headers: {
+            Authorization: "Basic " + getCookie('basic')
+        }
+    });
+    return response.json;
+};
+/* unused harmony export createProject */
+
+
+const getCookie = cookiename => {
+    let cookiestring = RegExp('' + cookiename + '[^;]+').exec(document.cookie);
+    return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./, '') : '');
+};
 
 /***/ })
 /******/ ]);
