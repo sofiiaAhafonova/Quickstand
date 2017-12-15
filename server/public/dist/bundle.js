@@ -18479,7 +18479,7 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 
     updateSearchValue(search) {
-        this.updateProject(undefined, search);
+        // this.updateProject(undefined, search);
         this.setState({ searchValue: search });
     }
 
@@ -18513,7 +18513,9 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'input-group' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onInput: e => {
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onKeyPress: e => {
+                                if (e.key === 'Enter') this.updateProject(undefined, searchValue);
+                            }, onInput: e => {
                                 this.updateSearchValue(e.target.value);
                             }, id: 'search-input', placeholder: 'Search', 'class': 'form-control', name: 'name', pattern: '^[a-zA-Z\\s]*$', maxLength: '32' }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -18542,7 +18544,7 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'button',
-                            { onClick: () => this.onClickDeleteProject(project._id) },
+                            { className: ' mybtn', onClick: () => this.onClickDeleteProject(project._id) },
                             'Remove'
                         )
                     )) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -18565,7 +18567,7 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                                     ' ',
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'button',
-                                        { className: 'page-link', onClick: () => this.updateProject(index, searchValue) },
+                                        { className: ' mybtn', onClick: () => this.updateProject(index, searchValue) },
                                         ' ',
                                         index,
                                         ' '
@@ -19056,9 +19058,8 @@ const getProjects = async (page, value) => {
         headers: {
             Authorization: "Basic " + getCookie('basic')
         }
-    }).then(data => data.json()).then(projects => {
-        return projects;
-    });
+    }).then(data => data.json());
+
     return res;
 };
 /* harmony export (immutable) */ __webpack_exports__["b"] = getProjects;
@@ -19075,30 +19076,13 @@ const deleteProject = async id => {
     });
     if (response.status === 200) {
         console.log("success");
-        /// window.location.replace('/projects');
     } else {
-        window.location.replace('/errors/500');
+        window.location.replace('/search');
         console.log("status: " + response.status);
     }
     return response.json;
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = deleteProject;
-
-
-const createProject = async data => {
-    let formData = new FormData();
-    for (let field in data) formData.append(field, data[field]);
-    console.log("form data in client wrapper api: ", formData);
-    const response = await fetch(`http://localhost:8080/api/v1/projects`, {
-        method: 'post',
-        body: formData,
-        headers: {
-            Authorization: "Basic " + getCookie('basic')
-        }
-    });
-    return response.json;
-};
-/* unused harmony export createProject */
 
 
 const getCookie = cookiename => {

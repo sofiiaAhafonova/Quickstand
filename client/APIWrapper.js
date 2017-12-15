@@ -11,9 +11,7 @@ export const getProjects = async(page, value) => {
         }
     })
     .then(data => data.json())
-    .then(projects => {
-        return projects;
-    });
+
     return res;
 };
 
@@ -28,27 +26,14 @@ export const deleteProject = async (id) => {
     });
     if(response.status === 200) {
         console.log("success");
-       /// window.location.replace('/projects');
     } else {
-        window.location.replace('/errors/500');
+        window.location.replace('/search');
         console.log("status: " + response.status);
     }
     return response.json;
 };
 
-export const createProject = async (data) => {
-    let formData = new FormData();
-    for (let field in data) formData.append(field, data[field]);
-    console.log("form data in client wrapper api: ", formData);
-    const response = await fetch(`http://localhost:8080/api/v1/projects`, {
-        method: 'post',
-        body: formData,
-        headers: {
-            Authorization: "Basic " + getCookie('basic')
-        }
-    });
-    return response.json;
-};
+
 
 const getCookie = cookiename => {
     let cookiestring = RegExp('' + cookiename + '[^;]+').exec(document.cookie);

@@ -38,7 +38,6 @@ export default class Projects extends React.Component {
     }
 
     updateSearchValue(search) {
-        this.updateProject(undefined, search);
         this.setState({searchValue: search});
     }
 
@@ -49,7 +48,6 @@ export default class Projects extends React.Component {
         }
         return array;
     }
-
 
     render() {
         const {projects} = this.state;
@@ -62,7 +60,8 @@ export default class Projects extends React.Component {
                    <h1>Search page</h1>
                    <div id="search">
                      <div className="input-group">
-                    <input type="text"  onInput={(e) =>{this.updateSearchValue(e.target.value)}} id="search-input" placeholder="Search" class="form-control" name="name" pattern="^[a-zA-Z\s]*$" maxLength="32"/>
+                    <input type="text" onKeyPress={e => { if (e.key === 'Enter') 
+            this.updateProject(undefined, searchValue);}} onInput={(e) =>{this.updateSearchValue(e.target.value)}} id="search-input" placeholder="Search" class="form-control" name="name" pattern="^[a-zA-Z\s]*$" maxLength="32"/>
                     <div className="input-group-btn">
                         <button onClick={() => this.updateProject(undefined, searchValue)} id="search_button" class="btn btn-default" type="submit">
                             <i className="glyphicon glyphicon-search"></i>
@@ -75,7 +74,7 @@ export default class Projects extends React.Component {
                                    <img src= {project.image}
                                         alt = "project"/>
                                    <a href= {"/projects/" + project._id} > {project.name}</a> <br/>
-                                   <button onClick={() => this.onClickDeleteProject( project._id)}>Remove</button>
+                                   <button className=" mybtn" onClick={() => this.onClickDeleteProject( project._id)}>Remove</button>
                                </div>
                        )) : <h1>No found!</h1> }
 
@@ -83,7 +82,7 @@ export default class Projects extends React.Component {
                    <nav >
                        <ul className="pagination">
                            {this.createArray(pages).map(index => (
-                               <li className="page-item"> <button className="page-link" onClick={() => this.updateProject(index, searchValue)}> {index} </button></li>
+                               <li className="page-item"> <button className=" mybtn" onClick={() => this.updateProject(index, searchValue)}> {index} </button></li>
                            ))}
                        </ul>
                    </nav>
