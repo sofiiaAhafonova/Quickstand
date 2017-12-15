@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static( path.join(__dirname, 'server', 'public')));
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname,'client','dist')));
 app.set('public', path.join(__dirname, 'server', 'public'));
 app.set('views', path.join(__dirname, 'server', 'views'));
 //for images
@@ -107,8 +107,8 @@ function checkAdmin(req, res, next) {
 }
 
 app.use("/projects", projects);
-app.use("/project_form", project_form);
-app.use("/search", search);
+app.use("/project_form",checkAuth, project_form);
+app.use("/search",checkAuth, search);
 app.use('/admin', checkAuth, checkAdmin, admin);
 app.use('/register', register);
 app.use('/profile', checkAuth, profile);

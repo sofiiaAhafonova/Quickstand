@@ -107,6 +107,8 @@ router.post('/login', (req, res, next) => {
     }
     req.logIn(userData, function (err) {
       if (err) res.sendStatus(401)
+      const convert = req.body.name + ":" + req.body.password;
+      res.cookie('basic', new Buffer(convert).toString('base64'));
       res.redirect('/')
     })
      

@@ -6,7 +6,7 @@ module.exports = {
         'bundle': './client/',
     },
     output: {
-        path: path.join(__dirname + '/public', 'dist'),
+        path: path.join(__dirname + '/server','public', 'dist'),
         filename: '[name].js',
         publicPath: '/static/',
         libraryTarget: 'umd',

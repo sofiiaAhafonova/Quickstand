@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/static/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -268,6 +268,21 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = __webpack_require__(17);
+} else {
+  module.exports = __webpack_require__(18);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 /**
@@ -304,21 +319,6 @@ emptyFunction.thatReturnsArgument = function (arg) {
 };
 
 module.exports = emptyFunction;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(17);
-} else {
-  module.exports = __webpack_require__(18);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 3 */
@@ -516,7 +516,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -572,6 +572,52 @@ module.exports = warning;
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+function checkDCE() {
+  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+  if (
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
+  ) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // This branch is unreachable because this function is only called
+    // in production, but the condition is true only in development.
+    // Therefore if the branch is still here, dead code elimination wasn't
+    // properly applied.
+    // Don't change the message. React DevTools relies on it. Also make sure
+    // this message doesn't occur elsewhere in this function, or it will cause
+    // a false positive.
+    throw new Error('^_^');
+  }
+  try {
+    // Verify that the code above has been dead code eliminated (DCE'd).
+    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
+  } catch (err) {
+    // DevTools shouldn't crash React, no matter what.
+    // We should still report in case we break this code.
+    console.error(err);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  // DCE check should happen before ReactDOM bundle executes so that
+  // DevTools can report bad minification during injection.
+  checkDCE();
+  module.exports = __webpack_require__(16);
+} else {
+  module.exports = __webpack_require__(22);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -638,7 +684,7 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -677,7 +723,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -692,7 +738,7 @@ module.exports = ExecutionEnvironment;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -758,7 +804,7 @@ module.exports = EventListener;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -800,7 +846,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +917,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -914,7 +960,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -944,67 +990,17 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__client_App__ = __webpack_require__(27);
-let ReactDOM = __webpack_require__(15);
-let React = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__client_app__ = __webpack_require__(27);
+let ReactDOM = __webpack_require__(7);
+let React = __webpack_require__(1);
 
 
-ReactDOM.render(React.createElement(
-    'h1',
-    null,
-    'Hello, world!'
-), document.getElementById('root'));
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
-  ) {
-    return;
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = __webpack_require__(16);
-} else {
-  module.exports = __webpack_require__(22);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+ReactDOM.render(React.createElement(__WEBPACK_IMPORTED_MODULE_0__client_app__["a" /* default */], null), document.getElementById('root'));
 
 /***/ }),
 /* 16 */
@@ -1023,7 +1019,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(2),l=__webpack_require__(8),B=__webpack_require__(3),C=__webpack_require__(1),ba=__webpack_require__(9),da=__webpack_require__(10),ea=__webpack_require__(11),fa=__webpack_require__(12),ia=__webpack_require__(13),D=__webpack_require__(4);
+var aa=__webpack_require__(1),l=__webpack_require__(9),B=__webpack_require__(3),C=__webpack_require__(2),ba=__webpack_require__(10),da=__webpack_require__(11),ea=__webpack_require__(12),fa=__webpack_require__(13),ia=__webpack_require__(14),D=__webpack_require__(4);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -1256,7 +1252,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(3),n=__webpack_require__(4),p=__webpack_require__(1),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(3),n=__webpack_require__(4),p=__webpack_require__(2),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -1296,8 +1292,8 @@ var _assign = __webpack_require__(3);
 var emptyObject = __webpack_require__(4);
 var invariant = __webpack_require__(5);
 var warning = __webpack_require__(6);
-var emptyFunction = __webpack_require__(1);
-var checkPropTypes = __webpack_require__(7);
+var emptyFunction = __webpack_require__(2);
+var checkPropTypes = __webpack_require__(8);
 
 // TODO: this is special because it gets imported during build.
 
@@ -2732,19 +2728,19 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var React = __webpack_require__(2);
+var React = __webpack_require__(1);
 var invariant = __webpack_require__(5);
 var warning = __webpack_require__(6);
-var ExecutionEnvironment = __webpack_require__(8);
+var ExecutionEnvironment = __webpack_require__(9);
 var _assign = __webpack_require__(3);
-var emptyFunction = __webpack_require__(1);
-var EventListener = __webpack_require__(9);
-var getActiveElement = __webpack_require__(10);
-var shallowEqual = __webpack_require__(11);
-var containsNode = __webpack_require__(12);
-var focusNode = __webpack_require__(13);
+var emptyFunction = __webpack_require__(2);
+var EventListener = __webpack_require__(10);
+var getActiveElement = __webpack_require__(11);
+var shallowEqual = __webpack_require__(12);
+var containsNode = __webpack_require__(13);
+var focusNode = __webpack_require__(14);
 var emptyObject = __webpack_require__(4);
-var checkPropTypes = __webpack_require__(7);
+var checkPropTypes = __webpack_require__(8);
 var hyphenateStyleName = __webpack_require__(23);
 var camelizeStyleName = __webpack_require__(25);
 
@@ -18273,17 +18269,786 @@ module.exports = camelize;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__client_components_Header__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__client_components_Projects__ = __webpack_require__(29);
+
+
+
+
+// import CreateNewProject from '../client/components/CreateNewProject'
+/* <Projects/>
+               <CreateNewProject/> */
+class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__client_components_Header__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__client_components_Projects__["a" /* default */], null)
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = App;
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
 
-class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+class Header extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "nav",
+                { className: "navbar navbar-inverse navbar-fixed-top" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "container-fluid" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "navbar-header" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "button",
+                            { type: "button", className: "navbar-toggle", "data-toggle": "collapse", "data-target": "#myNavbar" },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { className: "icon-bar" }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { className: "icon-bar" }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { className: "icon-bar" })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "a",
+                            { className: "navbar-brand", href: "/" },
+                            "Quickstand"
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "collapse navbar-collapse", id: "myNavbar" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "ul",
+                            { className: "nav navbar-nav" },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "li",
+                                { className: "active" },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "a",
+                                    { href: "/" },
+                                    "Home"
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "li",
+                                null,
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "a",
+                                    { href: "/projects" },
+                                    "Projects"
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "li",
+                                null,
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "a",
+                                    { href: "/projects/personal" },
+                                    "Personal Projects"
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "li",
+                                null,
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "a",
+                                    { href: "/project_form" },
+                                    "Create Project"
+                                )
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "ul",
+                            { className: "nav navbar-nav navbar-right" },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "li",
+                                null,
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "form",
+                                    { className: "navbar-form navbar-right", action: "/search" },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        "div",
+                                        { className: "input-group" },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", name: "name", className: "form-control", placeholder: "Search" }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            "div",
+                                            { className: "input-group-btn" },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                "button",
+                                                { className: "btn btn-default", type: "submit" },
+                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-search" })
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "li",
+                                null,
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "a",
+                                    { href: "/profile" },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        "span",
+                                        { className: "  glyphicon glyphicon-user" },
+                                        " "
+                                    ),
+                                    " "
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                "li",
+                                null,
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "a",
+                                    { href: "/register/logout" },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { className: "glyphicon glyphicon-log-out" }),
+                                    " Log out"
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
     }
 }
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = Header;
 
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_search__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_search___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_search__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__client_APIWrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__);
+
+
+
+
+class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            projects: null,
+            pages: null,
+            searchValue: undefined
+        };
+        this.onClickDeleteProject = this.onClickDeleteProject.bind(this);
+        this.createArray = this.createArray.bind(this);
+        this.updateProject = this.updateProject.bind(this);
+        this.updateSearchValue = this.updateSearchValue.bind(this);
+    }
+
+    onClickDeleteProject(id) {
+        const { searchValue } = this.state;
+        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["deleteProject"])(id);
+        console.log("deleting project by id: ", id);
+        this.updateProject(undefined, searchValue);
+    }
+
+    componentDidMount() {
+        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["getProjects"])().then(projects => {
+            console.log('projects ' + projects["projects"]);
+            console.log('totalPages ' + projects["totalPages"]);
+            //  this.setState({pages: projects["totalPages"], projects:projects["projects"]});
+        });
+    }
+
+    updateProject(page, search) {
+        Object(__WEBPACK_IMPORTED_MODULE_2__client_APIWrapper__["getProjects"])(page, search).then(projects => {
+            this.setState({ pages: projects["totalPages"], projects: projects["projects"] });
+        });
+    }
+
+    updateSearchValue(search) {
+        this.updateProject(undefined, search);
+        this.setState({ searchValue: search });
+    }
+
+    createArray(lenght) {
+        let array = [];
+        for (let i = 1; i <= lenght; i++) {
+            array.push(i);
+        }
+        return array;
+    }
+
+    render() {
+        const { projects } = this.state;
+        const { pages } = this.state;
+        const { searchValue } = this.state;
+
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'main projects' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    'Search page'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { id: 'search' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'input-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onInput: e => {
+                                this.updateSearchValue(e.target.value);
+                            }, id: 'search-input', placeholder: 'Search', 'class': 'form-control', name: 'name', pattern: '^[a-zA-Z\\s]*$', maxLength: '32' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'input-group-btn' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'button',
+                                { onClick: () => this.updateProject(undefined, searchValue), id: 'search_button', 'class': 'btn btn-default', type: 'submit' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'glyphicon glyphicon-search' })
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null)
+                        )
+                    ),
+                    projects ? projects.map(project => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'projects' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: project.image,
+                            alt: 'project' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'a',
+                            { href: "projects/" + project.id },
+                            ' ',
+                            project.name
+                        ),
+                        ' ',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { onClick: () => this.onClickDeleteProject(project.id) },
+                            'Remove'
+                        )
+                    )) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h1',
+                        null,
+                        'No found!'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'nav',
+                            null,
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'ul',
+                                { className: 'pagination' },
+                                this.createArray(pages).map(index => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    { className: 'page-item' },
+                                    ' ',
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'button',
+                                        { className: 'page-link', onClick: () => this.updateProject(index, searchValue) },
+                                        ' ',
+                                        index,
+                                        ' '
+                                    )
+                                ))
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Projects;
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(7);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Autocomplete Search component
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               **/
+
+
+var Search = function (_Component) {
+  _inherits(Search, _Component);
+
+  _createClass(Search, null, [{
+    key: 'defaultProps',
+    get: function get() {
+      return {
+        initialSelected: [],
+        placeholder: '— None',
+        NotFoundPlaceholder: 'Please search for some items...',
+        maxSelected: 100,
+        multiple: false
+      };
+    }
+  }, {
+    key: 'propTypes',
+    get: function get() {
+      return {
+        items: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object).isRequired,
+        initialSelected: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.object, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object)]),
+        onItemsChanged: _react2.default.PropTypes.func,
+        placeholder: _react2.default.PropTypes.string,
+        NotFoundPlaceholder: _react2.default.PropTypes.string,
+        maxSelected: _react2.default.PropTypes.number,
+        multiple: _react2.default.PropTypes.bool,
+        onKeyChange: _react2.default.PropTypes.func,
+        getItemsAsync: _react2.default.PropTypes.func
+      };
+    }
+  }]);
+
+  function Search(props) {
+    _classCallCheck(this, Search);
+
+    var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+
+    _this.state = {
+      menuItems: [],
+      selectedItems: [],
+      searchValue: '',
+      menuVisible: false
+    };
+    return _this;
+  }
+
+  _createClass(Search, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var initialSelected = this.props.initialSelected;
+
+      if (initialSelected instanceof Array) {
+        this.setSelected(initialSelected);
+      } else {
+        this.addSelected(initialSelected);
+      }
+    }
+  }, {
+    key: 'SearchItemInArrayObjects',
+    value: function SearchItemInArrayObjects(items, input, searchKey) {
+      var reg = new RegExp(input.split('').join('\\w*').replace(/\W/, ''), 'i');
+      return items.filter(function (item) {
+        if (reg.test(item[searchKey])) {
+          return item;
+        }
+      });
+    }
+  }, {
+    key: 'selectMenuItem',
+    value: function selectMenuItem(item) {
+      var multiple = this.props.multiple;
+
+      multiple ? this.addSelected(item) : this.setSelected([item]);
+      this.hideMenu();
+    }
+  }, {
+    key: 'showMenu',
+    value: function showMenu() {
+      this.setState({ menuVisible: true });
+    }
+  }, {
+    key: 'hideMenu',
+    value: function hideMenu() {
+      this.setState({ menuVisible: false });
+      this.resetPlaceholder();
+    }
+  }, {
+    key: 'triggerItemsChanged',
+    value: function triggerItemsChanged() {
+      if (this.props.onItemsChanged !== undefined) {
+        this.props.onItemsChanged(this.state.selectedItems);
+      }
+    }
+  }, {
+    key: 'triggerKeyChange',
+    value: function triggerKeyChange(searchValue) {
+      if (this.props.onKeyChange !== undefined) {
+        this.props.onKeyChange(searchValue);
+      }
+    }
+  }, {
+    key: 'triggerGetItemsAsync',
+    value: function triggerGetItemsAsync(searchValue) {
+      var _this2 = this;
+
+      if (this.props.getItemsAsync !== undefined) {
+        this.props.getItemsAsync(searchValue, function () {
+          _this2.updateSearchValue(searchValue);
+        });
+      }
+    }
+  }, {
+    key: 'setSelected',
+    value: function setSelected(selected) {
+      var _this3 = this;
+
+      this.setState({ selectedItems: selected }, function () {
+        _this3.triggerItemsChanged();
+      });
+    }
+  }, {
+    key: 'addSelected',
+    value: function addSelected(selected) {
+      var _this4 = this;
+
+      var items = this.state.selectedItems;
+      items.push(selected);
+      this.setState({ selectedItems: items }, function () {
+        _this4.triggerItemsChanged();
+      });
+    }
+  }, {
+    key: 'removeSelected',
+    value: function removeSelected(itemId) {
+      var _this5 = this;
+
+      var items = this.state.selectedItems;
+      var itemsUpdated = items.filter(function (i) {
+        return i.id != itemId;
+      });
+      this.setState({ selectedItems: itemsUpdated }, function () {
+        _this5.triggerItemsChanged();
+      });
+    }
+  }, {
+    key: 'updateSearchValue',
+    value: function updateSearchValue(value) {
+      var _this6 = this;
+
+      var items = this.props.items;
+
+      this.setState({ searchValue: value }, function () {
+        var menuItems = _this6.SearchItemInArrayObjects(items, _this6.state.searchValue, 'value');
+        _this6.setMenuItems(menuItems);
+      });
+    }
+  }, {
+    key: 'showAllMenuItems',
+    value: function showAllMenuItems() {
+      var items = this.props.items;
+
+      this.setState({ searchValue: '' });
+      var menuItems = this.SearchItemInArrayObjects(items, '', 'value');
+      this.setMenuItems(menuItems);
+    }
+  }, {
+    key: 'setMenuItems',
+    value: function setMenuItems(items) {
+      var getItemsAsync = this.props.getItemsAsync;
+
+      this.setState({ menuItems: items });
+      if (items.length || getItemsAsync != undefined) {
+        this.showMenu();
+      } else {
+        this.hideMenu();
+      }
+    }
+  }, {
+    key: 'itemSelected',
+    value: function itemSelected(itemId) {
+      var selectedItems = this.state.selectedItems;
+
+      var item = selectedItems.find(function (s) {
+        return s.id === itemId;
+      });
+      return item != undefined ? true : false;
+    }
+  }, {
+    key: 'focusInput',
+    value: function focusInput() {
+      var _this7 = this;
+
+      this.showAllMenuItems();
+      _reactDom2.default.findDOMNode(this.refs.searchInput).placeholder = '';
+      _reactDom2.default.findDOMNode(this.refs.searchInput).value = '';
+      this.blurTimeout = setTimeout(function () {
+        _reactDom2.default.findDOMNode(_this7.refs.searchInput).focus();
+      }, 100);
+    }
+  }, {
+    key: 'blurInput',
+    value: function blurInput() {
+      var _this8 = this;
+
+      this.blurTimeout = setTimeout(function () {
+        _reactDom2.default.findDOMNode(_this8.refs.searchInput).blur();
+        _this8.hideMenu();
+      }, 100);
+    }
+  }, {
+    key: 'resetPlaceholder',
+    value: function resetPlaceholder() {
+      var placeholder = _reactDom2.default.findDOMNode(this.refs.placeholder);
+      placeholder = this.props.placeholder;
+    }
+  }, {
+    key: 'handleRemove',
+    value: function handleRemove(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.removeSelected(e.target.dataset.id);
+    }
+  }, {
+    key: 'handleFocus',
+    value: function handleFocus(e) {
+      this.focusInput();
+    }
+  }, {
+    key: 'handleBlur',
+    value: function handleBlur(e) {
+      this.blurInput();
+    }
+  }, {
+    key: 'handleClick',
+    value: function handleClick(e) {
+      this.focusInput();
+    }
+  }, {
+    key: 'handleItemClick',
+    value: function handleItemClick(e) {
+      this.focusInput();
+    }
+  }, {
+    key: 'handleSelect',
+    value: function handleSelect(e) {
+      var element = e.currentTarget.children[0];
+      var item = { id: parseInt(element.dataset.id), value: element.innerHTML.replace(/&amp;/g, '&') };
+      this.selectMenuItem(item);
+    }
+  }, {
+    key: 'handleKeyChange',
+    value: function handleKeyChange(e) {
+      var getItemsAsync = this.props.getItemsAsync;
+
+      var value = this.refs.searchInput.value;
+      this.triggerKeyChange(value);
+      if (getItemsAsync != undefined) {
+        this.triggerGetItemsAsync(value);
+      } else {
+        this.updateSearchValue(value);
+      }
+    }
+  }, {
+    key: 'renderMenuItems',
+    value: function renderMenuItems() {
+      var _this9 = this;
+
+      var _state = this.state,
+          menuItems = _state.menuItems,
+          selectedItems = _state.selectedItems;
+      var NotFoundPlaceholder = this.props.NotFoundPlaceholder;
+
+      if (!menuItems.length) {
+        return _react2.default.createElement(
+          'li',
+          { className: 'autocomplete__item autocomplete__item--disabled' },
+          _react2.default.createElement(
+            'span',
+            { 'data-id': 0 },
+            NotFoundPlaceholder
+          )
+        );
+      }
+
+      var items = menuItems.map(function (item, i) {
+        if (_this9.itemSelected(item.id)) {
+          return _react2.default.createElement(
+            'li',
+            { key: i, className: 'autocomplete__item autocomplete__item--disabled' },
+            _react2.default.createElement('span', { key: i, 'data-id': item.id, dangerouslySetInnerHTML: { __html: item.value } })
+          );
+        } else {
+          return _react2.default.createElement(
+            'li',
+            { key: i, className: 'autocomplete__item', onClick: _this9.handleSelect.bind(_this9) },
+            _react2.default.createElement('span', { key: i, 'data-id': item.id, dangerouslySetInnerHTML: { __html: item.value } })
+          );
+        }
+      });
+      return items;
+    }
+  }, {
+    key: 'renderSelectedItems',
+    value: function renderSelectedItems() {
+      var _this10 = this;
+
+      var selectedItems = this.state.selectedItems;
+      var _props = this.props,
+          multiple = _props.multiple,
+          placeholder = _props.placeholder;
+
+      if (!selectedItems.length && multiple) return;
+
+      if (!selectedItems.length && !multiple) {
+        return _react2.default.createElement(
+          'li',
+          { className: 'autocomplete__item autocomplete__item--selected autocomplete__item__dropdown',
+            onClick: this.handleItemClick.bind(this) },
+          _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: placeholder } }),
+          _react2.default.createElement('span', { className: 'autocomplete__dropdown' })
+        );
+      }
+
+      var items = selectedItems.map(function (item, i) {
+        var itemClass = 'autocomplete__item autocomplete__item--selected autocomplete__item__dropdown';
+        var dropDown = _react2.default.createElement('span', { className: 'autocomplete__dropdown' });
+        var icon = _react2.default.createElement('span', { 'data-id': item.id, className: 'autocomplete__close',
+          onClick: _this10.handleRemove.bind(_this10) });
+
+        if (multiple) {
+          dropDown = null;
+          itemClass = 'autocomplete__item autocomplete__item--selected';
+        }
+
+        return _react2.default.createElement(
+          'li',
+          { key: i, className: itemClass, onClick: _this10.handleItemClick.bind(_this10) },
+          _react2.default.createElement('span', { 'data-id': item.id, dangerouslySetInnerHTML: { __html: item.value } }),
+          icon,
+          dropDown
+        );
+      });
+      return items;
+    }
+  }, {
+    key: 'renderInput',
+    value: function renderInput() {
+      var _props2 = this.props,
+          maxSelected = _props2.maxSelected,
+          multiple = _props2.multiple;
+      var selectedItems = this.state.selectedItems;
+
+      var inputClass = 'autocomplete__input';
+      if (multiple && selectedItems.length >= maxSelected) {
+        inputClass = 'autocomplete__input autocomplete__input--hidden';
+      }
+
+      return _react2.default.createElement('input', { type: 'text',
+        className: inputClass,
+        ref: 'searchInput',
+        placeholder: this.props.placeholder,
+        onClick: this.handleClick.bind(this),
+        onFocus: this.handleFocus.bind(this),
+        onBlur: this.handleBlur.bind(this),
+        onKeyUp: this.handleKeyChange.bind(this) });
+    }
+  }, {
+    key: 'getMenuClass',
+    value: function getMenuClass() {
+      var _props3 = this.props,
+          maxSelected = _props3.maxSelected,
+          multiple = _props3.multiple;
+      var _state2 = this.state,
+          menuVisible = _state2.menuVisible,
+          selectedItems = _state2.selectedItems;
+
+      var menuClass = 'autocomplete__menu autocomplete__menu--hidden';
+      if (menuVisible && !multiple) {
+        menuClass = 'autocomplete__menu';
+      }
+      if (menuVisible && selectedItems.length < maxSelected) {
+        menuClass = 'autocomplete__menu';
+      }
+      return menuClass;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var multiple = this.props.multiple;
+
+      var menuClass = this.getMenuClass();
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'autocomplete' },
+        _react2.default.createElement(
+          'div',
+          { className: 'autocomplete__selected' },
+          _react2.default.createElement(
+            'ul',
+            { className: 'autocomplete__items' },
+            this.renderSelectedItems()
+          )
+        ),
+        multiple && this.renderInput(),
+        _react2.default.createElement(
+          'div',
+          { className: 'autocomplete__menu--wrap' },
+          _react2.default.createElement(
+            'div',
+            { className: menuClass, ref: 'autocomplete' },
+            !multiple && this.renderInput(),
+            _react2.default.createElement(
+              'ul',
+              { className: 'autocomplete__items' },
+              this.renderMenuItems()
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Search;
+}(_react.Component);
+
+exports.default = Search;
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: SyntaxError: C:/Users/Amita/Documents/KPI/2nd course/webprogbase2/client/APIWrapper.js: Unexpected token (17:0)\n\n\u001b[0m \u001b[90m 15 | \u001b[39m        \u001b[36mreturn\u001b[39m projects\u001b[33m;\u001b[39m\n \u001b[90m 16 | \u001b[39m    }\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 17 | \u001b[39m}\u001b[33m;\u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 18 | \u001b[39m\n \u001b[90m 19 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m deleteProject \u001b[33m=\u001b[39m async (id) \u001b[33m=>\u001b[39m {\n \u001b[90m 20 | \u001b[39m    \u001b[36mconst\u001b[39m url \u001b[33m=\u001b[39m \u001b[32m`http://localhost:8080/api/v1/projects/${id}`\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n");
 
 /***/ })
 /******/ ]);

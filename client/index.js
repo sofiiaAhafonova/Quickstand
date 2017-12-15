@@ -1,9 +1,9 @@
 let ReactDOM = require('react-dom');
 let React = require('react');
-import App from '../client/App'
+import App from '../client/app'
+
 
 ReactDOM.render(
-    
-    <h1>Hello, world!</h1>,
+    <App/>, 
      document.getElementById('root')
 );
