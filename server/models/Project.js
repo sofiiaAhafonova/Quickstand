@@ -59,7 +59,16 @@ var projectSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',    }
+        ref: 'User'
+    },
+    admin: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    boards:{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Board'
+    }
 });
 mongoosePages.skip(projectSchema);
 
