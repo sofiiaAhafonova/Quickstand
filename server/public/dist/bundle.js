@@ -18479,7 +18479,6 @@ class Projects extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 
     updateSearchValue(search) {
-        // this.updateProject(undefined, search);
         this.setState({ searchValue: search });
     }
 
