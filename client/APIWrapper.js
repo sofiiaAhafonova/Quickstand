@@ -2,7 +2,7 @@ export const getProjects = async(page, value) => {
     if (!page || page < 1)
         page = 1;
     let name = !value ? '': '&name=' + value;
-    var url = 'http://localhost:8080/api/v1/projects?page=' + page + name
+    var url = 'https://quickstand-web.herokuapp.com/api/v1/projects?page=' + page + name
     var res =  fetch(url, {
         method: 'get',
         credentials: 'include',
@@ -16,7 +16,7 @@ export const getProjects = async(page, value) => {
 };
 
 export const deleteProject = async (id) => {
-    const url = `http://localhost:8080/api/v1/projects/${id}`;
+    const url = `https://quickstand-web.herokuapp.com/api/v1/projects/${id}`;
     console.log("deleting url: ", url);
     const response = await fetch(url, {
         method: 'delete',
