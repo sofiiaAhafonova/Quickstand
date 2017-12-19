@@ -32,7 +32,7 @@ let userSch = new Schema({
     },
     projects: {
         type: [{
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Project'
         }]
     }

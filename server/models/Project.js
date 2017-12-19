@@ -55,17 +55,19 @@ var projectSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        default:  "http://res.cloudinary.com/de46jchnd/image/upload/v1512629286/default-placeholder-project_x3gi0l.png"
+        default: "http://res.cloudinary.com/de46jchnd/image/upload/v1512629286/default-placeholder-project_x3gi0l.png"
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    admin: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+    team: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }]
     },
-    boards:{
+    boards: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Board'
     }

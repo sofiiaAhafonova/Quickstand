@@ -1,0 +1,131 @@
+let express = require("express");
+let router = express.Router();
+const Project = require('../../models/Project')
+const User = require('../../models/User');
+const Board = require('../../models/Board');
+const project = require('./projects');
+
+
+const valideFields = ['name', 'description']
+
+router.route("/")
+    .post(function asynk(req, res) {
+        const {
+            name,
+            description,
+            project
+        } = req.body;
+        console.log(req.body)
+        let requser = res.locals.user._id;
+        Project.findById(project, (err, proj) => {
+            if (err || !proj)
+                res.status(400).json({
+                    message: "Wrong project id"
+                });
+            if (requser.equals(proj.user)) {
+                Board.create({
+                        name,
+                        description,
+                        project: proj._id,
+                        user: requser
+                    },
+                    function (err, board) {
+                        if (err) return res.status(400).json({
+                            message: err.message
+                        });
+                        res.status(200).json({
+                            message: 'Board created!',
+                            board_id: board._id
+                        })
+                    })
+            }
+        })
+    })
+
+router.route("/:board_id")
+    .get(function asynk(req, res) {
+        let id = req.params.board_id;
+        Board.findById(id, (err, board) => {
+            if (err)
+                return res.status(400).json({
+                    message: "Invalid request"
+                });
+            if (!board)
+                return res.status(404).json({
+                    message: "No boards were found"
+                });
+            let requser = res.locals.user._id;
+            if (board.team.find(user => requser.equals(user)) || requser.equals(board.user))
+                return res.status(200).json({
+                    board
+                })
+            else
+                return res.status(403).json({
+                    message: "You couldn't view this project"
+                });
+        })
+    })
+    .put(function asynk(req, res) {
+        let id = req.params.board_id;
+        const {
+            name,
+            description,
+            project
+        } = req.body;
+        Board.findById(id, (err, board) => {
+            if (err)
+                return res.status(400).json({
+                    message: "Invalid request"
+                });
+            if (!board)
+                return res.status(404).json({
+                    message: "No boards were found"
+                });
+            let requser = res.locals.user._id;
+            if (requser.equals(board.user)) {
+                if(name) board.name = name;
+                if(description) board.description = description;
+                board.save((err, board) => {
+                    if(err) return res.status(400).json({message: "Invalid request"})
+                    return res.status(200).json({
+                        message: "Board updated",
+                        id: board._id
+                    })
+                })
+            } else
+                return res.status(403).json({
+                    message: "You couldn't update this project"
+                });
+        })
+
+    })
+    .delete(function asynk(req, res) {
+        let id = req.params.board_id;
+        Board.findById(id, (err, board) => {
+            if (err)
+                return res.status(400).json({
+                    message: "Invalid request"
+                });
+            if (!board)
+                return res.status(404).json({
+                    message: "No boards were found"
+                });
+            let requser = res.locals.user._id;
+            if (requser.equals(board.user)) {
+                board.remove((err, board) => {
+                    if(err) return res.status(400).json({message: "Invalid request"})
+                    return res.status(200).json({
+                        message: "Board deleted",
+                        id: board._id
+                    })
+                })
+            } else
+                return res.status(403).json({
+                    message: "You couldn't delete this project"
+                });
+        })
+    })
+
+
+
+module.exports = router;

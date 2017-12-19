@@ -6,6 +6,31 @@ var auth = require("./auth");
 let _ = require("underscore");
 var cloudinary = require('cloudinary');
 
+
+module.exports.checkProject =  (req)=> {
+    let id = req.params.project_id;
+    Project.findById(id, function (error, project) {
+        if (error)
+            console.log(error.message);
+        if (!project)
+            return Promise.reject({
+                message: 'Not found',
+                status: 404
+            })
+        let requser = res.locals.user._id;
+        let owner = project.user;
+        if (requser.equals(owner) || project.access == "Public")
+            return Promise.resolve({
+                project,
+                status: 200
+            });
+        else
+            return Promise.reject({
+                message: "You couldn't view this project",
+                status: 403
+            });
+    })
+}
 cloudinary.config({
     cloud_name: 'de46jchnd',
     api_key: '365483611972472',
@@ -13,7 +38,7 @@ cloudinary.config({
 
 });
 
-const validFieldsForUpdate = ['name', 'description', 'image', 'rating', "team",
+const validFieldsForUpdate = ['name', 'description', 'image', 'rating', 
     "start_date", "finish_date", "man_hour", "access", "status"
 ]
 
@@ -25,7 +50,7 @@ router.route("/")
             pageNumber = 1;
         else
             pageNumber = req.query.page;
-        if ( pageNumber < 1) {
+        if (pageNumber < 1) {
             return res.status(400).json({
                 message: "Wrong page number",
                 success: false
@@ -78,7 +103,8 @@ router.route("/")
                 public_id: project.name
             }).end((req.files.image.data));
             return res.json({
-                message: 'Project created! Id:' +  project._id,
+                message: 'Project created!',
+                project: project._id,
                 success: true
             });
         }).catch(err => {
@@ -109,7 +135,7 @@ router.route("/:project_id")
                         project
                     });
                 else
-                    return res.status(401)
+                    return res.status(403)
                         .json({
                             message: "You couldn't view this project",
                             success: false
@@ -151,8 +177,7 @@ router.route("/:project_id")
     })
     .delete((req, res, next) => {
         let id = req.params.project_id;
-        if (res.locals.user.projects.find(el => el == id) || res.locals.user.role == "admin" )
-        {
+        if (res.locals.user.projects.find(el => el == id) || res.locals.user.role == "admin") {
             Project.findByIdAndRemove(id,
                 function (err, project) {
                     if (err)
@@ -177,5 +202,34 @@ router.route("/:project_id")
                 message: 'Access denied',
                 success: false
             });
+    })
+router.route("/:project_id/boards")
+    .get(function asynk(req, res) {
+        project.checkProject(req)
+            .then(
+                (project) => {
+                    Board.find({
+                        _id: {
+                            $in: project.boards
+                        }
+                    }, (err, boards) => {
+                        if (err)
+                            return res.status(400).json({
+                                message: 'Invalid request'
+                            });
+                        if (!boards)
+                            return res.status(200).json({
+                                message: 'No boards were found'
+                            });
+                        res.status(200).json({
+                            boards
+                        });
+                    })
+                },
+                (rej) => res.status(rej.status).json({
+                    message: rej.message
+                })
+            )
+
     })
 module.exports = router;

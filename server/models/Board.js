@@ -5,10 +5,9 @@ var boardSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "name required"],
-        maxlength: [32, "tooLong"],
-        minlength: [3, "tooShort"],
-        match: [/^[a-zA-Z\s]*$/, "name incorrect"],
-        unique: true
+        maxlength: [32, "too Long"],
+        minlength: [1, "too Short"],
+        match: [/^[a-zA-Z0-9\s]*$/, "name incorrect"],
     },
     description: {
         type: String,
@@ -18,14 +17,26 @@ var boardSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    team: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }]
+    },
     project: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     },
     tasks: {
         type: [{
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Task'
+        }]
+    },
+    lists: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'List'
         }]
     }
 });
