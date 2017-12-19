@@ -15,7 +15,6 @@ router.route("/")
             description,
             project
         } = req.body;
-        console.log(req.body)
         let requser = res.locals.user._id;
         Project.findById(project, (err, proj) => {
             if (err || !proj)
@@ -32,6 +31,11 @@ router.route("/")
                     function (err, board) {
                         if (err) return res.status(400).json({
                             message: err.message
+                        });
+                        proj.boards.push(board._id);
+                        proj.save((err, project) => {
+                            if (err)
+                                console.log(err);
                         });
                         res.status(200).json({
                             message: 'Board created!',
@@ -83,10 +87,12 @@ router.route("/:board_id")
                 });
             let requser = res.locals.user._id;
             if (requser.equals(board.user)) {
-                if(name) board.name = name;
-                if(description) board.description = description;
+                if (name) board.name = name;
+                if (description) board.description = description;
                 board.save((err, board) => {
-                    if(err) return res.status(400).json({message: "Invalid request"})
+                    if (err) return res.status(400).json({
+                        message: "Invalid request"
+                    })
                     return res.status(200).json({
                         message: "Board updated",
                         id: board._id
@@ -113,11 +119,23 @@ router.route("/:board_id")
             let requser = res.locals.user._id;
             if (requser.equals(board.user)) {
                 board.remove((err, board) => {
-                    if(err) return res.status(400).json({message: "Invalid request"})
-                    return res.status(200).json({
-                        message: "Board deleted",
-                        id: board._id
+                    if (err) return res.status(400).json({
+                        message: "Invalid request"
                     })
+                    Project.findById(board.project, (error, project) => {
+                        if (error) return res.status(400).json({
+                            message: "Invalid request"
+                        })
+                        project.boards = project.boards.filter(function (i) {
+                            return !i.equals(board._id)
+                        });
+                        project.save();
+                        return res.status(200).json({
+                            message: "Board deleted",
+                            id: board._id
+                        })
+                    })
+
                 })
             } else
                 return res.status(403).json({
