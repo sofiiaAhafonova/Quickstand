@@ -139,7 +139,7 @@ router.route("/:board_id")
                 })
             } else
                 return res.status(403).json({
-                    message: "You couldn't delete this project"
+                    message: "You couldn't delete this board"
                 });
         })
     })

@@ -8,21 +8,14 @@ var taskSchema = new mongoose.Schema({
         maxlength: [32, "too Long"],
         minlength: [3, "too Short"],
         match: [/^[a-zA-Z\s]*$/, "name incorrect"],
-        unique: true
     },
     description: {
         type: String,
         required: false
     },
     user: {
-        id: {
-             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        name: {
-            type: String,
-            ref: 'User'
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     project: {
         type: mongoose.Schema.Types.ObjectId,
@@ -32,9 +25,9 @@ var taskSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Board'
     },
-    images: {
-        type:[String],
-        default:  "http://res.cloudinary.com/de46jchnd/image/upload/v1512629286/default-placeholder-project_x3gi0l.png"
+    list: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'List'
     }
 });
 

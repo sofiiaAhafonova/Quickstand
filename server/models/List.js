@@ -28,9 +28,11 @@ var listSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Board'
     },
-    task: {
-        type:[ mongoose.Schema.Types.ObjectId],
-        ref: 'Task'
+    tasks: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Task'
+        }]
     }
 });
 
