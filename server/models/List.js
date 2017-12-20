@@ -10,6 +10,16 @@ var listSchema = new mongoose.Schema({
         match: [/^[a-zA-Z\s]*$/, "name incorrect"],
         unique: true
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    team: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }]
+    },
     project: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
