@@ -1,19 +1,19 @@
 function updateResults(page, value) {
-    if (!page || page < 1)
-        page = 1;
-    var url = 'http://localhost:8080/api/v1/projects?page=' + page + '&name=' + value;
+    if (!page || page < 1) page = 1;
+    let name = (value) ?  '&name=' + value : '';
+    var url = 'http://localhost:8080/api/v1/projects?page=' + page + name;
     fetch(url, {
         method: 'get',
         credentials: 'include',
         headers: {
-            Authorization: "Basic " + Cookie('basic')
+            Authorization: "Bearer " + Cookie('access-token')
         }
     }).then(data => data.json()).then(res => {
         Handlebars.registerHelper("for", function (number) {
             let src = '';
             for (let i = 1; i <= number; i++) {
                 src +=
-                    ' <button class="page-link"  onclick="updateResults(' + i + ',\'' + value + '\')" >' +
+                    ' <button class="mybtn"  onclick="updateResults(' + i + ',\'' + value + '\')" >' +
                     i + '</button>';
             }
             return src;
@@ -32,7 +32,20 @@ function updateResults(page, value) {
     })
 }
 
-
+function checkAdmin(){
+    var url = 'http://localhost:8080/api/v1/auth/admin';
+    return fetch(url, {
+        method: 'get',
+        credentials: 'include',
+        headers: {
+            Authorization: "Bearer " + Cookie('access-token')
+        }
+    }).then(data => data.json()).then(res => { 
+        let admin = res['isAdmin'];
+        console.log(admin);
+        return admin;
+    })
+}
 function searchInput() {
     const source = document.getElementById("srch-projects-template").innerHTML;
     const template = Handlebars.compile(source);

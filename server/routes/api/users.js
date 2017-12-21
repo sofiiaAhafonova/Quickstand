@@ -2,10 +2,10 @@ let express = require("express");
 let router = express.Router();
 const Project = require('../../models/Project')
 const User = require('../../models/User');
-var auth = require("./auth");
-
+var auth = require("../../middleware/auth-check");
+let adminCheck = auth.adminCheck;
 router.route("/")
-    .get(auth.adminCheck, async(req, res, next) => {
+    .get(adminCheck, async(req, res, next) => {
         var docsPerPage = 3;
         var pageNumber = 1;
         if (!req.query.page)

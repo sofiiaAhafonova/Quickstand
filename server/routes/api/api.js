@@ -5,12 +5,12 @@ const User = require('../../models/User');
 const Task = require('../../models/Task');
 const Board = require('../../models/Board');
 const List = require('../../models/List');
-var auth = require("./auth");
 const projects = require('./projects');
 const users = require('./users');
 const tasks = require('./tasks');
 const boards = require('./boards');
 const lists = require('./lists');
+const auth_check = require('../../middleware/auth-check');
 
 router.get('/', function (req, res) {
     res.json({
@@ -18,11 +18,17 @@ router.get('/', function (req, res) {
         success: false
     });
 });
-router.use('/projects', auth.authCheck, projects);
-router.use('/users', auth.authCheck, users);
-router.use('/tasks', auth.authCheck, tasks);
-router.use('/boards', auth.authCheck, boards);
-router.use('/lists', auth.authCheck, lists);
+router.get('/auth/admin', auth_check, function (req, res) {
+    let admin = (res.locals.user.role == 'admin')? true : false;
+    res.json({
+        isAdmin: admin,
+    });
+});
+router.use('/projects', auth_check, projects);
+router.use('/users',auth_check, users);
+router.use('/tasks', auth_check, tasks);
+router.use('/boards',auth_check, boards);
+router.use('/lists', auth_check, lists);
 
 router.use(function (req, res) {
     return res.status(400).json({

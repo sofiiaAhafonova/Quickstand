@@ -11,9 +11,136 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/javascripts/previewFile.js"></script>
-</head>
-
+</head>  
 <body>
-    <div id='root'></div>
-    <script src='bundle.js'></script>
+    <script id="header-template" type="text/x-handlebars-template">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Quickstand</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/projects">Projects</a>
+                        </li>
+                        {{#if user}}
+                        <li>
+                            <a href="/projects/personal">Personal Projects</a>
+                        </li>
+                        <li>
+                            <a href="/project_form">Create Project</a>
+                        </li>
+                            {{#if admin}}
+                            <li>
+                                <a href="/admin/allusers">All users</a>
+                            </li>
+                            {{/if}} 
+                        {{else}}
+                        <li class="navbar-text"> Guest session</li>
+                        {{/if}}
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <form class="navbar-form navbar-right" action="/search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                        {{#if user}}
+                        <li>
+                            <a href="/profile">
+                                <span class="  glyphicon glyphicon-user"> </span>   {{user}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/register/logout">
+                                <span class="glyphicon glyphicon-log-out"></span> Log out
+                            </a>
+                        </li>
+                        {{else}}
+                        <li>
+                            <a href="/register/signup">
+                                <span class="glyphicon glyphicon-user"></span> Sign Up
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/register/login">
+                                <span class="glyphicon glyphicon-log-in"></span> Log in
+                            </a>
+                        </li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </script>
+    <div id="my-navbar"></div>
+    <div class="main">
+        <div class="projects">
+            <script id="srch-projects-template" type="text/x-handlebars-template">
+                <div class="input-group">
+                    <input type="text" id="search-input" placeholder="Search" class="form-control" name="name" pattern="^[a-zA-Z\s]*$" maxLength="32">
+                    <div class="input-group-btn">
+                        <button onclick="search()" id="search_button" class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </script>
+            <div id="search"></div>
+            <script type="text/x-handlebars-template" id="projects-template">
+                <ul>
+                    {{#each projects}}
+                    <li>
+                        <a href="/projects/{{_id}}">
+                            <img src="{{image}}">
+
+                        </a>
+                        <h2>
+                            <a href="/projects/{{_id}}">
+                                {{name}}
+                            </a>
+                        </h2>
+                    </li>
+                    {{/each}}
+                    <h2>{{error}}</h2>
+                </ul>
+                <div class="pagination">
+                    {{#for pages}} 
+                    {{/for}}
+                </div>
+            </script>
+            <div id="projects-list"></div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener("load", function (el) {
+            header();
+            searchInput();
+            updateResults();
+        });
+    </script>
+    <script src="/javascripts/cookie.js"></script>
+    <script src="/javascripts/searchProject.js"></script>
+    <script src="/javascripts/header.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
 </body>
+
+

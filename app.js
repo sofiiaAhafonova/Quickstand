@@ -63,13 +63,9 @@ db.once('open', function () {
     console.log('Connected to mongodb successfully.')
 })
 app.get("/", (req, res) => {
-    try {
         res.render("index", {
             user: req.user
         });
-    } catch (error) {
-        res.send(error.message);
-    }
 });
 app.get("/docs/api/v1", (req, res) => {
     res.render("docs", {

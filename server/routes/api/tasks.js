@@ -11,7 +11,8 @@ router.route("/")
     .post(function asynk(req, res) {
         const {
             name,
-            list
+            list, 
+            description
         } = req.body;
         let requser = res.locals.user._id;
         List.findById(list, (err, lst) => {
@@ -24,6 +25,7 @@ router.route("/")
             if (requser.equals(lst.user)) {
                 Task.create({
                         name,
+                        description,
                         list: lst._id,
                         board: lst.board,
                         project: lst.project,

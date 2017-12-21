@@ -1,10 +1,20 @@
 function header() {
-    let user = (Cookie('name') != null) ? Cookie('name') : false;
-    console.log(user)
-    const source = document.getElementById("header-template").innerHTML;
-    const template = Handlebars.compile(source);
-    document.getElementById("my-navbar").innerHTML = template({
-        user: user,
-        admin: Cookie('isAdmin')
-    });
+    Handlebars.registerHelper('if', function(conditional, options) {
+        if(conditional) {
+          return options.fn(this);
+        } else {
+          return options.inverse(this);
+        }
+      });  
+      const source = document.getElementById("header-template").innerHTML;
+      const template = Handlebars.compile(source);
+    let user = Cookie('name')// (Cookie('name') != null) ? Cookie('name') : false;
+     checkAdmin().then(admin =>{
+        document.getElementById("my-navbar").innerHTML = template({
+                user: user,
+                admin: admin
+            });
+    })
+
+   
 }
