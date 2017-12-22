@@ -8,7 +8,7 @@ function header() {
       });  
       const source = document.getElementById("header-template").innerHTML;
       const template = Handlebars.compile(source);
-    let user = Cookie('name')// (Cookie('name') != null) ? Cookie('name') : false;
+    let user = Cookie('name')
      checkAdmin().then(admin =>{
         document.getElementById("my-navbar").innerHTML = template({
                 user: user,
@@ -19,7 +19,7 @@ function header() {
    
 }
 function checkAdmin(){
-  var url = 'http://localhost:8080/api/v1/auth/admin';
+  var url = 'http://quickstand-web.herokuapp.com/api/v1/auth/admin';
   return fetch(url, {
       method: 'get',
       credentials: 'include',
