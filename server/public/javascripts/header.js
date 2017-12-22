@@ -19,7 +19,7 @@ function header() {
    
 }
 function checkAdmin(){
-  var url = 'http://quickstand-web.herokuapp.com/api/v1/auth/admin';
+  var url = 'https://quickstand-web.herokuapp.com/api/v1/auth/admin';
   return fetch(url, {
       method: 'get',
       credentials: 'include',
