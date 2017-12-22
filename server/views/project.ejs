@@ -40,10 +40,12 @@
               <th>Start date</th>
               <td><time><%= project.start_date %></time></td>
             </tr>
+            <%if(project.status=="Finished"){%>
             <tr>
               <th>Finish date</th>
               <td><time><%= project.finish_date %></time></td>
             </tr>
+            <%}%>
           </table>
           <%if(user && project.user == user.id){%>
             <form id="formfield" action="<%=project.id%>/remove" method="post">

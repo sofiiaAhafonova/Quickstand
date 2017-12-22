@@ -33,7 +33,7 @@ router.get("/", (req, res, next) => {
             })
         });
 });
-router.get("/personal", (req, res, next) => {
+router.get("/personal", checkAuth, (req, res, next) => {
     Project.find({
             "_id": {
                 $in: req.user.projects
@@ -79,7 +79,7 @@ router.get("/:project_id",
                 })
         })
     });
-router.post("/:project_id/remove",
+router.post("/:project_id/remove", checkAuth,
     (req, res, next) => {
         let id = req.params.project_id;
         if (req.user.projects.find(el => el == id)) {
@@ -93,4 +93,8 @@ router.post("/:project_id/remove",
                 })
         };
     });
+function checkAuth(req, res, next) {
+        if (req.isAuthenticated()) return next();
+        return res.redirect('/register/login');
+}
 module.exports = router;

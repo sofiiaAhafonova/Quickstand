@@ -5,7 +5,7 @@ const config = require('../../config');
 
 module.exports = (req, res, next) => {
   if (!req.headers.authorization) {
-    return res.status(401).end();
+    return res.status(401).redirect('/register/login');
   }
 
   // get the last part from a authorization header string like "bearer token-value"
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
     const userId = decoded.sub;
     return User.findById(userId, (userErr, user) => {
       if (userErr || !user) {
-        return res.status(401).end();
+        return res.status(401).redirect('/register/login');
       }
       res.locals.user = user
       return next();
@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
 
 module.exports.adminCheck = (req, res, next) => res.locals.user.role === 'admin' ?
     next() :
-    res.status(403).json({
-        success: false,
+    res.status(403).render("error_page",{
+        user: req.user,
         message: 'You should have admin permissions.'
     })

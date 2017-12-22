@@ -90,7 +90,6 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-let authCheck = require('./server/middleware/auth-check')
 function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
     return res.redirect('/register/login');
@@ -102,9 +101,9 @@ function checkAdmin(req, res, next) {
     return res.redirect('/');
 
 }
-
+const auth = require("./server/middleware/auth-check")
 app.use("/projects", projects);
-app.use("/boards", board);
+app.use("/boards", checkAuth, board);
 app.use("/project_form",checkAuth, project_form);
 app.use("/search",checkAuth, search);
 app.use('/admin', checkAuth, checkAdmin, admin);

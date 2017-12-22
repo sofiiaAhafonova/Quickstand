@@ -14,15 +14,13 @@ var projectSchema = new mongoose.Schema({
         required: false
     },
     status: {
-        default: "Finished",
+        default: "Unfinished",
         type: String,
-        enum: ['Finished', 'Unfinished'],
-        required: [true, "status required"]
+        enum: ['Finished', 'Unfinished']
     },
     access: {
-        default: "Public",
+        default: "Private",
         type: String,
-        required: [true, "access required"],
         enum: ['Public', 'Private']
     },
     team: {
