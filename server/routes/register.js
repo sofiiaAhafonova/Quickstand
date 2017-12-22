@@ -69,7 +69,7 @@ function validateLoginForm(payload) {
 
 
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup',async (req, res, next) => {
  
   const validationResult = validateSignupForm(req.body);
   if (!validationResult.success) {
@@ -96,7 +96,7 @@ router.post('/login', (req, res, next) => {
     return res.redirect('/register/login')
 
   }
-  return passport.authenticate('local-login', (err, token, userData) => {
+  return passport.authenticate('local-login', async(err, token, userData) => {
     if (err) {
       if (err.name === 'IncorrectCredentialsError') {
         req.flash('error',  err.message)
@@ -116,14 +116,14 @@ router.post('/login', (req, res, next) => {
 });
 
 
-router.get('/login', (req, res) => {
+router.get('/login',async (req, res) => {
   res.render('login', {
     error: req.flash('error')[0],
     user: null
   });
 });
 
-router.get('/signup', (req, res) => {
+router.get('/signup',async (req, res) => {
   res.render('signup', {
     error: req.flash('error')[0],
     user: null
@@ -131,7 +131,7 @@ router.get('/signup', (req, res) => {
 });
 
 router.get('/logout',
-  (req, res) => {
+async(req, res) => {
     req.logout();
     res.redirect('/');
   });

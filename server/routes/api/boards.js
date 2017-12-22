@@ -9,7 +9,7 @@ const project = require('./projects');
 const valideFields = ['name', 'description']
 
 router.route("/")
-    .post(function asynk(req, res) {
+    .post( async function (req, res) {
         const {
             name,
             description,
@@ -18,7 +18,7 @@ router.route("/")
         let requser = res.locals.user._id;
         Project.findById(project, (err, proj) => {
             if (err || !proj)
-                res.status(400).json({
+               return res.status(400).json({
                     message: "Wrong project id"
                 });
             if (requser.equals(proj.user)) {
@@ -47,7 +47,7 @@ router.route("/")
     })
 
 router.route("/:board_id")
-    .get(function asynk(req, res) {
+    .get( async function (req, res) {
         let id = req.params.board_id;
         Board.findById(id, (err, board) => {
             if (err)
@@ -69,7 +69,7 @@ router.route("/:board_id")
                 });
         })
     })
-    .put(function asynk(req, res) {
+    .put(async function (req, res) {
         let id = req.params.board_id;
         const {
             name,
@@ -105,7 +105,7 @@ router.route("/:board_id")
         })
 
     })
-    .delete(function asynk(req, res) {
+    .delete(async function (req, res) {
         let id = req.params.board_id;
         Board.findById(id, (err, board) => {
             if (err)

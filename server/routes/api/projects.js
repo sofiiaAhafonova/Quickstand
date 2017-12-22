@@ -2,34 +2,35 @@ let express = require("express");
 let router = express.Router();
 const Project = require('../../models/Project');
 const User = require('../../models/User');
-var auth = require("./auth");
+const Board = require('../../models/Board');
 let _ = require("underscore");
 var cloudinary = require('cloudinary');
 
 
-module.exports.checkProject =  (req)=> {
-    let id = req.params.project_id;
-    Project.findById(id, function (error, project) {
-        if (error)
-            console.log(error.message);
-        if (!project)
-            return Promise.reject({
-                message: 'Not found',
-                status: 404
-            })
-        let requser = res.locals.user._id;
-        let owner = project.user;
-        if (requser.equals(owner) || project.access == "Public")
-            return Promise.resolve({
-                project,
-                status: 200
-            });
-        else
-            return Promise.reject({
-                message: "You couldn't view this project",
-                status: 403
-            });
-    })
+ function checkProject(req, res) {
+     return new Promise(function(resolve, reject) {
+        let id = req.params.project_id;
+        Project.findById(id, function (error, project) {
+            if (error)
+                console.log(error.message);
+            if (!project)
+                return reject({
+                    message: 'Not found',
+                    status: 404
+                })
+            let requser = res.locals.user._id;
+            let owner = project.user;
+            if (requser.equals(owner) || project.access == "Public")
+                return resolve(
+                    project
+                );
+            else
+                return reject({
+                    message: "You couldn't view this project",
+                    status: 403
+                });
+        })         
+     })
 }
 cloudinary.config({
     cloud_name: 'de46jchnd',
@@ -43,7 +44,7 @@ const validFieldsForUpdate = ['name', 'description', 'image', 'rating',
 ]
 
 router.route("/")
-    .get(function (req, res) {
+    .get(async function (req, res) {
         var docsPerPage = 3;
         var pageNumber = 1;
         if (!req.query.page)
@@ -86,7 +87,7 @@ router.route("/")
 
         }, docsPerPage, pageNumber);
     })
-    .post((req, res) => {
+    .post(async(req, res) => {
 
         let fields = _.pick(req.body, validFieldsForUpdate);
         fields.user = res.locals.user._id;
@@ -116,7 +117,7 @@ router.route("/")
     })
 router.route("/:project_id")
     .get(
-        (req, res, next) => {
+        async (req, res, next) => {
             let id = req.params.project_id;
             Project.findById(id, function (error, project) {
                 if (error)
@@ -142,7 +143,7 @@ router.route("/:project_id")
                         });
             })
         })
-    .put((req, res) => {
+    .put(async(req, res) => {
         let id = req.params.project_id;
         Project.findById(id, function (err, project) {
             if (err || !project)
@@ -175,7 +176,7 @@ router.route("/:project_id")
             });
         })
     })
-    .delete((req, res, next) => {
+    .delete(async(req, res, next) => {
         let id = req.params.project_id;
         if (res.locals.user.projects.find(el => el == id) || res.locals.user.role == "admin") {
             Project.findByIdAndRemove(id,
@@ -204,14 +205,12 @@ router.route("/:project_id")
             });
     })
 router.route("/:project_id/boards")
-    .get(function asynk(req, res) {
-        project.checkProject(req)
+    .get(async function (req, res) {
+        checkProject(req, res)
             .then(
                 (project) => {
                     Board.find({
-                        _id: {
-                            $in: project.boards
-                        }
+                        "project": project._id
                     }, (err, boards) => {
                         if (err)
                             return res.status(400).json({

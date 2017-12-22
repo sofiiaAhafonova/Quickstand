@@ -8,7 +8,7 @@ const Board = require('../../models/Board');
 const project = require('./projects');
 
 router.route("/")
-    .post(function asynk(req, res) {
+    .post(async function (req, res) {
         const {
             name,
             board
@@ -48,7 +48,7 @@ router.route("/")
 
 
 router.route("/:list_id")
-    .get(function asynk(req, res) {
+    .get(async function (req, res) {
         let id = req.params.list_id;
         List.findById(id, (err, list) => {
             if (err)
@@ -70,7 +70,7 @@ router.route("/:list_id")
                 });
         })
     })
-    .put(function asynk(req, res) {
+    .put(async function (req, res) {
         let id = req.params.list_id;
         const {
             name,
@@ -104,7 +104,7 @@ router.route("/:list_id")
         })
 
     })
-    .delete(function asynk(req, res) {
+    .delete(async function (req, res) {
         let id = req.params.list_id;
         List.findById(id, (err, list) => {
             if (err)

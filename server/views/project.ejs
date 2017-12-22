@@ -3,8 +3,9 @@
 <head>
   <% include partials/head.ejs%>
   <title><%= project.name %></title>
+  <script src="/javascripts/boards.js"></script>
 </head>
-<body>
+  <body>
   <% include partials/menu_bar.ejs%>
   <div class="main">  
   <div class="projects">
@@ -49,6 +50,13 @@
                 <input class ="mybtn" type="button" name="btn" value="Remove" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" />
             </form>
           <%}%>
+          <h2>Project Boards</h2>
+          <%if (project.boards.length == 0){%>
+            <h4>There are no boards yet</h4>
+          <%}else {%>
+            
+           <p id="demo"></p>
+            <%}%>
   </div>
   </div>
    <% include partials/footer.ejs%>

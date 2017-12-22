@@ -8,7 +8,7 @@ const List = require('../../models/List');
 const project = require('./projects');
 
 router.route("/")
-    .post(function asynk(req, res) {
+    .post(async function (req, res) {
         const {
             name,
             list, 
@@ -51,7 +51,7 @@ router.route("/")
 
 
 router.route("/:task_id")
-    .get(function asynk(req, res) {
+    .get(async function (req, res) {
         let id = req.params.task_id;
         Task.findById(id, (err, task) => {
             if (err)
@@ -73,7 +73,7 @@ router.route("/:task_id")
                 });
         })
     })
-    .put(function asynk(req, res) {
+    .put(async function (req, res) {
         let id = req.params.task_id;
         const {
             name,
@@ -107,7 +107,7 @@ router.route("/:task_id")
         })
 
     })
-    .delete(function asynk(req, res) {
+    .delete(async function (req, res) {
         let id = req.params.task_id;
         Task.findById(id, (err, task) => {
             if (err)
