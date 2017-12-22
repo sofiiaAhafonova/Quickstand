@@ -96,24 +96,29 @@
     </script>
     <div id="my-navbar"></div>
       <script type="text/x-handlebars-template" id="lists-template">
-        <section class="list">
+            <section class="list">
                 <header onclick="addList()">Create New List</header>
                 <article id="list-input" hidden="true">
                     <form id="myform">
                         <div class="input-group">
                             <input id="list-input-field" name="name" pattern="^[a-zA-Z0-9\s]*$"  maxLength="100" required>
-                            <button type="button" onclick="check()" id="list-input-button">Add List</button>
+                            <button type="button" onclick="check()" id="list-input-button"><span class="glyphicon glyphicon-ok"></span></button>
                         </div>
                     </form>
                 </article>
             </section>
             {{#each lists}}
             <section class="list">
-                <header>{{name}}</header>
-                <article class="card">
-                  <header>Global HTML</header>
-                  <div class="detail">1/2</div>
-                </article>
+                <header id="{{_id}}">{{name}}
+                <button  onclick="editList(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                <button onclick="removeList(this)"><span class="glyphicon glyphicon-remove"></span></button>
+                <form id="form-{{_id}}" hidden="true">
+                        <div class="input-group">
+                            <input id="list-input-field-{{_id}}" name="name" pattern="^[a-zA-Z0-9\s]*$"  maxLength="100" required>
+                            <button type="button" onclick="checkListEdit(this)" id="list-input-button"><span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                </form>    
+                </header>
                 <article class="card">
                   <header>Global CSS</header>
                   <div class="detail">1/2</div>
@@ -121,7 +126,7 @@
               </section>
             {{/each}}
     </script>
-    <div id="task-lists"></div>
+    <section  id="task-lists"></section>
     <script>
         window.addEventListener("load", function (el) {
             header();

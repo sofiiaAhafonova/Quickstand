@@ -73,8 +73,7 @@ router.route("/:list_id")
     .put(async function (req, res) {
         let id = req.params.list_id;
         const {
-            name,
-            board
+            name
         } = req.body;
         List.findById(id, (err, list) => {
             if (err)

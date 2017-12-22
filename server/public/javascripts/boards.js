@@ -10,7 +10,7 @@ function getLists(){
     $.get(queryString, function( data ) {
         const source = document.getElementById("lists-template").innerHTML;
         const template = Handlebars.compile(source);
-         document.getElementById("task-lists").style.display = "flex";
+        
         document.getElementById("task-lists").innerHTML = template({
             lists: data["lists"]
         });
@@ -34,6 +34,7 @@ function drop(ev) {
     ev.target.appendChild(document.getElementById(data));
 }
 
+
 function check(){
 
     jQuery.validator.setDefaults({
@@ -45,7 +46,7 @@ function check(){
     var queryString = Host + "/api/v1/lists/";
     var boardurl = window.location.href.replace(Host ,'')
     var board = boardurl.replace('/boards/','')
-    $( "#list-input-button" ).click(function() { 
+   
         var name =  $("#list-input-field").val();
         if(form.valid())
         console.log(board)
@@ -53,9 +54,72 @@ function check(){
                 name:name, 
                 board: board 
             },(data, err) =>{
-                console.log(err)
-                    console.log(data)
+                console.log(data)
+                 getLists()
             })
-    });
+  
 
+}
+function removeList(e){
+    let id = e.parentElement.id;
+    var queryString = Host + "/api/v1/lists/" + id;
+    $.ajax({
+        url: queryString,
+        type: 'DELETE',
+        headers: {
+            Authorization: "Bearer " + Cookie('access-token')
+        },
+        success: function(response) {
+          console.log(response);
+          getLists()
+        }
+     });
+}
+
+function editList(e){
+    let id = e.parentElement.id
+    console.log(id)
+   if( $("#form-"+id).is(":visible")) 
+    $("#form-"+id).hide()
+   else
+   $("#form-"+id).show()
+    //= false;
+    // $.ajax({
+    //     url: queryString,
+    //     type: 'P',
+    //     headers: {
+    //         Authorization: "Bearer " + Cookie('access-token')
+    //     },
+    //     success: function(response) {
+    //       console.log(response);
+    //       getLists()
+    //     }
+    //  });
+}
+function checkListEdit(e){
+    let id = e.parentElement.parentElement.parentElement.id;
+    console.log(id) ;
+    var queryString = Host + "/api/v1/lists/" + id;
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+      });
+      var form = $( "#form-"+id );
+    form.validate();
+
+    var name =  $("#list-input-field-"+id).val();
+    console.log(name)
+    const formData = new FormData();
+    formData.append('name', name);
+    if(form.valid())
+    fetch(queryString, {
+        method: 'put',
+        headers: {
+            Authorization: "Bearer " + Cookie('access-token')
+        },
+        body: formData,
+    }).then(function(response) {
+        console.log(response);
+        getLists()
+        })
 }
