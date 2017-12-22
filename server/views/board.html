@@ -5,13 +5,17 @@
     <meta charset="utf-8">
     <meta name="description" content="MY FIRST SITE DESCRIPTION">
     <meta name="author" content="Ahafonova Sofiia">
-    <link type="text/css" href="/stylesheets/style.css" rel="stylesheet">
+ 
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link type="text/css" href="/stylesheets/board.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="/javascripts/previewFile.js"></script>
-</head>  
+</head>
 <body>
     <script id="header-template" type="text/x-handlebars-template">
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -91,16 +95,42 @@
         </nav>
     </script>
     <div id="my-navbar"></div>
-    <div class="main">
-    </div>
+      <script type="text/x-handlebars-template" id="lists-template">
+        <section class="list">
+                <header onclick="addList()">Create New List</header>
+                <article id="list-input" hidden="true">
+                    <form id="myform">
+                        <div class="input-group">
+                            <input id="list-input-field" name="name" pattern="^[a-zA-Z0-9\s]*$"  maxLength="100" required>
+                            <button type="button" onclick="check()" id="list-input-button">Add List</button>
+                        </div>
+                    </form>
+                </article>
+            </section>
+            {{#each lists}}
+            <section class="list">
+                <header>{{name}}</header>
+                <article class="card">
+                  <header>Global HTML</header>
+                  <div class="detail">1/2</div>
+                </article>
+                <article class="card">
+                  <header>Global CSS</header>
+                  <div class="detail">1/2</div>
+                </article>
+              </section>
+            {{/each}}
+    </script>
+    <div id="task-lists"></div>
     <script>
         window.addEventListener("load", function (el) {
             header();
+            getLists();
         });
     </script>
     <script src="/javascripts/cookie.js"></script>
     <script src="/javascripts/header.js"></script>
+    <script src="/javascripts/boards.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
 </body>
-
 

@@ -5,10 +5,9 @@ var listSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "name required"],
-        maxlength: [32, "too Long"],
-        minlength: [3, "too Short"],
-        match: [/^[a-zA-Z\s]*$/, "name incorrect"],
-        unique: true
+        maxlength: [100, "too Long"],
+        minlength: [1, "too Short"],
+        match: [/^[a-zA-Z0-9\s]*$/, "name incorrect"],
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

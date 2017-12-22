@@ -1,5 +1,5 @@
 
-const Host =  window.location.protocol +"//"+ window.location.host
+const Host = window.location.origin
 function header() {
     Handlebars.registerHelper('if', function(conditional, options) {
         if(conditional) {

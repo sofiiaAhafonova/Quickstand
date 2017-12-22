@@ -141,5 +141,40 @@ router.route("/:list_id")
                 });
         })
     })
+router.route("/:list_id/tasks")
+    .get(async function (req, res) {
+        let id = req.params.list_id;
+        List.findById(id, (err, list) => {
+            if (err)
+                return res.status(400).json({
+                    message: "Invalid request"
+                });
+            if (!list)
+                return res.status(404).json({
+                    message: "No lists were found"
+                });
+            let requser = res.locals.user._id;
+            if (list.team.find(user => requser.equals(user)) || requser.equals(list.user))
+                Task.find({
+                    list: id
+                }, (err, tasks) => {
+                    if (err)
+                        return res.status(400).json({
+                            message: "Invalid request"
+                        });
+                    if (!tasks)
+                        return res.status(404).json({
+                            message: "No tasks were found"
+                        });
+                    return res.status(200).json({
+                        tasks
+                    })
 
+                })
+            else
+                return res.status(403).json({
+                    message: "You couldn't view this list"
+                });
+        })
+    })
 module.exports = router;
