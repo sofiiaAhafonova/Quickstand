@@ -1,3 +1,5 @@
+
+const Host =  window.location.protocol +"//"+ window.location.host
 function header() {
     Handlebars.registerHelper('if', function(conditional, options) {
         if(conditional) {
@@ -19,7 +21,7 @@ function header() {
    
 }
 function checkAdmin(){
-  var url = 'https://quickstand-web.herokuapp.com/api/v1/auth/admin';
+  var url = Host + '/api/v1/auth/admin';
   return fetch(url, {
       method: 'get',
       credentials: 'include',

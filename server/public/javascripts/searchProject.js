@@ -1,7 +1,7 @@
 function updateResults(page, value) {
     if (!page || page < 1) page = 1;
     let name = (value) ?  '&name=' + value : '';
-    var url = 'https://quickstand-web.herokuapp.com/api/v1/projects?page=' + page + name;
+    var url = Host + '/api/v1/projects?page=' + page + name;
     fetch(url, {
         method: 'get',
         credentials: 'include',
