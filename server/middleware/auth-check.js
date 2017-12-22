@@ -5,7 +5,7 @@ const config = require('../../config');
 
 module.exports = (req, res, next) => {
   if (!req.headers.authorization) {
-    return res.status(401).redirect('/register/login');
+    return res.status(401).json({massage:"Authorize to access"});
   }
 
   // get the last part from a authorization header string like "bearer token-value"
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
     const userId = decoded.sub;
     return User.findById(userId, (userErr, user) => {
       if (userErr || !user) {
-        return res.status(401).redirect('/register/login');
+        return res.status(401).json({massage:"Authorize to access"});
       }
       res.locals.user = user
       return next();

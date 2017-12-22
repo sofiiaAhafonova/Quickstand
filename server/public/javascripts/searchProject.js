@@ -9,6 +9,7 @@ function updateResults(page, value) {
             Authorization: "Bearer " + Cookie('access-token')
         }
     }).then(data => data.json()).then(res => {
+        console.log( Cookie('searchValue'))
         Handlebars.registerHelper("for", function (number) {
             let src = '';
             for (let i = 1; i <= number; i++) {
@@ -32,24 +33,11 @@ function updateResults(page, value) {
     })
 }
 
-function checkAdmin(){
-    var url = 'http://localhost:8080/api/v1/auth/admin';
-    return fetch(url, {
-        method: 'get',
-        credentials: 'include',
-        headers: {
-            Authorization: "Bearer " + Cookie('access-token')
-        }
-    }).then(data => data.json()).then(res => { 
-        let admin = res['isAdmin'];
-        console.log(admin);
-        return admin;
-    })
-}
+
 function searchInput() {
     const source = document.getElementById("srch-projects-template").innerHTML;
     const template = Handlebars.compile(source);
-    document.getElementById("search").innerHTML = template({});
+    document.getElementById("search").innerHTML = template({val: Cookie("searchValue")});
 }
 
 function search() {

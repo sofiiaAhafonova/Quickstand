@@ -2,12 +2,25 @@
 <html lang="en">
 <head>
   <% include partials/head.ejs%>
-  <title>Error</title>
+  <title><%=board.name%></title>
 </head>
 <body>
   <% include partials/menu_bar.ejs%>
   <div class="main">
       <h1><%=board.name%></h1>
   </div>
+  <%if(lists){%>
+  here
+  <%} else {%>
+  nope
+  <%}%>
 </body>
+<script type="text/template">
+  var getTest =<%=board.name%>; 
+           console.log(getTest)
+  $(document).ready(function() {
+   // for(let list_id of <%=board.lists%>)
+      
+  });
+  </script>
 </html>

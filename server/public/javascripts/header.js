@@ -18,3 +18,17 @@ function header() {
 
    
 }
+function checkAdmin(){
+  var url = 'http://localhost:8080/api/v1/auth/admin';
+  return fetch(url, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+          Authorization: "Bearer " + Cookie('access-token')
+      }
+  }).then(data => data.json()).then(res => { 
+      let admin = res['isAdmin'];
+      console.log(admin);
+      return admin;
+  })
+}

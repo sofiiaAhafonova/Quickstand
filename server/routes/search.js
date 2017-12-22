@@ -3,10 +3,10 @@ let router = express.Router();
 const User = require('../models/User');
 const Project = require('../models/Project')
 var path = require('path');
-router.use(express.static(path.join(__dirname,'/../public/dist')));
 
 router.get("/", async(req, res, next) => {
-
+  let search_name = req.query.name;
+  res.cookie('searchValue', search_name)
   res.sendFile(path.join(__dirname + '/../views/search.html'));
    
 });
