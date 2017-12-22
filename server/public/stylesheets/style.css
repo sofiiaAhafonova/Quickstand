@@ -1,3 +1,76 @@
+.boards-page-board-section {
+    margin: 0 auto;
+    max-width: 1250px;
+    padding: 20px 16px 0;
+}
+.boards-page-board-section-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.board li{
+    background-color: rgb(51, 84, 7);
+    border-radius: 3px;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+    margin: 20px 16px  20px;
+    padding: 20px 16px  20px;
+    width:25%;
+}
+.board-tile{
+    text-decoration-color: antiquewhite;
+    border-radius: 3px;
+    display: block;
+}
+
+.board a {
+    color: rgb(230, 245, 193);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.board a:link {
+    color: rgb(230, 245, 193);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.board a:visited {
+    color: rgb(230, 245, 193);
+    background-color: transparent;
+}
+
+.board a:hover {
+    color: rgb(230, 245, 193);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.board  a:active {
+    color: rgb(230, 245, 193);
+    background-color: transparent;
+    text-decoration: none;
+}
+ ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+
 div.projects {
     color: #312D2C;
     background-image: url("../images/background/wrinkled-paper.jpg");

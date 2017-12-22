@@ -3,7 +3,6 @@
 <head>
   <% include partials/head.ejs%>
   <title><%= project.name %></title>
-  <script src="/javascripts/boards.js"></script>
 </head>
   <body>
   <% include partials/menu_bar.ejs%>
@@ -12,6 +11,7 @@
       <h1 id="C0"><%=  project.name %></h1>
       <img src="<%= project.image%>">
       <table>
+            <br>
             <tr>
                 <th>Description</th>
                 <td><%= project.description %></td>
@@ -51,12 +51,18 @@
             </form>
           <%}%>
           <h2>Project Boards</h2>
-          <%if (project.boards.length == 0){%>
-            <h4>There are no boards yet</h4>
-          <%}else {%>
-            
-           <p id="demo"></p>
+           <%if(user && project.user == user.id){%>
+            <button class="mybtn">Add Board</button>
+             <%}%>
+          <%if (project.boards.length != 0){%>
+            <div class='board boards-page-board-section'>
+            <ul id="demo" class=" boards-page-board-section-list">
+            <%for(let board of boards){%>
+            <li ><a href="/boards/<%=board._id%>"class="board-title"><%=board.name%> </a></li>
             <%}%>
+            </ul>
+            </div>
+          <%}%>
   </div>
   </div>
    <% include partials/footer.ejs%>

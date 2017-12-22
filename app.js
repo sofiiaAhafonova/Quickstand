@@ -10,7 +10,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
+const board = require('./server/routes/boards');
 const register = require('./server/routes/register');
 const profile = require('./server/routes/profile');
 const admin = require('./server/routes/admin');
@@ -104,6 +104,7 @@ function checkAdmin(req, res, next) {
 }
 
 app.use("/projects", projects);
+app.use("/boards", board);
 app.use("/project_form",checkAuth, project_form);
 app.use("/search",checkAuth, search);
 app.use('/admin', checkAuth, checkAdmin, admin);

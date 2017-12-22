@@ -2,6 +2,7 @@ let express = require("express");
 let router = express.Router();
 const Project = require('../models/Project')
 const User = require('../models/User');
+const Board = require('../models/Board');
 const onOnePage = 3;
 
 function chunk(a) {
@@ -65,10 +66,17 @@ router.get("/:project_id",
                 console.log(error.message);
             if (!project)
                 return next();
-            res.render("project", {
-                project,
-                user: req.user
-            })
+            Board.find({
+                    "project": project._id
+                }, (err, boards) => {
+                    if (err)
+                        return next();
+                    res.render("project", {
+                            project,
+                            user: req.user,
+                            boards
+                        })
+                })
         })
     });
 router.post("/:project_id/remove",

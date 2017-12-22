@@ -3,7 +3,6 @@ let router = express.Router();
 const Project = require('../../models/Project')
 const User = require('../../models/User');
 const Board = require('../../models/Board');
-const project = require('./projects');
 
 
 const valideFields = ['name', 'description']
