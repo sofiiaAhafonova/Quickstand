@@ -4,19 +4,22 @@ $.ajaxSetup({
     }
 });
 let Lists = null;
+function appendObjTo(thatArray, objToAppend) {
+    return Object.freeze(thatArray.concat(objToAppend));
+}
 function getLists(){
     var queryString =Host + "/api/v1" + window.location.href.replace(Host,'') + "/lists";
-    console.log(queryString)
     $.get(queryString, function( data ) {
         const source = document.getElementById("lists-template").innerHTML;
         const template = Handlebars.compile(source);
-        
         document.getElementById("task-lists").innerHTML = template({
-            lists: data["lists"]
+            lists: data["lists"],
         });
         Lists =  data["lists"];
-        console.log(Lists)
+
+        getTasks();
     });
+   
 }
 function addList() {
     document.getElementById("list-input").hidden = false;
@@ -46,10 +49,8 @@ function check(){
     var queryString = Host + "/api/v1/lists/";
     var boardurl = window.location.href.replace(Host ,'')
     var board = boardurl.replace('/boards/','')
-   
-        var name =  $("#list-input-field").val();
+    var name =  $("#list-input-field").val();
         if(form.valid())
-        console.log(board)
             $.post(queryString,{
                 name:name, 
                 board: board 
@@ -83,18 +84,6 @@ function editList(e){
     $("#form-"+id).hide()
    else
    $("#form-"+id).show()
-    //= false;
-    // $.ajax({
-    //     url: queryString,
-    //     type: 'P',
-    //     headers: {
-    //         Authorization: "Bearer " + Cookie('access-token')
-    //     },
-    //     success: function(response) {
-    //       console.log(response);
-    //       getLists()
-    //     }
-    //  });
 }
 function checkListEdit(e){
     let id = e.parentElement.parentElement.parentElement.id;
@@ -122,4 +111,65 @@ function checkListEdit(e){
         console.log(response);
         getLists()
         })
+}
+function getTasks(){
+    for(let list of Lists)
+    {
+        for(let task of list.tasks)
+        {
+            queryString = Host + "/api/v1/tasks/" + task;
+            $.get(queryString, function( data ) {
+                $("#name-"+task).text(data["task"].name);
+                $("#description-"+task).text(data["task"].description);
+            });
+        }
+    }
+}
+
+function createTask(id){
+    if( $("#task-form-"+id).is(":visible")) 
+        $("#task-form-"+id).hide()
+    else
+    $("#task-form-"+id).show()
+}
+function checkTaskEdit(id){
+    let list_id = id.replace("task-input-button-",'')
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+      });
+    var form = $( "#task-form-" + list_id);
+    form.validate();
+    var queryString = Host + "/api/v1/tasks/";
+   
+    var name =  $("#task-input-field-"+list_id).val();
+    var description =  $("#task-input-area-"+list_id).val();
+        if(form.valid())
+            $.post(queryString,{
+                name:name,
+                description:description, 
+                list: list_id  
+            },(data, err) =>{
+                console.log(data)
+                 getLists()
+            })
+  
+}
+
+function removeTask(e){
+   
+        let id = e.replace("remove-",'');
+        var queryString = Host + "/api/v1/tasks/" + id;
+        $.ajax({
+            url: queryString,
+            type: 'DELETE',
+            headers: {
+                Authorization: "Bearer " + Cookie('access-token')
+            },
+            success: function(response) {
+              console.log(response);
+              getLists()
+            }
+         });
+    
 }

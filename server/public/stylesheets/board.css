@@ -26,11 +26,11 @@ body {
   display: inline-block;
   background-color: #E3E3E3;
   border-radius: 3px;
- 
   margin: 5px 3%;
-   margin-top:  10%;
+  margin-top:  10%;
   padding: 10px;
   width: 260px;
+  vertical-align:top;
 }
 .list>header {
   font-weight: bold;
@@ -49,6 +49,7 @@ body {
   padding: 6px 8px;
   cursor: pointer;
 }
+
 .list .card:hover {
   background-color: #F0F0F0;
 }

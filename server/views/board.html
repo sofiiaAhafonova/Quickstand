@@ -96,17 +96,6 @@
     </script>
     <div id="my-navbar"></div>
       <script type="text/x-handlebars-template" id="lists-template">
-            <section class="list">
-                <header onclick="addList()">Create New List</header>
-                <article id="list-input" hidden="true">
-                    <form id="myform">
-                        <div class="input-group">
-                            <input id="list-input-field" name="name" pattern="^[a-zA-Z0-9\s]*$"  maxLength="100" required>
-                            <button type="button" onclick="check()" id="list-input-button"><span class="glyphicon glyphicon-ok"></span></button>
-                        </div>
-                    </form>
-                </article>
-            </section>
             {{#each lists}}
             <section class="list">
                 <header id="{{_id}}">{{name}}
@@ -119,13 +108,39 @@
                         </div>
                 </form>    
                 </header>
-                <article class="card">
-                  <header>Global CSS</header>
-                  <div class="detail">1/2</div>
+                 {{#each tasks}}
+                <article  class="card">
+                  <header>
+                  <button id="remove-{{this}}" onclick="removeTask(this.id)"><span class="glyphicon glyphicon-remove"></span></button>
+                  <span id="name-{{this}}"></span>
+                </header>
+                  <div class="detail"  ><p id="description-{{this}}"></p></div>
                 </article>
+                {{/each}}
+               <h5 id="{{_id}}" onclick="createTask(this.id)">Create new task</h5>
+               <form id="task-form-{{_id}}" hidden="true">
+                    <div class="input-group">
+                        <input id="task-input-field-{{_id}}" placeholder="Task name" name="name" pattern="^[a-zA-Z0-9\s]*$"  maxLength="100" required>
+                        <br>
+                        <textarea id="task-input-area-{{_id}}" name="description"placeholder="Task Description" class="form-control" cols="7"rows="2"></textarea>
+                        <button type="button" onclick="checkTaskEdit(this.id)" id="task-input-button-{{_id}}"><span class="glyphicon glyphicon-ok"></span></button>
+                    </div>
+                </form>    
               </section>
             {{/each}}
+            <section class="list">
+                    <header onclick="addList()">Create New List</header>
+                    <article id="list-input" hidden="true">
+                        <form id="myform">
+                            <div class="input-group">
+                                <input id="list-input-field" name="name" pattern="^[a-zA-Z0-9\s]*$"  maxLength="100" required>
+                                <button type="button" onclick="check()" id="list-input-button"><span class="glyphicon glyphicon-ok"></span></button>
+                            </div>
+                        </form>
+                    </article>
+                </section>
     </script>
+    <p id="1"></p>
     <section  id="task-lists"></section>
     <script>
         window.addEventListener("load", function (el) {
