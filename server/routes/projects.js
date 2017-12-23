@@ -93,6 +93,47 @@ router.post("/:project_id/remove", checkAuth,
                 })
         };
     });
+
+
+router.route("/:project_id")
+    .post(checkAuth,async function (req, res, next){
+        let name =req.body.name;
+        let id = req.params.project_id;
+        Project.findById(id, (err, project)=>{
+            if(err || !project)
+            {
+                console.log(err)
+                return;
+            }
+            let requser;
+            if(req.user) requser= req.user._id
+            if (requser && requser.equals(project.user))
+            {
+                Board.create({
+                    name,
+                    project: project._id,
+                    user: project.user
+                },
+                function (err, board) {
+                    if (err){
+                        console.log(err);
+                        return next()
+                    }
+                    project.boards.push(board._id);
+                    project.save((err, project) => {
+                        if (err)
+                            console.log(err);
+                    });
+                    return res.redirect('/boards/'+ board._id)
+                })
+            }else
+            return res.status(403).render('error_page',{
+                    user: req.user,
+                    message: "You couldn't create board here"
+                });
+            
+        })
+    })    
 function checkAuth(req, res, next) {
         if (req.isAuthenticated()) return next();
         return res.redirect('/register/login');

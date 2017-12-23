@@ -52,9 +52,15 @@
                 <input class ="mybtn" type="button" name="btn" value="Remove" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" />
             </form>
           <%}%>
+          <br><br><br>
           <h2>Project Boards</h2>
            <%if(user && project.user == user.id){%>
-            <button class="mybtn">Add Board</button>
+            <form action="/projects/<%=project._id%>" method="post" class="myform" id="board-form">
+              <div class="input-group">
+                <input placeholder="New board name"id="board-input-field" name="name" pattern="^[a-zA-Z0-9\s]*$"  minLength="1" maxLength="32" required>
+                 <button  class="btn btn-default" type="submit" ><span class ="glyphicon glyphicon-ok"></span></button>
+                 </div>
+            </form>
              <%}%>
           <%if (project.boards.length != 0){%>
             <div class='board boards-page-board-section'>

@@ -6,7 +6,7 @@ var path = require('path');
 const router = express.Router();
 
 router.route("/:board_id")
-    .get(function (req, res, next) {
+    .get(async function (req, res, next) {
         let id = req.params.board_id;
        
         Board.findById(id, (err, board) => {               

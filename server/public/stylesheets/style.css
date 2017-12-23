@@ -11,7 +11,7 @@
     flex-wrap: wrap;
 }
 .board li{
-    background-color: rgb(51, 84, 7);
+    background-color: rgb(255, 253, 251);
     border-radius: 3px;
     display: block;
     -webkit-margin-before: 1em;
@@ -30,30 +30,30 @@
 }
 
 .board a {
-    color: rgb(230, 245, 193);
+    color:#312D2C;
     background-color: transparent;
     text-decoration: none;
 }
 
 .board a:link {
-    color: rgb(230, 245, 193);
+    color:#312D2C;
     background-color: transparent;
     text-decoration: none;
 }
 
 .board a:visited {
-    color: rgb(230, 245, 193);
+    color:#312D2C;
     background-color: transparent;
 }
 
 .board a:hover {
-    color: rgb(230, 245, 193);
+    color: #312D2C;
     background-color: transparent;
     text-decoration: none;
 }
 
 .board  a:active {
-    color: rgb(230, 245, 193);
+    color: #312D2C;
     background-color: transparent;
     text-decoration: none;
 }
@@ -93,7 +93,11 @@ div.projects {
     padding-top:30px;
   
 }
-
+.myform {
+    display: block;
+    margin: auto;
+    max-width: 70%;
+}
 .projects table {
     margin: auto;
     max-width: 95%;
@@ -214,6 +218,13 @@ th {
     text-decoration-color: #312D2C;
 }
 
+#board-form {
+    width: 100%;
+    border-radius: 4px;
+    font-size: 17px;
+    padding: 30px 70px 30px 70px;
+    text-decoration-color: #312D2C;
+}
 
 .pagination {
     display: inline-block;
